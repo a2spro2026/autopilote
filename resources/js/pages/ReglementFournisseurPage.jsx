@@ -1032,10 +1032,10 @@ export default function ReglementFournisseurPage() {
                                                     <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.order_date}</td>
                                                     <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.client_livre || '—'}</td>
                                                     <td className="px-3 py-2.5 text-center font-semibold tabular-nums text-brand-navy dark:text-orange-400">{formatMontant(row.montant_bon)}</td>
-                                                    <td className={`px-3 py-2.5 text-center tabular-nums font-semibold ${shown.isPreview ? 'text-emerald-600 dark:text-emerald-400' : 'text-emerald-700 dark:text-emerald-300'}`}>
+                                                    <td className="px-3 py-2.5 text-center tabular-nums font-semibold amount-paye">
                                                         {formatMontant(shown.montant_paye)}
                                                     </td>
-                                                    <td className={`px-3 py-2.5 text-center font-semibold tabular-nums ${Number(shown.solde) !== 0 ? 'text-red-600 dark:text-red-400' : 'text-slate-500'}`}>
+                                                    <td className={`px-3 py-2.5 text-center font-semibold tabular-nums ${Number(shown.solde) > 0 ? 'amount-solde-due' : 'amount-solde-ok'}`}>
                                                         {formatMontant(shown.solde)}
                                                     </td>
                                                     <td className="px-3 py-2.5 text-center">

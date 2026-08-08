@@ -12,11 +12,8 @@ export default function ReportTable({
     rows,
     loading,
     accent = 'from-brand-navy to-blue-700',
-    headerStyle = 'default',
     showCount = true,
 }) {
-    const grayHeader = headerStyle === 'gray';
-
     return (
         <div className="report-table rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
             <div className={`flex items-center justify-between gap-3 px-5 py-3.5 bg-gradient-to-r ${accent}`}>
@@ -34,18 +31,11 @@ export default function ReportTable({
             <div className="overflow-x-auto">
                 <table className="w-full text-sm min-w-[640px]">
                     <thead>
-                        <tr className={grayHeader
-                            ? 'bg-gradient-to-r from-slate-100 via-slate-200/90 to-slate-100 dark:from-slate-800 dark:via-slate-700/80 dark:to-slate-800 border-b-2 border-slate-300 dark:border-slate-600'
-                            : 'bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700'
-                        }>
+                        <tr className="table-head-row border-b-2 border-slate-300/80 dark:border-slate-600">
                             {columns.map((col) => (
                                 <th
                                     key={col.key}
-                                    className={`px-4 py-3.5 text-[11px] font-bold uppercase tracking-[0.12em] whitespace-nowrap ${
-                                        grayHeader
-                                            ? 'text-slate-600 dark:text-slate-300'
-                                            : 'text-xs text-slate-500 dark:text-slate-400'
-                                    } ${col.align === 'right' ? 'text-right' : 'text-center'}`}
+                                    className="px-4 py-3.5 whitespace-nowrap"
                                 >
                                     {col.label}
                                 </th>

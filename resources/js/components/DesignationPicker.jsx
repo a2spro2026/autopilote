@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Package, Search } from 'lucide-react';
 
 const triggerClass =
@@ -96,14 +95,9 @@ export default function DesignationPicker({ products = [], value, onSelect, plac
             </button>
 
             {createPortal(
-                <AnimatePresence>
-                    {open && (
-                        <motion.div
+                open ? (
+                        <div
                             ref={panelRef}
-                            initial={{ opacity: 0, y: -6, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                            transition={{ duration: 0.15 }}
                             style={{ position: 'fixed', top: pos.top, left: pos.left, width: pos.width, zIndex: 9999 }}
                             className="rounded-xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl shadow-slate-900/10 overflow-hidden"
                         >
@@ -190,9 +184,8 @@ export default function DesignationPicker({ products = [], value, onSelect, plac
                                     </p>
                                 </div>
                             )}
-                        </motion.div>
-                    )}
-                </AnimatePresence>,
+                        </div>
+                ) : null,
                 document.body,
             )}
         </>

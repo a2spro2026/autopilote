@@ -2,10 +2,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle2, Plus, PlusCircle, XCircle, Eye, Pencil, Trash2, Printer, FileText, X, Package, Wallet } from 'lucide-react';
 import api from '../lib/api';
+import { useAuth } from '../contexts/AuthContext';
 
 const UNIT_OPTIONS = ['', 'Kg', 'U', 'Sac', 'ML', 'M²', 'M³', 'Tn', 'M'];
 const REGLEMENT_OPTIONS = ['', 'Esp', 'Chq', 'Eff', 'Vir', 'Vers'];
-const ECHEANCE_OPTIONS = ['', '45 Jrs', '60 Jrs', '90 Jrs', '120 Jrs'];
+const ECHEANCE_OPTIONS = ['', 'A Vue', '45 Jrs', '60 Jrs', '90 Jrs', '120 Jrs'];
 
 const emptyHeader = {
     client_id: '',
@@ -181,6 +182,8 @@ function ViewModal({ row, onClose }) {
 
 export default function BonVentesPage() {
     const navigate = useNavigate();
+    const { user } = useAuth();
+    const isCommercial = user?.role?.slug === 'commercial';
     const [form, setForm] = useState(emptyHeader);
     const [lines, setLines] = useState([emptyLine()]);
     const [rows, setRows] = useState([]);
@@ -191,6 +194,7 @@ export default function BonVentesPage() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
     const [editingId, setEditingId] = useState(null);
+    const [showForm, setShowForm] = useState(false);
     const [viewRow, setViewRow] = useState(null);
 
     const totalBon = useMemo(
@@ -226,9 +230,20 @@ export default function BonVentesPage() {
     }, []);
 
     useEffect(() => {
+        if (isCommercial) {
+            navigate('/', { replace: true });
+        }
+    }, [isCommercial, navigate]);
+
+    useEffect(() => {
+        if (isCommercial) return;
         setForm((f) => ({ ...f, order_date: new Date().toISOString().slice(0, 10) }));
         load();
-    }, [load]);
+    }, [load, isCommercial]);
+
+    if (isCommercial) {
+        return null;
+    }
 
     const set = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
@@ -268,17 +283,30 @@ export default function BonVentesPage() {
         setForm({ ...emptyHeader, order_date: new Date().toISOString().slice(0, 10) });
         setLines([emptyLine()]);
         setEditingId(null);
+        setShowForm(false);
         setError('');
         if (reload) load();
     };
 
     const handleNewBon = () => {
-        resetForm(true);
+        setForm({ ...emptyHeader, order_date: new Date().toISOString().slice(0, 10) });
+        setLines([emptyLine()]);
+        setEditingId(null);
+        setError('');
+        setShowForm(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const handleClosePanel = () => {
+        setForm({ ...emptyHeader, order_date: new Date().toISOString().slice(0, 10) });
+        setLines([emptyLine()]);
+        setEditingId(null);
+        setShowForm(false);
+        setError('');
+    };
+
     const handleClose = () => {
-        resetForm(false);
+        handleClosePanel();
         navigate('/');
     };
 
@@ -318,6 +346,7 @@ export default function BonVentesPage() {
             }]);
         }
         setEditingId(row.id);
+        setShowForm(true);
         setError('');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -326,8 +355,8 @@ export default function BonVentesPage() {
         if (!window.confirm(`Supprimer le bon « ${row.reference} » ?`)) return;
         try {
             await api.delete(`/sales-orders/${row.id}`);
-            if (editingId === row.id) resetForm();
-            else load();
+            if (editingId === row.id) resetForm(false);
+            load();
         } catch {
             setError('Impossible de supprimer ce bon de vente');
         }
@@ -390,6 +419,51 @@ export default function BonVentesPage() {
         <div className="space-y-5">
             <ViewModal row={viewRow} onClose={() => setViewRow(null)} />
 
+            <div className="flex flex-wrap items-center gap-2.5">
+                {!showForm && (
+                    <>
+                        <button type="button" onClick={handleNewBon} className="btn-primary">
+                            <Plus className="w-4 h-4" />
+                            Nouveau
+                        </button>
+                        <button type="button" onClick={handleClose} className="btn-danger">
+                            <XCircle className="w-4 h-4" />
+                            Fermer
+                        </button>
+                    </>
+                )}
+
+                <div className="ml-auto flex flex-wrap items-center gap-2.5">
+                    <div className="flex items-center gap-3 px-4 py-2 rounded-xl border shadow-sm bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 border-emerald-200 dark:border-emerald-800">
+                        <div className="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">
+                            <Package className="w-4 h-4" />
+                        </div>
+                        <div className="text-right">
+                            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Qté</p>
+                            <p className="text-base font-bold tabular-nums leading-tight text-emerald-700 dark:text-emerald-300">
+                                {totalQteBons.toLocaleString('fr-FR', { maximumFractionDigits: 3 })}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-3 px-4 py-2 rounded-xl border shadow-sm bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border-amber-200 dark:border-amber-800">
+                        <div className="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">
+                            <Wallet className="w-4 h-4" />
+                        </div>
+                        <div className="text-right">
+                            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Montant</p>
+                            <p className="text-base font-bold tabular-nums leading-tight text-brand-navy dark:text-orange-300">
+                                {formatMontantDisplay(totalMontantBons)}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {error && !showForm && (
+                <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-100 dark:border-red-800">{error}</div>
+            )}
+
+            {showForm && (
             <form onSubmit={handleSubmit} className="space-y-3">
                 {error && (
                     <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-100 dark:border-red-800">{error}</div>
@@ -564,42 +638,15 @@ export default function BonVentesPage() {
                         <CheckCircle2 className="w-4 h-4" />
                         {saving ? 'Validation...' : 'Valider'}
                     </button>
-                    <button type="button" onClick={handleClose} className="btn-danger">
+                    <button type="button" onClick={handleClosePanel} className="btn-danger">
                         <XCircle className="w-4 h-4" />
                         Fermer
                     </button>
-                    <button type="button" onClick={handleNewBon} className="btn-muted">
-                        <Plus className="w-4 h-4" />
-                        Nouveau
-                    </button>
-
-                    <div className="ml-auto flex flex-wrap items-center gap-2.5">
-                        <div className="flex items-center gap-3 px-4 py-2 rounded-xl border shadow-sm bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 border-emerald-200 dark:border-emerald-800">
-                            <div className="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">
-                                <Package className="w-4 h-4" />
-                            </div>
-                            <div className="text-right">
-                                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Qté</p>
-                                <p className="text-base font-bold tabular-nums leading-tight text-emerald-700 dark:text-emerald-300">
-                                    {totalQteBons.toLocaleString('fr-FR', { maximumFractionDigits: 3 })}
-                                </p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-3 px-4 py-2 rounded-xl border shadow-sm bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border-amber-200 dark:border-amber-800">
-                            <div className="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">
-                                <Wallet className="w-4 h-4" />
-                            </div>
-                            <div className="text-right">
-                                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Montant</p>
-                                <p className="text-base font-bold tabular-nums leading-tight text-brand-navy dark:text-orange-300">
-                                    {formatMontantDisplay(totalMontantBons)}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </form>
+            )}
 
+            {!showForm && (
             <div className="glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
                 <div className="px-5 py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-orange-700 border-b border-white/10">
                     <h3 className="text-sm font-bold text-white uppercase tracking-wide">Tableau des Bons de Vente</h3>
@@ -655,6 +702,7 @@ export default function BonVentesPage() {
                     </table>
                 </div>
             </div>
+            )}
         </div>
     );
 }

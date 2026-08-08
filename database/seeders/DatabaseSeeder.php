@@ -28,12 +28,17 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::where('slug', 'administrateur')->first();
 
         // Migrer les anciens comptes administrateur si présents
-        User::whereIn('email', ['admin@batixpert.ma', 'admin@batixpert.com', 'admin@socimpro.com'])->update([
-            'email' => 'admin@autopilote.local',
+        User::whereIn('email', [
+            'admin@batixpert.ma',
+            'admin@batixpert.com',
+            'admin@socimpro.com',
+            'admin@autopilote.local',
+        ])->update([
+            'email' => 'admin@autopilote.com',
         ]);
 
         User::updateOrCreate(
-            ['email' => 'admin@autopilote.local'],
+            ['email' => 'admin@autopilote.com'],
             [
                 'name' => 'Admin Autopilote',
                 'password' => Hash::make('password'),

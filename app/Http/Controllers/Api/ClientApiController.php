@@ -11,7 +11,16 @@ class ClientApiController extends Controller
     public function index(Request $request)
     {
         $query = Client::query()
-            ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
+            ->when($request->search, function ($q, $s) {
+                $q->where(function ($inner) use ($s) {
+                    $inner->where('name', 'like', "%{$s}%")
+                        ->orWhere('phone', 'like', "%{$s}%")
+                        ->orWhere('email', 'like', "%{$s}%");
+                    if (preg_match('/^(CR-?)?(\d+)$/i', trim($s), $m)) {
+                        $inner->orWhere('id', (int) $m[2]);
+                    }
+                });
+            })
             ->latest();
 
         $clients = $request->boolean('all')

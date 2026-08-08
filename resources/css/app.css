@@ -12,7 +12,7 @@
 
 @layer components {
     .glass {
-        @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/20 dark:border-slate-700/50;
+        @apply bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700/50;
     }
 
     .glass-card {
@@ -294,27 +294,11 @@
     }
 
     .sidebar-logo-glow {
-        box-shadow: 0 0 20px rgba(249, 115, 22, 0.35);
-        animation: sidebar-glow-pulse 3s ease-in-out infinite;
+        box-shadow: 0 0 12px rgba(249, 115, 22, 0.25);
     }
 
     .sidebar-nav-item {
         position: relative;
-        overflow: hidden;
-    }
-
-    .sidebar-nav-item::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-        transform: translateX(-100%);
-        transition: transform 0.5s ease;
-        pointer-events: none;
-    }
-
-    .sidebar-nav-item:hover::before {
-        animation: sidebar-shimmer 0.8s ease;
     }
 
     .sidebar-nav-active {
@@ -445,9 +429,75 @@
     }
 }
 
-/* En-têtes de colonnes — gras sur tous les tableaux du projet.
+/* En-têtes stylés + données centrées — tous les tableaux du projet.
    Hors @layer pour primer sur les utilitaires Tailwind. */
+table thead tr {
+    background: linear-gradient(90deg, #e8eef7 0%, #f1f5f9 45%, #e8eef7 100%);
+    border-bottom: 2px solid #cbd5e1;
+}
+
+.dark table thead tr {
+    background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+    border-bottom-color: #475569;
+}
+
 table thead th,
 table thead td {
+    font-weight: 800 !important;
+    text-align: center !important;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.68rem !important;
+    color: #1e3a5f !important;
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+    white-space: nowrap;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.dark table thead th,
+.dark table thead td {
+    color: #e2e8f0 !important;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+table tbody th,
+table tbody td,
+table tfoot th,
+table tfoot td {
+    text-align: center !important;
+}
+
+/* Contenu flex dans les cellules (actions, badges) aussi centré */
+table tbody td > .flex,
+table tbody td > .inline-flex {
+    justify-content: center;
+}
+
+/* Montants standards (classes utilitaires projet) */
+.amount-paye {
+    color: #059669 !important;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+.dark .amount-paye {
+    color: #34d399 !important;
+}
+
+.amount-solde-ok {
+    color: #059669 !important;
+    font-variant-numeric: tabular-nums;
     font-weight: 700;
+}
+.dark .amount-solde-ok {
+    color: #34d399 !important;
+}
+
+.amount-solde-due {
+    color: #dc2626 !important;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+.dark .amount-solde-due {
+    color: #f87171 !important;
 }

@@ -7,6 +7,7 @@ import {
     UserCog,
     Landmark,
     Settings,
+    ShieldCheck,
     // Fournisseur
     Contact,
     ClipboardList,
@@ -37,6 +38,7 @@ import {
     Coins,
     Vault,
     FileText,
+    Calculator,
 } from 'lucide-react';
 
 export const navigation = [
@@ -46,6 +48,22 @@ export const navigation = [
         icon: LayoutDashboard,
         perm: 'dashboard.view',
         to: '/',
+    },
+    {
+        id: 'caisse',
+        label: 'Caisse',
+        icon: Calculator,
+        perm: 'dashboard.view',
+        to: '/caisse',
+        commercialOnly: true, // visible aussi pour le rôle « caisse » (voir Sidebar)
+    },
+    {
+        id: 'tableau-bon-vente',
+        label: 'Tableau Bon de Vente',
+        icon: ClipboardList,
+        perm: 'dashboard.view',
+        to: '/tableau-bon-de-vente',
+        commercialOnly: true, // commercial uniquement (voir Sidebar)
     },
     {
         id: 'fournisseurs',
@@ -67,9 +85,9 @@ export const navigation = [
         icon: Users,
         perm: 'clients.view',
         children: [
-            { to: '/clients/fiches', label: 'Fiche Client', icon: ContactRound },
-            { to: '/clients/bons-de-vente', label: 'Bon de Vente', icon: ClipboardList },
-            { to: '/clients/reglements-vente', label: 'Règlement Client', icon: CircleDollarSign },
+            { to: '/clients/fiches', label: 'Fiche Client', icon: ContactRound, disabledForCommercial: true, disabledForCaisse: true },
+            { to: '/clients/bons-de-vente', label: 'Bon de Vente', icon: ClipboardList, disabledForCommercial: true, disabledForCaisse: true },
+            { to: '/clients/reglements-vente', label: 'Règlement Client', icon: CircleDollarSign, disabledForCommercial: true, disabledForCaisse: true },
             { to: '/clients/balance', label: 'Balance', icon: Scale },
             { to: '/clients/releve-compte', label: 'Relevé Compte', icon: ScrollText },
         ],
@@ -142,6 +160,7 @@ export const navigation = [
         perm: 'utilisateurs.view',
         children: [
             { to: '/configuration/utilisateurs', label: 'Utilisateur', icon: UserCog },
+            { to: '/configuration/autorisations', label: 'Autorisation', icon: ShieldCheck },
         ],
     },
 ];

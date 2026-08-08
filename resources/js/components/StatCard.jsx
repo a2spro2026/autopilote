@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 export default function StatCard({ title, value, subtitle, icon: Icon, color = 'navy', trend }) {
     const colors = {
         navy: 'from-brand-navy to-blue-700',
@@ -10,12 +8,7 @@ export default function StatCard({ title, value, subtitle, icon: Icon, color = '
     };
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="glass-card p-5 shadow-card hover:shadow-glass transition-shadow duration-300"
-        >
+        <div className="glass-card p-5 shadow-card hover:shadow-glass transition-shadow duration-200 hover:-translate-y-0.5">
             <div className="flex items-start justify-between">
                 <div>
                     <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{title}</p>
@@ -33,6 +26,6 @@ export default function StatCard({ title, value, subtitle, icon: Icon, color = '
                     </div>
                 )}
             </div>
-        </motion.div>
+        </div>
     );
 }

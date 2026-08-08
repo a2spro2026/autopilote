@@ -1,30 +1,38 @@
+export function formatMontantPlain(value) {
+    return (Number(value) || 0).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+/** Solde client / bon : 0 → vert, > 0 → rouge */
 export function soldeTone(value) {
     const n = Number(value) || 0;
-    if (n < 0) return 'red';
-    if (n > 0) return 'green';
-    return 'neutral';
+    if (n > 0) return 'red';
+    return 'green';
 }
 
 export function formatSoldePlain(value) {
-    const n = Number(value) || 0;
-    return Math.abs(n).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return formatMontantPlain(value);
+}
+
+export function PayeCell({ value }) {
+    return (
+        <span className="tabular-nums font-semibold text-emerald-600 dark:text-emerald-400">
+            {formatMontantPlain(value)}
+        </span>
+    );
 }
 
 export function SoldeCell({ value }) {
     const n = Number(value) || 0;
-    if (n === 0) {
-        return <span className="tabular-nums text-slate-500 dark:text-slate-400">0,00</span>;
-    }
-    if (n < 0) {
+    if (n > 0) {
         return (
             <span className="tabular-nums font-bold text-red-600 dark:text-red-400">
-                {formatSoldePlain(n)}
+                {formatMontantPlain(n)}
             </span>
         );
     }
     return (
         <span className="tabular-nums font-bold text-emerald-600 dark:text-emerald-400">
-            {formatSoldePlain(n)}
+            {formatMontantPlain(n)}
         </span>
     );
 }

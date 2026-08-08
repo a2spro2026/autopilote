@@ -13,10 +13,12 @@ function SoldeCell({ value }) {
     const n = Number(value) || 0;
     const color = n > 0
         ? 'text-red-600 dark:text-red-400'
-        : n < 0
-            ? 'text-emerald-600 dark:text-emerald-400'
-            : 'text-slate-500';
-    return <span className={`font-semibold tabular-nums ${color}`}>{formatMontant(n)}</span>;
+        : 'text-emerald-600 dark:text-emerald-400';
+    return <span className={`font-bold tabular-nums ${color}`}>{formatMontant(n)}</span>;
+}
+
+function PayeCell({ value }) {
+    return <span className="font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">{formatMontant(value)}</span>;
 }
 
 const bonsAchatsColumns = [

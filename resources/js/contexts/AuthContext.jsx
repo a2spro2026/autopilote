@@ -1,55 +1,63 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import api from '../lib/api';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
+
+function readStoredUser() {
+    try {
+        const raw = localStorage.getItem('autopilote_user');
+        const token = localStorage.getItem('autopilote_token');
+        if (!token || !raw) return null;
+        return JSON.parse(raw);
+    } catch {
+        return null;
+    }
+}
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(() => {
-        const saved = localStorage.getItem('autopilote_user');
-        return saved ? JSON.parse(saved) : null;
-    });
-    const [loading, setLoading] = useState(!!localStorage.getItem('autopilote_token'));
+    const [user, setUser] = useState(() => readStoredUser());
+    const [loading] = useState(false);
 
-    useEffect(() => {
-        if (localStorage.getItem('autopilote_token')) {
-            api.get('/user')
-                .then((r) => {
-                    setUser(r.data);
-                    localStorage.setItem('autopilote_user', JSON.stringify(r.data));
-                })
-                .catch(() => {
-                    localStorage.removeItem('autopilote_token');
-                    localStorage.removeItem('autopilote_user');
-                    setUser(null);
-                })
-                .finally(() => setLoading(false));
-        } else {
-            setLoading(false);
-        }
-    }, []);
-
-    const login = async (email, password, status) => {
+    const login = useCallback(async (email, password, status) => {
         const { data } = await api.post('/login', { email, password, status });
         localStorage.setItem('autopilote_token', data.token);
         localStorage.setItem('autopilote_user', JSON.stringify(data.user));
         setUser(data.user);
         return data.user;
-    };
+    }, []);
 
-    const logout = async () => {
-        try { await api.post('/logout'); } catch {}
+    const logout = useCallback(async () => {
+        try { await api.post('/logout'); } catch { /* ignore */ }
         localStorage.removeItem('autopilote_token');
         localStorage.removeItem('autopilote_user');
         setUser(null);
-    };
+    }, []);
 
-    const can = (permission) => user?.is_admin || user?.permissions?.includes(permission);
+    const can = useCallback((permission) => {
+        if (!user) return false;
+        return !!(user.is_admin || user.permissions?.includes(permission));
+    }, [user]);
+
+    const canMenu = useCallback((key) => {
+        if (!user) return false;
+        if (!user.menu_access) return true;
+        return user.menu_access.includes(key);
+    }, [user]);
+
+    const value = useMemo(
+        () => ({ user, loading, login, logout, can, canMenu }),
+        [user, loading, login, logout, can, canMenu],
+    );
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout, can }}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+    const ctx = useContext(AuthContext);
+    if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+    return ctx;
+};

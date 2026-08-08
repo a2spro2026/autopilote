@@ -1,9 +1,26 @@
 import KpiCards from './KpiCards';
 import DashboardTables from './DashboardTables';
+import CommercialDashboard from './CommercialDashboard';
+import CaisseReception from './CaisseReception';
 import { useDashboard } from '../../hooks/useDashboard';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function DashboardSection() {
+    const { user } = useAuth();
+    const slug = user?.role?.slug;
     const { data, loading } = useDashboard();
+
+    if (slug === 'caisse') {
+        return (
+            <div className="flex-1 overflow-auto px-4 lg:px-6 py-4">
+                <CaisseReception />
+            </div>
+        );
+    }
+
+    if (slug === 'commercial') {
+        return <CommercialDashboard />;
+    }
 
     return (
         <div className="flex flex-col flex-1 min-h-0">

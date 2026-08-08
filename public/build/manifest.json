@@ -1,6 +1,52 @@
 {
+  "_circle-alert-DdTuVa5_.js": {
+    "file": "assets/circle-alert-DdTuVa5_.js",
+    "name": "circle-alert",
+    "imports": [
+      "resources/js/main.jsx"
+    ]
+  },
+  "_circle-plus-CQqtb0Il.js": {
+    "file": "assets/circle-plus-CQqtb0Il.js",
+    "name": "circle-plus",
+    "imports": [
+      "resources/js/main.jsx"
+    ]
+  },
+  "_clientAmountUtils-BWIV13Mf.js": {
+    "file": "assets/clientAmountUtils-BWIV13Mf.js",
+    "name": "clientAmountUtils",
+    "imports": [
+      "resources/js/main.jsx"
+    ]
+  },
+  "_devisUtils-Bdh2_MXj.js": {
+    "file": "assets/devisUtils-Bdh2_MXj.js",
+    "name": "devisUtils"
+  },
+  "_rotate-ccw-CQS4edlu.js": {
+    "file": "assets/rotate-ccw-CQS4edlu.js",
+    "name": "rotate-ccw",
+    "imports": [
+      "resources/js/main.jsx"
+    ]
+  },
+  "_save-COQKu2ad.js": {
+    "file": "assets/save-COQKu2ad.js",
+    "name": "save",
+    "imports": [
+      "resources/js/main.jsx"
+    ]
+  },
+  "_search-MgaIOBBF.js": {
+    "file": "assets/search-MgaIOBBF.js",
+    "name": "search",
+    "imports": [
+      "resources/js/main.jsx"
+    ]
+  },
   "resources/css/app.css": {
-    "file": "assets/app-Bgyj551w.css",
+    "file": "assets/app-DXFVkxei.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -9,12 +55,340 @@
     ]
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-CYSDmUGS.js",
+    "file": "assets/main-hL2B8maf.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
+    "dynamicImports": [
+      "resources/js/pages/ChantiersPage.jsx",
+      "resources/js/pages/BonAchatsPage.jsx",
+      "resources/js/pages/BonVentesPage.jsx",
+      "resources/js/pages/ReglementFournisseurPage.jsx",
+      "resources/js/pages/ReglementClientPage.jsx",
+      "resources/js/pages/FicheProduitPage.jsx",
+      "resources/js/pages/GenericListPage.jsx",
+      "resources/js/pages/MouvementStockPage.jsx",
+      "resources/js/pages/ModulePage.jsx",
+      "resources/js/pages/FicheFournisseurPage.jsx",
+      "resources/js/pages/FicheClientPage.jsx",
+      "resources/js/pages/clients/BonExecutionListPage.jsx",
+      "resources/js/pages/clients/ClientBalancePage.jsx",
+      "resources/js/pages/devis/DevisListPage.jsx",
+      "resources/js/pages/devis/DevisFormPage.jsx",
+      "resources/js/pages/TransactionsPage.jsx",
+      "resources/js/pages/ChargesPage.jsx",
+      "resources/js/pages/FactureAchatsPage.jsx",
+      "resources/js/pages/UtilisateursPage.jsx",
+      "resources/js/pages/AutorisationsPage.jsx",
+      "resources/js/pages/CaissePage.jsx",
+      "resources/js/pages/TableauBonVentePage.jsx",
+      "resources/js/pages/SupplierBalancePage.jsx"
+    ],
     "css": [
-      "assets/app-Bgyj551w.css"
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/AutorisationsPage.jsx": {
+    "file": "assets/AutorisationsPage-C--5U8MM.js",
+    "name": "AutorisationsPage",
+    "src": "resources/js/pages/AutorisationsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/BonAchatsPage.jsx": {
+    "file": "assets/BonAchatsPage-BukF7Ahh.js",
+    "name": "BonAchatsPage",
+    "src": "resources/js/pages/BonAchatsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_circle-plus-CQqtb0Il.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/BonVentesPage.jsx": {
+    "file": "assets/BonVentesPage-oyMetLz7.js",
+    "name": "BonVentesPage",
+    "src": "resources/js/pages/BonVentesPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_circle-plus-CQqtb0Il.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/CaissePage.jsx": {
+    "file": "assets/CaissePage-BI7rY576.js",
+    "name": "CaissePage",
+    "src": "resources/js/pages/CaissePage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/ChantiersPage.jsx": {
+    "file": "assets/ChantiersPage-CKPTOBAx.js",
+    "name": "ChantiersPage",
+    "src": "resources/js/pages/ChantiersPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/ChargesPage.jsx": {
+    "file": "assets/ChargesPage-DV8WzwYW.js",
+    "name": "ChargesPage",
+    "src": "resources/js/pages/ChargesPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/FactureAchatsPage.jsx": {
+    "file": "assets/FactureAchatsPage-D_RVGAxA.js",
+    "name": "FactureAchatsPage",
+    "src": "resources/js/pages/FactureAchatsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/FicheClientPage.jsx": {
+    "file": "assets/FicheClientPage-DCxIYJbb.js",
+    "name": "FicheClientPage",
+    "src": "resources/js/pages/FicheClientPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_save-COQKu2ad.js",
+      "_rotate-ccw-CQS4edlu.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/FicheFournisseurPage.jsx": {
+    "file": "assets/FicheFournisseurPage-DSWaheSd.js",
+    "name": "FicheFournisseurPage",
+    "src": "resources/js/pages/FicheFournisseurPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_save-COQKu2ad.js",
+      "_rotate-ccw-CQS4edlu.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/FicheProduitPage.jsx": {
+    "file": "assets/FicheProduitPage-da9uBAuC.js",
+    "name": "FicheProduitPage",
+    "src": "resources/js/pages/FicheProduitPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_save-COQKu2ad.js",
+      "_rotate-ccw-CQS4edlu.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/GenericListPage.jsx": {
+    "file": "assets/GenericListPage-DfIeOs7c.js",
+    "name": "GenericListPage",
+    "src": "resources/js/pages/GenericListPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/ModulePage.jsx": {
+    "file": "assets/ModulePage-BtHBDlSX.js",
+    "name": "ModulePage",
+    "src": "resources/js/pages/ModulePage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/MouvementStockPage.jsx": {
+    "file": "assets/MouvementStockPage-DwNqeqBb.js",
+    "name": "MouvementStockPage",
+    "src": "resources/js/pages/MouvementStockPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/ReglementClientPage.jsx": {
+    "file": "assets/ReglementClientPage-9qs8ZQDz.js",
+    "name": "ReglementClientPage",
+    "src": "resources/js/pages/ReglementClientPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_circle-alert-DdTuVa5_.js",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/ReglementFournisseurPage.jsx": {
+    "file": "assets/ReglementFournisseurPage-C6fh582E.js",
+    "name": "ReglementFournisseurPage",
+    "src": "resources/js/pages/ReglementFournisseurPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_circle-alert-DdTuVa5_.js",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/SupplierBalancePage.jsx": {
+    "file": "assets/SupplierBalancePage-DEDYJAt1.js",
+    "name": "SupplierBalancePage",
+    "src": "resources/js/pages/SupplierBalancePage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_clientAmountUtils-BWIV13Mf.js",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/TableauBonVentePage.jsx": {
+    "file": "assets/TableauBonVentePage-CbFIjRBk.js",
+    "name": "TableauBonVentePage",
+    "src": "resources/js/pages/TableauBonVentePage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/TransactionsPage.jsx": {
+    "file": "assets/TransactionsPage-CPvEhhsQ.js",
+    "name": "TransactionsPage",
+    "src": "resources/js/pages/TransactionsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_save-COQKu2ad.js",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/UtilisateursPage.jsx": {
+    "file": "assets/UtilisateursPage-ZKfOJOnX.js",
+    "name": "UtilisateursPage",
+    "src": "resources/js/pages/UtilisateursPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/clients/BonExecutionListPage.jsx": {
+    "file": "assets/BonExecutionListPage-BVUh4BLC.js",
+    "name": "BonExecutionListPage",
+    "src": "resources/js/pages/clients/BonExecutionListPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_devisUtils-Bdh2_MXj.js",
+      "_clientAmountUtils-BWIV13Mf.js",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/clients/ClientBalancePage.jsx": {
+    "file": "assets/ClientBalancePage-BdUtuHBx.js",
+    "name": "ClientBalancePage",
+    "src": "resources/js/pages/clients/ClientBalancePage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_clientAmountUtils-BWIV13Mf.js",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/devis/DevisFormPage.jsx": {
+    "file": "assets/DevisFormPage-C5kE1MYK.js",
+    "name": "DevisFormPage",
+    "src": "resources/js/pages/devis/DevisFormPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_search-MgaIOBBF.js",
+      "_devisUtils-Bdh2_MXj.js",
+      "_save-COQKu2ad.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
+    ]
+  },
+  "resources/js/pages/devis/DevisListPage.jsx": {
+    "file": "assets/DevisListPage-CxCyd2Ws.js",
+    "name": "DevisListPage",
+    "src": "resources/js/pages/devis/DevisListPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/main.jsx",
+      "_devisUtils-Bdh2_MXj.js",
+      "_search-MgaIOBBF.js"
+    ],
+    "css": [
+      "assets/app-DXFVkxei.css"
     ]
   }
 }

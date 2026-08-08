@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, ArrowRight, Shield, Sparkles } from 'lucide-react';
@@ -198,13 +198,15 @@ function PasswordField({ value, onChange, showPassword, onToggle }) {
                     />
                     <input
                         id="password"
+                        name="password"
                         type={showPassword ? 'text' : 'password'}
                         value={value}
                         onChange={onChange}
                         onFocus={() => setFocused(true)}
                         onBlur={() => setFocused(false)}
-                        placeholder="••••••••"
+                        placeholder="Mot de passe"
                         required
+                        autoComplete="new-password"
                         className="block w-full pl-11 pr-11 py-3.5 text-sm text-white bg-transparent outline-none placeholder:text-white/30"
                     />
                     <motion.button
@@ -232,24 +234,47 @@ function PasswordField({ value, onChange, showPassword, onToggle }) {
     );
 }
 
+const LOGIN_DOMAIN = '@autopilote.com';
+
+function sanitizeLoginLocal(value) {
+    // Garde uniquement la partie locale (avant @) si un email complet est collé
+    return String(value || '')
+        .split('@')[0]
+        .replace(/\s+/g, '')
+        .toLowerCase();
+}
+
 export default function Login() {
-    const [status, setStatus] = useState('administrateur');
-    const [email, setEmail] = useState('admin@autopilote.local');
-    const [password, setPassword] = useState('password');
+    const [status, setStatus] = useState('');
+    const [loginLocal, setLoginLocal] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [remember, setRemember] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [emailFocused, setEmailFocused] = useState(false);
-    const { login } = useAuth();
+    const { login, logout } = useAuth();
     const navigate = useNavigate();
+
+    // Panneau vide : aucune session ni identifiant prérempli
+    useEffect(() => {
+        logout();
+        setStatus('');
+        setLoginLocal('');
+        setPassword('');
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        const local = sanitizeLoginLocal(loginLocal);
+        if (!status || !local || !password) {
+            setError('Veuillez saisir le statut, le login et le mot de passe.');
+            return;
+        }
         setLoading(true);
         try {
-            await login(email, password, status);
+            await login(`${local}${LOGIN_DOMAIN}`, password, status);
             navigate('/');
         } catch (err) {
             setError(
@@ -322,7 +347,7 @@ export default function Login() {
                                     <p className="text-sm text-white/45 mt-1">Accédez à votre espace</p>
                                 </div>
 
-                                <form onSubmit={handleSubmit} className="space-y-5">
+                                <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off">
                                     <AnimatePresence>
                                         {error && (
                                             <motion.div
@@ -349,8 +374,10 @@ export default function Login() {
                                                 required
                                                 className="block w-full pl-11 pr-10 py-3.5 text-sm text-white bg-transparent outline-none appearance-none cursor-pointer [&>option]:bg-slate-900 [&>option]:text-white"
                                             >
+                                                <option value="">— Sélectionner —</option>
                                                 <option value="administrateur">Administrateur</option>
                                                 <option value="commercial">Commercial</option>
+                                                <option value="caisse">Caisse</option>
                                                 <option value="facturation">Facturation</option>
                                             </select>
                                             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none">⌄</span>
@@ -358,7 +385,7 @@ export default function Login() {
                                     </div>
 
                                     <div>
-                                        <label htmlFor="email" className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70 mb-2">
+                                        <label htmlFor="login" className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70 mb-2">
                                             Login
                                         </label>
                                         <motion.div
@@ -367,17 +394,25 @@ export default function Login() {
                                             className={`${fieldBase} ${emailFocused ? fieldActive : fieldIdle}`}
                                         >
                                             <User className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none transition-colors ${emailFocused ? 'text-brand-orange' : 'text-white/40'}`} />
-                                            <input
-                                                id="email"
-                                                type="email"
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                onFocus={() => setEmailFocused(true)}
-                                                onBlur={() => setEmailFocused(false)}
-                                                placeholder="Votre login"
-                                                required
-                                                className="block w-full pl-11 pr-3 py-3.5 text-sm text-white bg-transparent outline-none placeholder:text-white/30"
-                                            />
+                                            <div className="flex items-center w-full pl-11 pr-3 py-3.5">
+                                                <input
+                                                    id="login"
+                                                    type="text"
+                                                    name="login"
+                                                    value={loginLocal}
+                                                    onChange={(e) => setLoginLocal(sanitizeLoginLocal(e.target.value))}
+                                                    onFocus={() => setEmailFocused(true)}
+                                                    onBlur={() => setEmailFocused(false)}
+                                                    placeholder="identifiant"
+                                                    required
+                                                    autoComplete="off"
+                                                    spellCheck={false}
+                                                    className="min-w-0 flex-1 text-sm text-white bg-transparent outline-none border-0 ring-0 focus:outline-none focus:ring-0 shadow-none placeholder:text-white/30"
+                                                />
+                                                <span className="shrink-0 text-sm font-medium text-white/55 select-none pl-1">
+                                                    {LOGIN_DOMAIN}
+                                                </span>
+                                            </div>
                                         </motion.div>
                                     </div>
 

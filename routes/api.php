@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AuthorizationApiController;
 use App\Http\Controllers\Api\ChargeApiController;
 use App\Http\Controllers\Api\ChantierApiController;
 use App\Http\Controllers\Api\ClientOrderApiController;
@@ -16,9 +17,12 @@ use App\Http\Controllers\Api\SaleOrderApiController;
 use App\Http\Controllers\Api\SupplierInvoiceApiController;
 use App\Http\Controllers\Api\SupplierPaymentApiController;
 use App\Http\Controllers\Api\QuoteApiController;
+use App\Http\Controllers\Api\ReportApiController;
+use App\Http\Controllers\Api\StockMovementApiController;
 use App\Http\Controllers\Api\SupplierApiController;
 use App\Http\Controllers\Api\TaskApiController;
 use App\Http\Controllers\Api\TransactionApiController;
+use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -49,10 +53,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('quotes/{quote}/validate', [QuoteApiController::class, 'validateQuote']);
     Route::apiResource('suppliers', SupplierApiController::class);
     Route::apiResource('products', ProductApiController::class);
+    Route::get('stock-movements', [StockMovementApiController::class, 'index']);
     Route::get('purchase-orders/balance', [PurchaseOrderApiController::class, 'balance']);
     Route::apiResource('purchase-orders', PurchaseOrderApiController::class);
     Route::post('purchase-orders/{purchase_order}/validate', [PurchaseOrderApiController::class, 'validateOrder']);
     Route::apiResource('sales-orders', SaleOrderApiController::class);
+    Route::get('sales-orders-caisse', [SaleOrderApiController::class, 'caisseQueue']);
+    Route::get('sales-orders-pending-payment', [SaleOrderApiController::class, 'pendingPayment']);
+    Route::post('sales-orders/encaisser', [SaleOrderApiController::class, 'encaisser']);
+    Route::post('sales-orders/payer', [SaleOrderApiController::class, 'payer']);
     Route::post('sales-orders/{sales_order}/validate', [SaleOrderApiController::class, 'validateOrder']);
 
     Route::get('supplier-invoices/meta', [SupplierInvoiceApiController::class, 'meta']);
@@ -84,4 +93,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/reports/financial', [ReportApiController::class, 'financial']);
     Route::get('/reports/export/{type}', [ReportApiController::class, 'export']);
+
+    Route::get('users', [UserApiController::class, 'index']);
+    Route::post('users', [UserApiController::class, 'store']);
+    Route::get('users/{user}', [UserApiController::class, 'show']);
+    Route::put('users/{user}', [UserApiController::class, 'update']);
+    Route::delete('users/{user}', [UserApiController::class, 'destroy']);
+    Route::patch('users/{user}/suspend', [UserApiController::class, 'suspend']);
+
+    Route::get('authorizations/meta', [AuthorizationApiController::class, 'meta']);
+    Route::get('authorizations/{user}', [AuthorizationApiController::class, 'show']);
+    Route::put('authorizations/{user}', [AuthorizationApiController::class, 'update']);
 });

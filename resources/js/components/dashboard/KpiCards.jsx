@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import {
     ShoppingCart, ShoppingBag, Receipt, Wallet, AlertTriangle, X, Package,
 } from 'lucide-react';
@@ -52,28 +51,7 @@ function formatValue(value, format) {
 }
 
 function AnimatedValue({ value, format }) {
-    const [display, setDisplay] = useState(0);
-    const target = Number(value) || 0;
-
-    useEffect(() => {
-        if (target === 0) {
-            setDisplay(0);
-            return;
-        }
-        const duration = 800;
-        const start = performance.now();
-
-        const tick = (now) => {
-            const progress = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setDisplay(target * eased);
-            if (progress < 1) requestAnimationFrame(tick);
-        };
-
-        requestAnimationFrame(tick);
-    }, [target]);
-
-    return <>{formatValue(display, format)}</>;
+    return <>{formatValue(Number(value) || 0, format)}</>;
 }
 
 function buildSparkPath(values, width = 72, height = 36, pad = 2) {
@@ -177,25 +155,21 @@ function MiniRingChart({ faible, rupture }) {
     );
 }
 
-function KpiCard({ card, value, series, index }) {
+function KpiCard({ card, value, series }) {
     const Icon = card.icon;
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.06, duration: 0.4 }}
-            whileHover={{ y: -3, scale: 1.02 }}
-            className={`kpi-card-compact group relative overflow-hidden rounded-xl bg-gradient-to-br ${card.gradient} shadow-md hover:shadow-lg transition-all duration-300`}
+        <div
+            className={`kpi-card-compact group relative overflow-hidden rounded-xl bg-gradient-to-br ${card.gradient} shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}
             style={{ '--kpi-glow': card.glow }}
         >
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-white/10 blur-xl pointer-events-none" />
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-white/10 pointer-events-none" />
 
             <div className="relative p-3.5 flex items-stretch gap-2">
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2 mb-2">
-                        <div className="p-1.5 rounded-lg bg-white/20 backdrop-blur-sm">
+                        <div className="p-1.5 rounded-lg bg-white/20">
                             <Icon className="w-4 h-4 text-white" strokeWidth={2} />
                         </div>
                     </div>
@@ -220,31 +194,26 @@ function KpiCard({ card, value, series, index }) {
                     </span>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }
 
-function AlertStockCard({ count, onClick, index, alerts }) {
+function AlertStockCard({ count, onClick, alerts }) {
     const faible = (alerts || []).filter((a) => a.level === 'faible').length;
     const rupture = (alerts || []).filter((a) => a.level === 'rupture').length;
 
     return (
-        <motion.button
+        <button
             type="button"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.06, duration: 0.4 }}
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
             onClick={onClick}
-            className="kpi-card-compact group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-500 via-amber-500 to-red-600 shadow-md hover:shadow-lg transition-all duration-300 text-left w-full"
+            className="kpi-card-compact group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-500 via-amber-500 to-red-600 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-left w-full"
         >
             <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
-            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-white/10 blur-xl pointer-events-none" />
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-white/10 pointer-events-none" />
             <div className="relative p-3.5 flex items-stretch gap-2">
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2 mb-2">
-                        <div className="p-1.5 rounded-lg bg-white/20 backdrop-blur-sm">
+                        <div className="p-1.5 rounded-lg bg-white/20">
                             <AlertTriangle className="w-4 h-4 text-white" strokeWidth={2} />
                         </div>
                         <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-white/25 text-white">
@@ -262,7 +231,7 @@ function AlertStockCard({ count, onClick, index, alerts }) {
                     <MiniRingChart faible={faible || (count > 0 && rupture === 0 ? count : faible)} rupture={rupture} />
                 </div>
             </div>
-        </motion.button>
+        </button>
     );
 }
 
@@ -272,22 +241,14 @@ function StockAlertsModal({ open, onClose, alerts, loading }) {
     const rows = alerts || [];
 
     return (
-        <AnimatePresence>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/55 backdrop-blur-sm"
-                onClick={onClose}
+        <div
+            className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/55"
+            onClick={onClose}
+        >
+            <div
+                className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl border border-slate-200 dark:border-slate-700 overflow-hidden max-h-[90vh] flex flex-col"
+                onClick={(e) => e.stopPropagation()}
             >
-                <motion.div
-                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ type: 'spring', stiffness: 160, damping: 20 }}
-                    className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl border border-slate-200 dark:border-slate-700 overflow-hidden max-h-[90vh] flex flex-col"
-                    onClick={(e) => e.stopPropagation()}
-                >
                     <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 shrink-0">
                         <div className="flex items-center gap-3">
                             <div className="p-2 rounded-xl bg-white/20">
@@ -390,9 +351,8 @@ function StockAlertsModal({ open, onClose, alerts, loading }) {
                             Fermer
                         </button>
                     </div>
-                </motion.div>
-            </motion.div>
-        </AnimatePresence>
+            </div>
+        </div>
     );
 }
 
@@ -429,19 +389,17 @@ export default function KpiCards({ kpis, stockAlerts, loading }) {
         <div>
             <SectionTitle />
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3">
-                {cards.map((card, i) => (
+                {cards.map((card) => (
                     <KpiCard
                         key={card.key}
                         card={card}
                         value={kpis?.[card.key] ?? kpis?.[card.fallbackKey]}
                         series={sparklines[card.key] || [0, 0, 0, 0, 0, 0]}
-                        index={i}
                     />
                 ))}
                 <AlertStockCard
                     count={alertCount}
                     alerts={stockAlerts}
-                    index={cards.length}
                     onClick={() => setShowAlerts(true)}
                 />
             </div>

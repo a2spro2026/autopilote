@@ -26,11 +26,15 @@ function formatMontant(value) {
 
 function SoldeFournisseurCell({ value }) {
     const n = Number(value) || 0;
-    if (n <= 0) {
-        return <span className="tabular-nums text-slate-400">—</span>;
+    if (n > 0) {
+        return (
+            <span className="tabular-nums font-bold amount-solde-due">
+                {formatMontant(n)}
+            </span>
+        );
     }
     return (
-        <span className="tabular-nums font-bold text-red-600 dark:text-red-400">
+        <span className="tabular-nums font-bold amount-solde-ok">
             {formatMontant(n)}
         </span>
     );
@@ -210,7 +214,7 @@ export default function SupplierBalancePage() {
                                         <td className="px-4 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.date || '—'}</td>
                                         <td className="px-4 py-2.5 text-center font-medium text-slate-800 dark:text-white">{row.fournisseur}</td>
                                         <td className="px-4 py-2.5 text-center font-semibold tabular-nums text-brand-navy dark:text-orange-400">{formatMontant(row.total_achats)}</td>
-                                        <td className="px-4 py-2.5 text-center tabular-nums text-emerald-700 dark:text-emerald-300">{formatMontant(row.montant_paye)}</td>
+                                        <td className="px-4 py-2.5 text-center tabular-nums amount-paye">{formatMontant(row.montant_paye)}</td>
                                         <td className="px-4 py-2.5 text-center">
                                             <SoldeFournisseurCell value={row.solde} />
                                         </td>

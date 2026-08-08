@@ -79,6 +79,16 @@ class RoleSeeder extends Seeder
                     'reglements.view',
                 ],
             ],
+            'caisse' => [
+                'name' => 'Caisse',
+                'description' => 'Caisse calculatrice, consultation stock et clients',
+                'permissions' => [
+                    'dashboard.view',
+                    'clients.view',
+                    'stock.view',
+                    'reglements.view',
+                ],
+            ],
             'facturation' => [
                 'name' => 'Facturation',
                 'description' => 'Factures clients, fournisseurs et règlements',

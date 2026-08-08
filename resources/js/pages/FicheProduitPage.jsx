@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Save, RotateCcw, Eye, Pencil, Trash2, Printer, FileText, X, RefreshCw } from 'lucide-react';
 import api from '../lib/api';
+import { useAuth } from '../contexts/AuthContext';
 
 const UNIT_OPTIONS = ['', 'Kg', 'U', 'Sac', 'ML', 'M²', 'M³', 'Tn', 'M'];
 const STATUT_OPTIONS = [
@@ -171,6 +172,8 @@ function ViewModal({ row, onClose }) {
 }
 
 export default function FicheProduitPage() {
+    const { user } = useAuth();
+    const readOnly = ['commercial', 'caisse'].includes(user?.role?.slug);
     const [form, setForm] = useState(emptyForm);
     const [rows, setRows] = useState([]);
     const [familles, setFamilles] = useState([]);
@@ -280,6 +283,18 @@ export default function FicheProduitPage() {
         <div className="flex flex-col flex-1 min-h-0 gap-4">
             <ViewModal row={viewRow} onClose={() => setViewRow(null)} />
 
+            {readOnly ? (
+                <div className="shrink-0 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <h1 className="text-lg font-bold text-slate-800 dark:text-white">Fiche Produit</h1>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">Consultation du stock (tous les produits)</p>
+                    </div>
+                    <button type="button" onClick={load} disabled={loading} className="btn-secondary text-sm" title="Actualiser">
+                        <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                        Actualiser
+                    </button>
+                </div>
+            ) : (
             <form onSubmit={handleSubmit} className="shrink-0 glass-card p-4 lg:p-5 shadow-card border border-slate-200/60 dark:border-slate-700/60 overflow-x-auto">
                 {error && (
                     <div className="mb-4 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-100 dark:border-red-800">{error}</div>
@@ -381,6 +396,7 @@ export default function FicheProduitPage() {
                     )}
                 </div>
             </form>
+            )}
 
             <div className="flex-1 min-h-0 flex flex-col glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
                 <div className="shrink-0 px-5 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-teal-700 border-b border-white/10">
@@ -430,8 +446,12 @@ export default function FicheProduitPage() {
                                         <td className="px-3 py-2.5">
                                             <div className="flex items-center justify-center gap-0.5">
                                                 <ActionBtn title="Voir" icon={Eye} color="blue" onClick={() => setViewRow(row)} />
-                                                <ActionBtn title="Modifier" icon={Pencil} color="amber" onClick={() => fillForm(row)} />
-                                                <ActionBtn title="Supprimer" icon={Trash2} color="red" onClick={() => handleDelete(row)} />
+                                                {!readOnly && (
+                                                    <>
+                                                        <ActionBtn title="Modifier" icon={Pencil} color="amber" onClick={() => fillForm(row)} />
+                                                        <ActionBtn title="Supprimer" icon={Trash2} color="red" onClick={() => handleDelete(row)} />
+                                                    </>
+                                                )}
                                                 <ActionBtn title="Imprimer" icon={Printer} color="slate" onClick={() => openPrintable(row)} />
                                                 <ActionBtn title="PDF" icon={FileText} color="orange" onClick={() => openPrintable(row)} />
                                             </div>

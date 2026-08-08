@@ -25,6 +25,9 @@ class ProductApiController extends Controller
                     ->orWhere('famille', 'like', "%{$s}%")
                     ->orWhere('brand', 'like', "%{$s}%");
             }))
+            ->when($request->filled('reference'), fn ($q) => $q->where('reference', 'like', '%'.$request->reference.'%'))
+            ->when($request->filled('code_barre'), fn ($q) => $q->where('code_barre', 'like', '%'.$request->code_barre.'%'))
+            ->when($request->filled('designation'), fn ($q) => $q->where('name', 'like', '%'.$request->designation.'%'))
             ->orderBy('id');
 
         if ($request->boolean('all')) {
@@ -222,12 +225,10 @@ class ProductApiController extends Controller
     private function formatProduct(Product $product): array
     {
         $purchased = $this->purchasedFor($product);
-        $stock = (float) $product->initial_stock + $purchased;
-
-        // Garde la colonne stock alignée pour les autres écrans (Stock, alertes, état).
-        if (abs((float) $product->quantity_in_stock - $stock) > 0.0001) {
-            $product->forceFill(['quantity_in_stock' => $stock])->saveQuietly();
-        }
+        // Calculé à la volée — ne pas écrire en base à chaque lecture (lenteur majeure).
+        $stock = round((float) $product->initial_stock + $purchased, 3);
+        $min = (float) $product->min_stock_alert;
+        $etat = $product->etat ?: ($stock <= 0 ? 'Rupture' : ($stock <= $min ? 'Faible' : 'Dispo'));
 
         return [
             'id' => $product->id,
@@ -241,16 +242,18 @@ class ProductApiController extends Controller
             'famille' => $product->famille,
             'brand' => $product->brand,
             'marque' => $product->brand,
+            'unit_price' => (float) $product->unit_price,
+            'purchase_price' => (float) $product->purchase_price,
             'category_id' => $product->category_id,
             'categorie' => $product->category?->name,
             'initial_stock' => (float) $product->initial_stock,
             'stock_initial' => (float) $product->initial_stock,
             'purchased_qty' => $purchased,
             'quantity_in_stock' => $stock,
-            'min_stock_alert' => (float) $product->min_stock_alert,
+            'min_stock_alert' => $min,
             'status' => $product->status,
             'statut' => $product->status === 'actif' ? 'Actif' : 'Inactif',
-            'etat' => $product->etatLabel(),
+            'etat' => $etat,
             'created_at' => $product->created_at?->format('d/m/Y'),
         ];
     }
