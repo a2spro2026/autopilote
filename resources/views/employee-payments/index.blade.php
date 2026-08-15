@@ -1,0 +1,6 @@
+@extends('layouts.batixpert')
+@section('title', 'Paie personnel')
+@section('content')
+<div class="flex justify-between mb-6"><h1 class="text-2xl font-bold">Paiements du personnel</h1><a href="{{ route('employee-payments.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Nouveau paiement</a></div>
+<div class="bg-white rounded-xl border overflow-hidden"><table class="w-full text-sm"><thead class="bg-slate-50 font-bold text-xs uppercase text-slate-500"><tr><th class="px-5 py-3 text-left">Employé</th><th class="px-5 py-3 text-left">Période</th><th class="px-5 py-3 text-right">Net</th><th class="px-5 py-3 text-center">Statut</th></tr></thead><tbody class="divide-y">@forelse($payments as $p)<tr><td class="px-5 py-3">{{ $p->employee->full_name }}</td><td class="px-5 py-3">{{ $p->period_start->format('d/m') }} - {{ $p->period_end->format('d/m/Y') }}</td><td class="px-5 py-3 text-right font-medium">{{ number_format($p->net_amount, 2) }}</td><td class="px-5 py-3 text-center"><x-status-badge :status="$p->status" /></td></tr>@empty<tr><td colspan="4" class="px-5 py-8 text-center text-slate-500">Aucun paiement.</td></tr>@endforelse</tbody></table><div class="px-5 py-3">{{ $payments->links() }}</div></div>
+@endsection

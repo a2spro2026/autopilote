@@ -1,0 +1,6140 @@
+[
+  {
+    "reference": "01-01-01",
+    "name": "Pylône métallique",
+    "consistance": "M",
+    "unit": "T",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-00-02",
+    "name": "Pylône métallique galvanisé",
+    "consistance": "F",
+    "unit": "T",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-01-02",
+    "name": "Scellement embase pour pylône ( fouille non comprise )",
+    "consistance": "M",
+    "unit": "KG",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-02-01",
+    "name": "Pylône métallique galvanisé",
+    "consistance": "F+M",
+    "unit": "T",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-02-02",
+    "name": "Fourniture et scellement embase ( fouille non comprise )",
+    "consistance": "F+M",
+    "unit": "KG",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-02-03",
+    "name": "Plus value pour galvanisation",
+    "consistance": "F+M",
+    "unit": "KG",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-03-01",
+    "name": "Dépose pylône métallique quelque soit la hauteur et l'effort",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-06-01",
+    "name": "Transfèrement d'un pylône métallique quelque soit la hauteur et l'effort",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "01-09-01",
+    "name": "Réfection de la peinture d'un pylône existant",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Pylône métallique",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-01",
+    "name": "Poteau béton armé classe A 8 m 150 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-02",
+    "name": "Poteau béton armé classe A 8 m 300 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-03",
+    "name": "Poteau béton armé classe A 8 m 500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-04",
+    "name": "Poteau béton armé classe A 8 m 700 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-06",
+    "name": "Poteau béton armé classe A 9 m 150 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-07",
+    "name": "Poteau béton armé classe A 9 m 300 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-08",
+    "name": "Poteau béton armé classe A 9 m 500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-09",
+    "name": "Poteau béton armé classe A 9 m 700 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-11",
+    "name": "Poteau béton armé classe A 12 m 200 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-12",
+    "name": "Poteau béton armé classe A 12 m 300 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-13",
+    "name": "Poteau béton armé classe A 12 m 500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-14",
+    "name": "Poteau béton armé classe A 12 m 800 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-15",
+    "name": "Poteau béton armé classe A 13 m 300 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-16",
+    "name": "Poteau béton armé classe A 13 m 500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-17",
+    "name": "Poteau béton armé classe A 13 m 800 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-19",
+    "name": "Poteau béton armé classe A14 m 300 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-20",
+    "name": "Poteau béton armé classe A14 m 500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-21",
+    "name": "Poteau béton armé classe A 14 m 800 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-22",
+    "name": "Poteau béton arme classe B 10,50  m 300 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-23",
+    "name": "Poteau béton arme classe B 10,50 m 500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-24",
+    "name": "Poteau béton arme classe B 10,50 m 700 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-25",
+    "name": "Poteau béton arme classe B 10,50 m 1000 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-26",
+    "name": "Poteau béton armé classe B 10,50 m 1500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-27",
+    "name": "Poteau béton armé classe B 12 m 1000 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-28",
+    "name": "Poteau béton armé classe B 12 m 1250 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-29",
+    "name": "Poteau béton armé classe B 12 m1500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-30",
+    "name": "Poteau béton armé classe B 13 m 1000 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-31",
+    "name": "Poteau béton armé classe B 13 m 1250 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-32",
+    "name": "Poteau béton armé classe B 13 m 1500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-33",
+    "name": "Poteau béton armé classe B 14 m 1000 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-34",
+    "name": "Poteau béton armé classe B 14 m 1250 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-01-35",
+    "name": "Poteau béton armé classe B 14 m 1500 daN",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-01",
+    "name": "Poteau béton armé classe A 8 m 150 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-02",
+    "name": "Poteau béton armé classe A 8 m 300 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-03",
+    "name": "Poteau béton armé classe A 8 m 500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-04",
+    "name": "Poteau béton armé classe A 8 m 700 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-06",
+    "name": "Poteau béton armé classe A 9 m 150 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-07",
+    "name": "Poteau béton armé classe A 9 m 300 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-08",
+    "name": "Poteau béton armé classe A 9 m 500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-09",
+    "name": "Poteau béton armé classe A 9 m 700 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-11",
+    "name": "Poteau béton armé classe A 12 m 200 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-12",
+    "name": "Poteau béton armé classe A 12 m 300 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-13",
+    "name": "Poteau béton armé classe A 12 m 500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-14",
+    "name": "Poteau béton armé classe A 12 m 800 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-15",
+    "name": "Poteau béton armé classe A 13 m 300 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-16",
+    "name": "Poteau béton armé classe A 13 m 500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-17",
+    "name": "Poteau béton armé classe A 13 m 800 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-19",
+    "name": "Poteau béton armé classe A 14 m 300 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-20",
+    "name": "Poteau béton armé classe A 14 m 500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-21",
+    "name": "Poteau béton armé classe A 14 m 800 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-22",
+    "name": "Poteau béton arme classe B 10,50 m 300 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-23",
+    "name": "Poteau béton arme classe B 10,50 m 500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-24",
+    "name": "Poteau béton arme classe B 10,50 m 700 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-25",
+    "name": "Poteau béton arme classe B 10,50 m 1000 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-26",
+    "name": "Poteau béton armé classe B 10,50 m 1500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-27",
+    "name": "Poteau béton armé classe B 12 m 1000 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-28",
+    "name": "Poteau béton armé classe B 12 m 1250 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-29",
+    "name": "Poteau béton armé classe B 12 m 1500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-30",
+    "name": "Poteau béton armé classe B 13 m 1000 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-31",
+    "name": "Poteau béton armé classe B 13 m 1250 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-32",
+    "name": "Poteau béton armé classe B 13 m 1500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-33",
+    "name": "Poteau béton armé classe B 14 m 1000 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-34",
+    "name": "Poteau béton armé classe B 14 m 1250 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-02-35",
+    "name": "Poteau béton armé classe B 14 m 1500 daN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-03-01",
+    "name": "Destruction poteau béton irrécupérable",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-03-02",
+    "name": "Dépose et récupération poteau béton armé quelque soit la hauteur et efforts + bris massif",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-06-01",
+    "name": "Transfèrement d'un poteau en béton armé quelque soit la hauteur et l' effort ( compris bris massif )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "02-07-01",
+    "name": "Modification orientation poteaux en béton armé quelque soit la hauteur et l'effort",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteaux béton armés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "03-02-01",
+    "name": "Massif de fondation normal",
+    "consistance": "F+M",
+    "unit": "M³",
+    "famille": "Massif de fondation & annexes",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "03-02-02",
+    "name": "Massif de fondation spécial",
+    "consistance": "F+M",
+    "unit": "M³",
+    "famille": "Massif de fondation & annexes",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "03-02-03",
+    "name": "Massif de fondation spécial en béton armé",
+    "consistance": "F+M",
+    "unit": "M³",
+    "famille": "Massif de fondation & annexes",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "03-02-04",
+    "name": "Pieu foré armé au mètre linéaire de profondeur",
+    "consistance": "F+M",
+    "unit": "ML",
+    "famille": "Massif de fondation & annexes",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "03-02-05",
+    "name": "Murette de soutènement et plate forme en moellon cimenté",
+    "consistance": "F+M",
+    "unit": "M³",
+    "famille": "Massif de fondation & annexes",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-01",
+    "name": "Poteau Bois S/C 8 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-02",
+    "name": "Poteau bois S/C 9 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-03",
+    "name": "Poteau bois S/C  10 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-04",
+    "name": "Poteau bois S/C 11 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-05",
+    "name": "Poteau bois S/C 12 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-06",
+    "name": "Poteau bois S/D  10 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-07",
+    "name": "Poteau bois S/D 11 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-01-08",
+    "name": "Poteau bois S/D 12 m",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-01",
+    "name": "Poteau Bois S/C 8 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-02",
+    "name": "Poteau bois S/C 9 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-03",
+    "name": "Poteau bois S/C  10 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-04",
+    "name": "Poteau bois S/C 11 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-05",
+    "name": "Poteau bois S/C 12 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-06",
+    "name": "Poteau bois S/D  10 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-07",
+    "name": "Poteau bois S/D 11 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-02-08",
+    "name": "Poteau bois S/D 12 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-03-01",
+    "name": "Dépose poteau bois S/C ou S/D",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-06-01",
+    "name": "Transfèrement d'un poteau bois",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "04-07-01",
+    "name": "Modification orientation poteaux bois J/C, X/C ou D",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "05-01-01",
+    "name": "Contrefichage poteau bois",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "05-02-01",
+    "name": "Contrefichage poteau bois",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "05-02-02",
+    "name": "Contrefichage poteau bois ( préexistant levé )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "06-01-01",
+    "name": "Jumelage poteau bois",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "06-01-02",
+    "name": "Assemblage en chevron A de poteaux bois",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "06-02-01",
+    "name": "Jumelage poteau bois",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "06-02-02",
+    "name": "Jumelage d'un poteau bois préexistant levé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "06-02-03",
+    "name": "Assemblage en chevron A de poteaux bois",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poteau Bois",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-01-01",
+    "name": "Console 4 fils *",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-01-02",
+    "name": "Console 6 fils *",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-01-03",
+    "name": "Cadre d'avancement sur poteau  *",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-01-04",
+    "name": "Pose armements métalliques ( compris peinture )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-01",
+    "name": "Console 4 fils galvanisée  *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-02",
+    "name": "Console 6 fils galvanisée type ONE.D simple  *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-03",
+    "name": "Console 6 fils galvanisée type ONE.D avec jambes de force   *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-04",
+    "name": "Cadre d'avancement UPN 80 galvanisé *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-05",
+    "name": "Armement NV galvanisé 170-125-N50-70",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-06",
+    "name": "Armement NV galvanisé 170-125-N60-80",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-07",
+    "name": "Armement NV galvanisé 170-125-N70-80-C70",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-08",
+    "name": "Armement NV 225-115",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-09",
+    "name": "Armement nappe horizontale galvanisé H170 UPN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-10",
+    "name": "Armement nappe horizontale galvanisé H170 UPN moisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-11",
+    "name": "Armement nappe horizontale galvanisé H100 UPN",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-12",
+    "name": "Bras métallique galvanisé : jeu de 3 bras simple UPN 80",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-13",
+    "name": "Bras métallique galvanisé : jeu de 3 bras métalliques enveloppant B.A.",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-14",
+    "name": "Bras métallique galvanisé : jeu de 3 bras métalliques pour pylône métallique",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-02-15",
+    "name": "Menuiserie métallique galvanisée",
+    "consistance": "F+M",
+    "unit": "KG",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-03-01",
+    "name": "Dépose armement support existant levé",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-03-02",
+    "name": "Dépose divers consoles et potelets (compris remise en état des façades)",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "08-06-01",
+    "name": "Transfèrement dans limites chantier d'un armement existant",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Armements métalliques",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "09-01-01",
+    "name": "Pose contrepoids de lestage",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Contrepoids de lestage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "09-02-01",
+    "name": "Contrepoids de lestage 20 Kg",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Contrepoids de lestage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "09-02-02",
+    "name": "Contrepoids de lestage 40 Kg",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Contrepoids de lestage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "09-02-03",
+    "name": "Contrepoids de lestage 60 Kg",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Contrepoids de lestage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-01-01",
+    "name": "Pose jeu de 3 chaines à éclateurs",
+    "consistance": "M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-01-02",
+    "name": "Pose jeu de 3 parafoudres",
+    "consistance": "M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-02-01",
+    "name": "Jeu de 3 chaines à éclateurs en verre trempé norme de 11 (compris manchons) 24 KV",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-02-02",
+    "name": "Jeu de 3 chaines à éclateurs en verre trempé norme de 11 (compris manchons) 36 KV",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-02-03",
+    "name": "Jeu de 3 chaines à éclateurs en verre trempé norme de 16 ( compris manchons ) 24 kV",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-02-04",
+    "name": "Jeu de 3 chaines à éclateurs en verre trempé norme de 16 (compris manchons) 36 kV",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-02-05",
+    "name": "Jeu de 3 parafoudres",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-02-06",
+    "name": "Plus-value pour jeu de 3 éclateurs associés sur IACM",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-03-01",
+    "name": "Dépose jeu de 3 chaines à éclateurs ou parafoudres",
+    "consistance": "M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "10-06-01",
+    "name": "Transférement jeu de 3 chaines à éclateurs ou parafoudres",
+    "consistance": "M",
+    "unit": "JEU",
+    "famille": "Parafoudres & éclateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-01-01",
+    "name": "Pose IACM 2ème catégorie",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-01-02",
+    "name": "Pose IACT ou IAT 2ème catégorie",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-01-03",
+    "name": "Pose disjoncteur réenclancheur sur réseau aérien MT",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-01-04",
+    "name": "Pose IACM à coupure dans le SF6 complet",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-01",
+    "name": "IACM à C/C 25 A  24 kV + terre; Spécial, Niv. D'isolement N4 ( longueur de fuite >= 750 mm )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-02",
+    "name": "IACM à C/C 25 A  36 kV + terre; Spécial, Niv. D'isolement N4 ( longueur de fuite >= 750 mm )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-03",
+    "name": "IACM à C/C 50 A 24 KV + Terre; Spécial, Niv. D'isolement N4 ( longueur de fuite >= 750 mm )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-04",
+    "name": "IACM à C/C 50 A 36 KV + Terre; Spécial, Niv. D'isolement N4 ( longueur de fuite >= 750 mm )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-05",
+    "name": "IACM à C/C 100 A  24 kV + terre; Spécial, Niv. D'isolement N4 ( longueur de fuite >= 750 mm )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-06",
+    "name": "IACM à C/C 100 A  36 kV + terre; Spécial, Niv. D'isolement N4 ( longueur de fuite >= 750 mm )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-07",
+    "name": "IACT ( Inter. à coupure au creux tension ) 24 kV + terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-08",
+    "name": "IACT ( Inter. à coupure au creux tension ) 36 kV  + terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-09",
+    "name": "IACM  biphasé à C/C 31,5 A  24 kV + terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-10",
+    "name": "IACM  biphasé à C/C 31,5 A  36 kV + terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-11",
+    "name": "IAT ( Inter.aérien télécommandé) 100 A  24 kV + terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-12",
+    "name": "IAT ( Inter.aérien télécommandé) 100 A  36 kV + terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-13",
+    "name": "Disjoncteur réenclancheur sur réseau aérien MT 400 A",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-14",
+    "name": "Disjoncteur réenclancheur sur réseau aérien MT 630 A",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-15",
+    "name": "IACM 24 KV à coupure dans le SF6 400/200 A  12.5/32 KA Complet",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-16",
+    "name": "IACM 36 KV à coupure dans le SF6 400/200 A  12.5/32 KA Complet",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-17",
+    "name": "IACM 24 KV à coupure dans le SF6 400/400 A  12.5/32 KA Complet",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-18",
+    "name": "IACM 36 KV à coupure dans le SF6 400/400 A  12.5/32 KA Complet",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-19",
+    "name": "IACM 24 KV à coupure dans le SF6 400/630 A  12.5/32 KA Complet",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-02-20",
+    "name": "IACM 36 KV à coupure dans le SF6 400/630 A  12.5/32 KA Complet",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-03-01",
+    "name": "Dépose IACM",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-03-02",
+    "name": "Dépose  IACT ou IAT",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-03-03",
+    "name": "Dépose  disjoncteur réenclencheur sur réseau aérien MT",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-03-04",
+    "name": "Dépose IACM à coupure dans le SF6 complet",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-06-01",
+    "name": "Transfèrement IACM  + terre",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-06-02",
+    "name": "Transfèrement  IACT ou IAT + terre",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-06-03",
+    "name": "Transférement disjoncteur réenclencheur sur réseau aérien MT+ terre",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "11-06-04",
+    "name": "Transfèrement IACM à coupure dans le SF6 complet + terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Appareils de coupure aériens MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-01",
+    "name": "Pince d'alignement à serrage mécanique pour câble cuivre nu 48 mm2",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-02",
+    "name": "Pince d'ancrage pour câble cuivre nu 48 mm2",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-03",
+    "name": "Pince alignement à serrage mécanique pour câble almelec de 34,4 mm2 à 75,5 mm2",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-04",
+    "name": "Pince d'alignement AGSU 59,7 mm2 + Armor Rod",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-05",
+    "name": "Pince d'ancrage pour câble alliage Aluminium de 34,4 mm2 à 75,5 mm2",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-06",
+    "name": "Manchon d'ancrage pour câble Almelec-Acier 59,7 mm2",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-07",
+    "name": "Manchon d'ancrage avec plage de raccordement pour câble de nature et section appropriées  ( Supérieure ou égale à 54,6 mm2)",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-08",
+    "name": "Ball socket  N11",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-09",
+    "name": "Oeillet à rotule  Norme de 11",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-10",
+    "name": "Oeillet rond  Norme de 11",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-12",
+    "name": "Etrier court  norme de 16",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "12-00-13",
+    "name": "Etrier court  Norme de 11",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Accessoires Isolateurs",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-00-15",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11  compris accessoires +  pince d'alignement (isolement 24 kV)",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-00-16",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11  compris accessoires +  pince d'ancrage (isolement 24 kV)",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-00-17",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11 compris accessoires +  pince d'alignement (isolement 36 kV)",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-00-18",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11  compris accessoires +  pince d'ancrage (isolement 36 kV)",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-00-19",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 16 compris accessoires +  pince AGSU d'alignement (isolement 24 kV)",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-00-20",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 16 compris accessoires +  manchon d'ancrage (isolement 24 kV)",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-01-01",
+    "name": "Pose isolateur rigide 1ère catégorie  *",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-01-02",
+    "name": "Pose isolateur rigide 2ème catégorie",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-01-03",
+    "name": "Pose chaîne isolateurs suspendus 2ème catégorie",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-01",
+    "name": "Isolateur rigide DC3 + CC20   *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-02",
+    "name": "Isolateur rigide DC4 CC20 *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-03",
+    "name": "Isolateur rigide A21 + ES  *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-04",
+    "name": "Isolateur rigide A22 + ED *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-05",
+    "name": "Isolateur rigide 2ème catégorie en verre recuit + TR 25 et douille 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-06",
+    "name": "Isolateur rigide 2ème catégorie en verre recuit + TR 25 et douille 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-07",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 2 éléments compris accessoires +  pince d'alignement ( isolement 24 kv )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-08",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 3 éléments compris accessoires +  pince d'ancrage ( isolement 24 kv )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-09",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 3 éléments compris accessoires +  pince d'alignement (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-10",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 4 éléments compris accessoires +  pince d'ancrage (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-11",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 16 à 2 éléments compris accessoires +  pince AGSU d'alignement (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-12",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 16 à 3 éléments compris accessoires +  manchon d'ancrage (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-13",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 16 à 3 éléments compris accessoires +  pince AGSU d'alignement (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-14",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 16 à 4 éléments compris accessoires +  manchon d'ancrage (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-15",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11  compris accessoires +  pince d'alignement (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-16",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11  compris accessoires +  pince d'ancrage (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-17",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11 compris accessoires +  pince d'alignement (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-18",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 11  compris accessoires +  pince d'ancrage (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-19",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 16 compris accessoires +  pince AGSU d'alignement (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-20",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 16 compris accessoires +  manchon d'ancrage (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-21",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de16 compris accessoires +   pince AGSU d'alignement (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-22",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites Norme de 16 compris accessoires +  manchon d'ancrage (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-23",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 3 éléments compris accessoires +  manchon d'ancrage",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-24",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites norme 11 compris accessoires +  manchon d'ancrage (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-25",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites norme 11 compris accessoires +  manchon d'ancrage (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-26",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 4 éléments compris accessoires +  manchon d'ancrage (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-27",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 2 éléments compris accessoires + pince AGSU  d'alignement                                 ( isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-28",
+    "name": "Chaîne d'isolateur suspendue en verre trempé (CT) Norme de 11 à 3 éléments compris accessoires + pince AGSU  d'alignement                                 ( isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-29",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites norme 11 compris accessoires +  pince AGSU d'alignement (isolement 24 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-02-30",
+    "name": "Chaîne d'isolateur à long fût en matériaux composites norme 11 compris accessoires +  pince AGSU d'alignement (isolement 36 kV)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-03-01",
+    "name": "Dépose isolateur rigide (support conservé)",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-03-02",
+    "name": "Dépose chaîne isolateurs suspendus (support conservé)",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-06-01",
+    "name": "Transfèrment d'un isolateur rigide dans les limites du chantier",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "13-06-02",
+    "name": "Transfèrement chaîne isolateurs suspendus dans les limites du chantier",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Isolateurs & chaines de ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "14-01-01",
+    "name": "Pose plaque d'identification ( IRD) petit modèle",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Plaques d'identification",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "14-01-02",
+    "name": "Pose plaque d'identification ( IRD) grand modèle",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Plaques d'identification",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "14-02-01",
+    "name": "Plaque d'identification ( IRD) petit modèle",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Plaques d'identification",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "14-02-02",
+    "name": "Plaque d'identification ( IRD) grand modèle",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Plaques d'identification",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-01",
+    "name": "Fourniture câble cuivre nu 60 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-02",
+    "name": "Fourniture câble cuivre nu 48 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-03",
+    "name": "Fourniture câble cuivre nu 38 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-04",
+    "name": "Fourniture câble cuivre nu 22 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-05",
+    "name": "Fourniture fil cuivre nu 40/10   *",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-06",
+    "name": "Fourniture fil cuivre nu 30/10  *",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-07",
+    "name": "Fourniture câble Almelec 181,6 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-08",
+    "name": "Fourniture câble Almelec 148 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-09",
+    "name": "Fourniture câble Almelec 75,5 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-10",
+    "name": "Fourniture câble Almelec 34,4 mm2",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-11",
+    "name": "Fourniture câble Almelec acier 59,7 mm2 ( zone givrable )",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-12",
+    "name": "Fourniture câble Almelec acier 147,1 mm2 (zone givrable)",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-00-13",
+    "name": "Fourniture du câble acier 22 mm2 support de sphères de balisage ou fil de garde pour portée existante",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-01",
+    "name": "Transport, déroulage, réglage, compris élagage d'arbres éventuels (sans déssouchage ) du conducteur en cuivre nu 60 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-02",
+    "name": "Transport, déroulage, réglage, compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur en cuivre nu 48 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-03",
+    "name": "Transport, déroulage, réglage, compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur en cuivre nu 38 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-04",
+    "name": "Transport, déroulage,réglage,compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur en cuivre nu 22 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-05",
+    "name": "Transport, déroulage,réglage,compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur en cuivre nu 40/10",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-06",
+    "name": "Transport, déroulage,réglage,compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur en cuivre nu 30/10",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-07",
+    "name": "Transport, déroulage,réglage,compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur almelec 181,6 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-08",
+    "name": "Transport, déroulage,réglage,compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur almelec 148 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-09",
+    "name": "Transport, déroulage,réglage,compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur almelec 75,5 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-10",
+    "name": "Transport, déroulage,réglage,compris élagage d'arbres éventuels ( sans déssouchage ) du conducteur almelec 34,4 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-11",
+    "name": "Transport, déroulage, réglage, compris élagage d'arbres éventuels (sans déssouchage) du conducteur Almelec-acier 59,7 mm2 (zone givrable)",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-12",
+    "name": "Transport, déroulage, réglage, compris élagage d'arbres éventuels (sans déssouchage) du conducteur Almelec-acier 147,1 mm2 (zone givrable)",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-13",
+    "name": "Transport déroulage réglage du câble acier 22 mm2 support de sphères de balisage ou fil de garde pour portée existante",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-01-14",
+    "name": "Transport, déroulage, réglage, compris élagage d'arbres éventuels (sans déssouchage) du conducteur Alu-acier 80 mm2",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-02-01",
+    "name": "Branchement 2ème catégorie",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-03-01",
+    "name": "Dépose de conducteurs nus toutes sections",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-06-01",
+    "name": "Transfèrement de conducteurs nus toutes sections dans les limites du chantier",
+    "consistance": "M",
+    "unit": "KM-UNIF",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-07-01",
+    "name": "Plus value pour remaniement de nappe 1ère catégorie",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "15-07-02",
+    "name": "Plus value pour remaniement de nappe 2ème catégorie",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Câbles nus",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "16-01-01",
+    "name": "Pose localisateur de défaut sur réseau aérien MT",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Localisateur de défaut sur réseau aérien MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "16-02-01",
+    "name": "Localisateur de défaut ordinaire sur réseau aérien MT",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Localisateur de défaut sur réseau aérien MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "16-02-02",
+    "name": "Localisateur de défaut directionel sur réseau aérien MT",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Localisateur de défaut sur réseau aérien MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "18-03-01",
+    "name": "Dépose d'un branchement aérien particulier  2 fils",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement branchements BT aériens et aéro-souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "18-03-02",
+    "name": "Dépose d'un branchement aérien particulier 3 ou 4 fils",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement branchements BT aériens et aéro-souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "18-04-01",
+    "name": "Dépose branchement particulier aéro-souterrain (remonté aérro-souterraine) 2 fils ou 4 fils",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement branchements BT aériens et aéro-souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "18-06-01",
+    "name": "Transfèrement branchement particulier aéro-souterrain (remontée aéro-souterraine ) 2 fils",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement branchements BT aériens et aéro-souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "18-06-02",
+    "name": "Transfèrement branchement particulier aéro-souterrain ( remontée aéro-souterraine ) 4 fils",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement branchements BT aériens et aéro-souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "19-01-01",
+    "name": "Pose sphère de balisage",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Balisage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "19-02-01",
+    "name": "Sphère de balisage",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Balisage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "19-02-02",
+    "name": "Vérine de balisage nocturne compris ferrure support et câble de raccordement",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Balisage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "19-09-01",
+    "name": "Peinture poteau BA pour balisage diurne",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Balisage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "19-09-02",
+    "name": "Peinture pylône métallique pour balisage diurne",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Balisage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "20-02-01",
+    "name": "Terre de réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Terre de réseau",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-01-01",
+    "name": "Pose luminaire d'éclairage public",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-02-01",
+    "name": "Appareil d'éclairage public (sur poteau, candélabre ou façade), équipé de tous les accessoires d'alimentation nécessaires pour lampe à vapeur de mercure 80 W",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-02-02",
+    "name": "Appareil d'éclairage public (sur poteau, candélabre ou façade), équipé de tous les accessoires d'alimentation nécessaires pour lampe à vapeur de mercure 125 W",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-02-03",
+    "name": "Appareil d'éclairage public (sur poteau, candélabre ou façade), équipé de tous les accessoires d'alimentation nécessaires pour lampe à vapeur de sodium SHP 70 W",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-02-04",
+    "name": "Appareil d'éclairage public (sur poteau, candélabre ou façade), équipé de tous les accessoires d'alimentation nécessaires pour lampe à vapeur de sodium SHP 150 W",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-02-05",
+    "name": "Appareil d'éclairage public (sur poteau, candélabre ou façade), équipé de tous les accessoires d'alimentation nécessaires pour lampe à vapeur de sodium SHP 250W",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-02-06",
+    "name": "Projecteur sur poteau ou façade équipé de tous les accessoires d'alimentation nécessaire pour lampe à vapeur de sodium SHP 1000 W",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-02-07",
+    "name": "Hublot mural en fonte équipé de tous les accessoires de protection et d'alimentation nécessaires pour lampe 230V-100W",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-03-01",
+    "name": "Dépose d'un appareil d'éclairage public ( support conservé )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-06-01",
+    "name": "Transfèrement d'un appareil d'éclairage public dans les limites du chantier",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "21-06-02",
+    "name": "Transfèrement et remise en état d'un appareil d'éclairage public( compris fourniture accessoires de remplacement )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-01-01",
+    "name": "Pose candélabre d'éclairage public toutes hauteurs",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-02-01",
+    "name": "Candélabre d'éclairage public en tôle normalisée simple crosse 9 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-02-02",
+    "name": "Candélabre d'éclairage public en tôle normalisée simple crosse 10 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-02-03",
+    "name": "Candélabre d'éclairage public en tôle normalisée simple crosse 12 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-02-04",
+    "name": "Candélabre d'éclairage public en tôle normalisée double crosse 10 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-02-05",
+    "name": "Candélabre d'éclairage public en tôle normalisée double crosse 12 m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-02-06",
+    "name": "Mât cylindrique d'éclairage public 60 mm de diamètre ( au mètre linéaire )",
+    "consistance": "F+M",
+    "unit": "ML",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-02-07",
+    "name": "Candélabre d'éclairage public en tôle normalisée 14 m pour projecteurs",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-03-01",
+    "name": "Dépose mât ou candélabre d'éclairage public toutes hauteurs",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "22-06-01",
+    "name": "Transférement mât ou candélabre d'éclairage public toutes hauteurs dans les limites du chantier",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "23-02-01",
+    "name": "Plus value pour galvanisation candélabres ou mâts d'éclairage public",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "23-02-02",
+    "name": "Plus value pour métallisation candélabre ou mâts d'éclairage public",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Luminaire d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-01-01",
+    "name": "Pose coffret métallique standard de commande d'éclairage public sur socle, façade ou poteau ( compris confection socle et ferrures fixation + terre )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-02-01",
+    "name": "Coffret métallique standard de commande d'éclairage public non équipé, posé sur socle, façade ou poteau ( compris confection socle et ferrures fixation + terre ) galvanisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-02-02",
+    "name": "Coffret métallique standard de commande d'éclairage public non équipé, posé sur socle, façade ou poteau ( compris confection socle et ferrures fixation + terre ) métallisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-02-03",
+    "name": "Equipement d'un coffret métallique standard de commande d'éclairage public,",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-02-04",
+    "name": "Coffret métallique standard de commande d'éclairage public équipé, posé sur socle, façade ou poteau ( compris confection socle et ferrures fixation + terre ) galvanisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-02-05",
+    "name": "Coffret métallique standard de commande d'éclairage public équipé, posé sur socle, façade ou poteau ( compris confection socle et ferrures fixation + terre ) métallisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-02-06",
+    "name": "Fourniture et pose  d'un disjoncteur de protection de départ EP tétrapolaire calibre 80 A maximum",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-03-01",
+    "name": "Dépose coffret métallique standard de commande d'éclairage public",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "24-06-01",
+    "name": "Transfèrement coffret métallique standard de commande d'éclairage public",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Coffret métallique standard de commande d'éclairage public",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "31-02-01",
+    "name": "Raccordement 1ère catégorie  ( prestations O.N.E.)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Raccordements",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "31-02-02",
+    "name": "Raccordement 2ème catégorie ( prestations O.N.E.)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Raccordements",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-01",
+    "name": "Câble isolé au PRC torsadé USP 15/25 kV avec porteur en câble acier galvanisé isolé 3x35 Alu + 56,7 mm2 Acier",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-02",
+    "name": "Câble isolé au PRC torsadé USP 15/25 kV avec porteur en câble acier galvanisé isolé 3x95 Alu + 56,7 mm2 Acier",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-03",
+    "name": "Câble isolé au PRC torsadé USP 15/25 kV avec porteur en câble acier galvanisé isolé 3x150 Alu + 56,7 mm2 Acier",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-04",
+    "name": "Câble isolé préassemblé en aluminium avec porteur en Almelec 3x35 Alu+ 16 Alu +54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-05",
+    "name": "Câble isolé préassemblé en aluminium avec neutre porteur en Almelec 3x50 Alu + 16 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-06",
+    "name": "Câble isolé préassemblé en aluminium avec porteur en Almelec 3x70 Alu+ 16 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-07",
+    "name": "Câble isolé préassemblé en aluminium avec neutre porteur en Almelec 3x35 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-08",
+    "name": "Câble isolé préassemblé en aluminium avec neutre porteur en Almelec 3x50 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-09",
+    "name": "Câble isolé préassemblé en aluminium avec neutre porteur en Almelec 3x70 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-10",
+    "name": "Câble isolé torsadé autoporté en Aluminium 2x16 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-11",
+    "name": "Câble isolé torsadé autoporté en Aluminium 4x16 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-12",
+    "name": "Câble isolé torsadé autoporté en Aluminium 4x25 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-15",
+    "name": "Câble isolé monophasé préassemblé en aluminium avec porteur en Almelec 1x35 Alu+ 16 Alu +54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-16",
+    "name": "Câble isolé monophasé préassemblé en aluminium avec neutre porteur en Almelec 1x50 Alu + 16 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-17",
+    "name": "Câble isolé monophasé préassemblé en aluminium avec porteur en Almelec 1x70 Alu+ 16 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-18",
+    "name": "Câble isolé biphasé préassemblé en aluminium avec porteur en Almelec 2x35 Alu+ 16 Alu +54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-19",
+    "name": "Câble isolé biphasé préassemblé en aluminium avec neutre porteur en Almelec 2x50 Alu + 16 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-00-20",
+    "name": "Câble isolé biphasé préassemblé en aluminium avec porteur en Almelec 2x70 Alu+ 16 Alu + 54,6 Alm",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-01-01",
+    "name": "Déroulage tirage réglage compris élagage d'arbres éventuels, câble isolé au PRC torsadé USP 15/25 kV avec porteur en câble Acier galvanisé isolé 3x35 Alu + 56,7 mm2 Acier ( sans accessoires)",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-01-02",
+    "name": "Déroulage tirage réglage compris élagage d'arbres éventuels, câble isolé au PRC torsadé USP 15/25 kV avec porteur en câble acier galvanisé isolé 3x95 Alu + 56,7 mm2 acier ( sans accessoires)",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-01-03",
+    "name": "Déroulage tirage réglage compris élagage d'arbres éventuels, câble isolé au PRC torsadé USP 15/25 kV avec porteur en câble Acier galvanisé isolé 3x150 Alu + 56,7 mm2 Acier ( sans accessoires)",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-01-04",
+    "name": "Pose sans accessoires câble isolé triphasé préassemblé en aluminium ( y compris manchons de jonctions éventuelles ) diverses sections",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-01-05",
+    "name": "Pose câble branchement  isolé torsadé autoporteur  diverses sections",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-01-06",
+    "name": "Pose sans accessoires câble isolé monophasé préassemblé en aluminium ( y compris manchons de jonctions éventuelles ) diverses sections",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-01-07",
+    "name": "Pose sans accessoires câble isolé biphasé préassemblé en aluminium ( y compris manchons de jonctions éventuelles ) diverses sections",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-03-01",
+    "name": "Dépose câble préassemblé quelque soit la section , tendu sur poteau ou façade ( accessoires à conserver )",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-03-02",
+    "name": "Dépose câble préassemblé quelque soit la section , posé sur façade ( accessoires à conserver )",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-04-01",
+    "name": "Dépose câble préassemblé quelque soit la section , tendu sur poteau ou potelet ( y compris les accessoires )",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-04-02",
+    "name": "Dépose câble préassemblé quelque soit la section , posé ou tendu sur façade ( y compris les accessoires  )  et remise en état des façades",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-05-01",
+    "name": "Dépose branchement torsadé diverses sections 2 fils( sur poteau ou potelet ou façade y compris remise en état façade éventuelle)",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-05-02",
+    "name": "Dépose branchement torsadé diverses sections 4 fils ( sur poteau ou potelet ou façade y compris remise en état façade éventuelle)",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-06-01",
+    "name": "Transférement branchement en torsadé quelque soit la section 2 fils y compris les accessoires",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "34-06-02",
+    "name": "Transférement branchement en torsadé quelque soit la section 4 fils y compris les accessoires",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Câbles aériens isolés",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "35-01-01",
+    "name": "Pose accessoires pour câble isolé torsadé MT 15/25 kV avec porteur en acier isolé: ensemble d'alignement",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câbles isolés torsadé MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "35-01-02",
+    "name": "Pose accessoires pour câble isolé torsadé MT 15/25 kV avec porteur en Acier isolé : ensemble d'ancrage compris confection terre",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câbles isolés torsadé MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "35-01-03",
+    "name": "Confection jeu de 3 boites de jonction unipolaires du câble isolé torsadé MT 15/25 kV  compris manchonage du câble porteur et gaines thermorétractables",
+    "consistance": "M",
+    "unit": "JEU",
+    "famille": "Accessoires pour câbles isolés torsadé MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "35-02-01",
+    "name": "Accessoires pour câble isolé torsadé avec porteur en Acier isolé 15/25 kV:  ensemble d'alignement",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câbles isolés torsadé MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "35-02-02",
+    "name": "Accessoires pour câble isolé torsadé avec porteur en Acier isolé 15/25 kV:  ensemble d'ancrage compris fourniture et pose accessoires de terre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câbles isolés torsadé MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "35-02-03",
+    "name": "Jeu de 3 boites de jonction unipolaires du câble isolé torsadé MT 15/25 kV compris manchonage du câble porteur isolé et gaines thermorétractables NB:  Pour les boites d'extrémité  voir câbles souterrains",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Accessoires pour câbles isolés torsadé MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-01-01",
+    "name": "Pose accessoires pour câble isolé préassemblé tendu sur poteau ou potelets",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-01-02",
+    "name": "Pose accessoires pour câble isolé torsadé tendu sur façade ( compris remise en état )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-01-03",
+    "name": "Pose accessoires de fixation pour câble isolé préassemblé ou autoporté posé sur façade ( 3 colliers au mètre )",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-01-04",
+    "name": "Pose accessoires pour câble torsadé autoporté branchement BT (connecteur-pince-renvoi d'angle )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-01-05",
+    "name": "Pose connecteur de dérivation à perforation d'isolant réseau sur réseau en câble préassemblé de 35 à 70 mm2 Alu",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-01-06",
+    "name": "Pose raccord de dérivation préisolé sur réseau BT en conducteurs cuivre nu ( connecteur à anneau )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-01-07",
+    "name": "Pose boite de dérivation pour câble isolé préassemblé",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-01",
+    "name": "Accessoires pour câble isolé torsadé préassemblé tendu sur poteau ou potelet ensemble d'alignement",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-02",
+    "name": "Accessoires pour câble isolé torsadé préassemblé tendu sur poteau ou potelet ensemble d'ancrage simple",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-03",
+    "name": "Accessoires pour câble isolé torsadé préassemblé tendu sur poteau ou potelet ensemble d'ancrage double",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-04",
+    "name": "Accessoires pour câble isolé torsadé préassemblé tendu sur poteau ou potelet ensemble d'ancrage triple",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-05",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'alignement normal",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-06",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade(compris remise en état) ensemble d'alignement avec console en fer plat de 300x30x3 mm",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-07",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'angle normal",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-08",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'angle avec console en L de  300x30x3 mm",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-09",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'ancrage simple normal",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-10",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'ancrage simple avec console en L de  300x30x3 mm",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-11",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'ancrage double normal",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-12",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'ancrage double avec console en L de  300x30x3 mm",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-13",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'ancrage triple normal",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-14",
+    "name": "Accessoires pour câble isolé préassemblé tendu sur façade ( compris remise en état ) ensemble d'ancrage triple avec console en L de  300x30x3 mm",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-15",
+    "name": "Accessoires de fixation pour câble isolé préassemblé ou autoporté posé sur façade ( 3 colliers au mètre compris remise en état )",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-16",
+    "name": "Accessoires pour câble torsadé autoporté (branchement BT ° ) connecteur à perforation d'isolant simple dérivation.",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-17",
+    "name": "Accessoires pour câble torsadé autoporté (branchement BT ° ) connecteur à perforation d'isolant double dérivation.",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-18",
+    "name": "Accessoires pour câble torsadé autoporté ( branchement BT ) pince d'ancrage",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-19",
+    "name": "Accessoires pour câble torsadé autoporté ( branchement BT ) renvoi d'angle",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-20",
+    "name": "Connecteur de dérivation à perforation d'isolant réseau sur réseau en câble préassemblé isolé de 35 à 70 mm2 Alu",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-21",
+    "name": "Raccord de dérivation préisolé sur réseau BT en conducteur cuivre nu ( connecteur à anneau )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-22",
+    "name": "Boite de dérivation aéro-souterraine ( DAS ) pour câble cuivre isolé RO2V ou RVFV et câble préassemblé Alu",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-23",
+    "name": "Boite dérivation pour câble isolé préassemblé ( DRA )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-24",
+    "name": "Connecteur simple dérivation  à perforation d'isolant pour section de 1,5 à 25 mm2 sur conducteur d'EP",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-25",
+    "name": "Accessoires pour câble torsadé autoporté ( branchement BT ) connecteur à perforation d'isolant isolé à 6 kV simple dérivation",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-26",
+    "name": "Accessoires pour câble torsadé autoporté ( branchement BT ) connecteur à perforation d'isolant  isolé à 6 kV  double dérivation",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-27",
+    "name": "Connecteur de dérivation à perforation d'isolant réseau sur réseau en câble préassemblé isolé à 6 kV de 35 à 70 mm2 Alu",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "36-02-28",
+    "name": "Connecteur simple dérivation  à perforation d'isolant isolé à 6 kV pour section de 1,5 à 25 mm2 sur conducteur d'EP",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Accessoires pour câble isolé préassemblé BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-01-01",
+    "name": "Pose potelet galvanisé en tube rond + ferrures scellement et accessoires ( quelque soient les dimensions )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-02-01",
+    "name": "Potelet galvanisé en tube rond diamètre 70  ferrures scellement et accessoires  2m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-02-02",
+    "name": "Potelet galvanisé en tube rond diamètre 70  ferrures scellement et accessoires 4m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-02-03",
+    "name": "Potelet galvanisé en tube rond diamètre 50  ferrures scellement et accessoires 2m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-02-04",
+    "name": "Potelet galvanisé en tube rond diamètre 50  ferrures scellement et accessoires 4m",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-02-05",
+    "name": "Haubanage potelet ( hauban et accessoires )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-02-06",
+    "name": "Ferrure de scellement en fer plat de 3x30x300 mm galvanisé avec collier de suspension pour câble préassemblé tendu sur façade",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "37-03-01",
+    "name": "Dépose potelet galvanisé en tube rond + ferrures scellement et accessoires ( quelque soient les dimensions )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Potelets",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-01",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x50 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-02",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x70 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-03",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x95 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-04",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x150mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-05",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x 240mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-06",
+    "name": "Câble isolé unipolaire U 1000 R02V cuivre 1x25 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-07",
+    "name": "Câble isolé unipolaire U 1000 R02V cuivre 1x35 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-08",
+    "name": "Câble isolé unipolaire U 1000 R02V cuivre 1x50 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-09",
+    "name": "Câble isolé unipolaire U 1000 R02V cuivre 1x70 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-10",
+    "name": "Câble isolé unipolaire U1000 R02V cuivre 1x95 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-11",
+    "name": "Câble isolé unipolaire U 1000 R02V cuivre 1x120 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-12",
+    "name": "Câble isolé unipolaire U 1000 R02V cuivre 1x150 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-13",
+    "name": "Câble isolé unipolaire U1000 RO2V cuivre 1x240 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-14",
+    "name": "Câble VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x35 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-15",
+    "name": "Câble VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x50mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-16",
+    "name": "Câble VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x70 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-17",
+    "name": "Câble VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x95 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-18",
+    "name": "Câble VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x120mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-19",
+    "name": "Câble U1000 RVFV en cuivre 2x6 mm2",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-20",
+    "name": "Câble U1000 RVFV en cuivre 2x10 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-21",
+    "name": "Câble U1000 RVFV en cuivre 2x16 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-22",
+    "name": "Câble U1000 RVFV en cuivre 2x25 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-23",
+    "name": "Câble U1000 RVFV en cuivre 4x6 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-24",
+    "name": "Câble U1000 RVFV en cuivre 4x10 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-25",
+    "name": "Câble U1000 RVFV en cuivre 4x16 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-00-26",
+    "name": "Câble U1000 RVFV en cuivre 4x25 mm²",
+    "consistance": "F",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-01",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x50 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-02",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x70 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-03",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x95 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-04",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire 1x150mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-05",
+    "name": "Câble isolé au PRC USP 15/25 kV à champ radial en aluminium unipolaire           1x 240 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-06",
+    "name": "Pose câble isolé unipolaire U 1000 R02V cuivre 1x25 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-07",
+    "name": "Pose câble  isolé unipolaire U 1000 R02V cuivre 1x35 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-08",
+    "name": "Pose câble  unipolaire U 1000 R02V cuivre 1x50 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-09",
+    "name": "Pose câble  unipolaire U 1000 R02V cuivre 1x70 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-10",
+    "name": "Pose câble  unipolaire U1000 R02V cuivre 1x95 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-11",
+    "name": "Pose câble  unipolaire U 1000 R02V cuivre 1x120 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-12",
+    "name": "Pose câble  unipolaire U 1000 R02V cuivre 1x150 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-13",
+    "name": "Pose câble  unipolaire U1000 RO2V cuivre 1x240 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-14",
+    "name": "Pose câble  VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x35 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-15",
+    "name": "Pose câble  VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x50 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-16",
+    "name": "Pose câble  VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x70 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-17",
+    "name": "Pose câble  VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x95 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-18",
+    "name": "Pose câble  VINYSOL armé en cuivre à isolement sec U 1000 V tétrapolaire 4x120mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-19",
+    "name": "Pose câble  U1000 RVFV en cuivre 2x6 mm2",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-20",
+    "name": "Pose câble  U1000 RVFV en cuivre 2x10 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-21",
+    "name": "Pose câble  U1000 RVFV en cuivre 2x16 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-22",
+    "name": "Pose câble  U1000 RVFV en cuivre 2x25 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-23",
+    "name": "Pose câble  U1000 RVFV en cuivre 4x6 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-24",
+    "name": "Pose câble  U1000 RVFV en cuivre 4x10 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-25",
+    "name": "Pose câble  U1000  RVFV en cuivre 4x16 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-01-26",
+    "name": "Pose câble  U1000 RVFV en cuivre 4x25 mm²",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-03-01",
+    "name": "Dépose câble isolé armé sur façade toute section y compris remise en état",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-04-01",
+    "name": "Dépose de canalisation enterrée 1ére ou 2éme catégorie compris ouverture et fermeture tranchée ( au mètre de tranchée )",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "40-06-01",
+    "name": "Rabattement  canalisation enterrée 1ére ou 2éme catégorie compris ouverture et fermeture tranchée ( au mètre de tranchée )",
+    "consistance": "M",
+    "unit": "M",
+    "famille": "Câbles isolés souterrains",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-01-01",
+    "name": "Confection et pose de diverses boites de jonction et d'extrémité pour câble unipolaire isolé au PRC 15/25 kV",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-02-01",
+    "name": "Fourniture, confection et pose boite d'extrémité synthétique type intérieur pour câble en Alu ou Cu isolé au PRC 15/25 kV  tension d'isolement 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-02-02",
+    "name": "Fourniture, confection et pose boite d'extrémité synthétique type intérieur pour câble Alu ou Cu isolé au PRC 15/25 kV  tension d'isolement  36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-02-03",
+    "name": "Fourniture, confection et pose boite d'extrémité synthétique type extérieur pour câble Alu ou Cu isolé au PRC 15/25 kV  tension d'isolement 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-02-04",
+    "name": "Fourniture, confection et pose boite d'extrémité synthétique type extérieur pour câble Alu ou Cu isolé au PRC 15/25 kV  tension d'isolement 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-02-05",
+    "name": "Fourniture, confection et pose boite de jonction pour câble isolé au PRC Alu ou Cu USP 15/25 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-02-06",
+    "name": "Fourniture, confection et pose boite spéciale pour jonction : câble unipolaire isolé au PRC - câble unipolaire isolé au papier imprégné",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "41-02-07",
+    "name": "Fourniture, confection et pose boite spéciale pour jonction : câble unipolaire isolé au PRC  -  câble tripolaire isolé au papier imprégné",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Boites de jonction et d'extrémités MT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-01-01",
+    "name": "Pose boite de dérivation ou coffret de distribution BT sur façade ou sur socle",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-01",
+    "name": "Fourniture et pose boites de dérivation en fonte étanche genre SIMPLEX   y compris presse étoupes et tous les accessoires : ref. 5312",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-02",
+    "name": "Fourniture et pose boites de dérivation en fonte étanche genre SIMPLEX  y compris presse étoupes et tous les accessoires : réf. 5310",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-03",
+    "name": "Fourniture et pose boites de dérivation en fonte étanche genre SIMPLEX  y compris presse étoupes et tous les accessoires  : réf. 5307",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-04",
+    "name": "Fourniture et pose boites de dérivation en fonte étanche genre SIMPLEX  y compris presse étoupes et tous les accessoires  : réf. 5304",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-05",
+    "name": "Fourniture et pose boites de dérivation en fonte étanche genre SIMPLEX  y compris presse étoupes et tous les accessoires  : réf. 5302",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-06",
+    "name": "Fourniture et pose de coffret distribution de façade en polyester armé de fibre de verre pour câble têtrapolaire  BT: 2 arrivées de 50 à 70 mm2 - 3 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-07",
+    "name": "Fourniture et pose de coffret distribution de façade en polyester armé de fibre de verre pour câble têtrapolaire  BT: 2 arrivées de 95 à 150 mm2 - 3 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-08",
+    "name": "Fourniture et pose de coffret distribution de façade en polyester armé de fibre de verre pour câble têtrapolaire  BT:1arrivée de 50 à 70 mm2 - 3 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-09",
+    "name": "Fourniture et pose de coffret distribution de façade en polyester armé de fibre de verre pour câble têtrapolaire  BT:1arrivée de 95 à 150 mm2 - 3 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-10",
+    "name": "Fourniture et pose de coffret distribution en polyester armé de fibre de verre pour réseau BT souterrain à poser sur socle:  2 arrivées (sectionables ) -de 50 à 70mm2 et 3 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-11",
+    "name": "Fourniture et pose de coffret distribution en polyester armé de fibre de verre pour réseau BT souterrain à poser sur socle:  2 arrivées (sectionables ) -de 95 à 150mm2 et 3 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-12",
+    "name": "Fourniture et pose de coffret distribution en polyester armé de fibre de verre pour réseau BT souterrain à poser sur socle:  1 arrivée de 50 à 70 mm2 - 4 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-13",
+    "name": "Fourniture et pose de coffret distribution en polyester armé de fibre de verre pour réseau BT souterrain à poser sur socle:  1 arrivée de 95 à 150 mm2 - 4 départs non protégés",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-14",
+    "name": "Equipement placard de coupure réseau BT, 1 à 4 départs souterrains conforme plan type ONE",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-15",
+    "name": "Boite en polyester pour protection compteur 2 fils, équipée de fusibles de câlibre adéquat et normalisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-02-16",
+    "name": "Boite en polyester pour protection compteur 4 fils, équipée de fusibles de câlibre adéquat et normalisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-03-01",
+    "name": "Dépose boite de dérivation ou coffret de distribution BT sur façade ou sur socle",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "42-03-02",
+    "name": "Dépose placard maçonné de coupure réseau BT, 1 à 4 départs souterrains",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Coffrets & boites de dérivation BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "43-02-01",
+    "name": "Murette en aggloméré pour coffret et diverses boites de dérivation",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil pour coffrets et placards de coupure BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "43-02-02",
+    "name": "Génie civil placard de coupure réseau BT souterrain ( 1 à 4 départs ) conforme plan type ONE",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil pour coffrets et placards de coupure BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-01-01",
+    "name": "Terrassement supplémentaire",
+    "consistance": "M",
+    "unit": "M³",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-01",
+    "name": "Tranchée normale à 1 circuit",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-02",
+    "name": "Tranchée normale à 2 circuits",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-03",
+    "name": "Tranchée normale à 3 circuits",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-04",
+    "name": "Tranchée normale à 4 circuits",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-05",
+    "name": "Tranchée traversée à 1 circuit",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-06",
+    "name": "Tranchée traversée à 2 circuits",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-07",
+    "name": "Tranchée traversée à 3 circuits",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "47-02-08",
+    "name": "Tranchée traversée à 4 circuits",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "48-02-01",
+    "name": "Tuyau béton comprimé diamètre 100",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "48-02-02",
+    "name": "Tuyau béton comprimé diamètre 200",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "48-02-03",
+    "name": "Caniveau en béton vibré à 3 gorges diamètre 80",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "48-02-04",
+    "name": "Caniveau en béton vibré à 4 gorges diamètre 80",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "48-02-05",
+    "name": "Caniveau en béton vibré armé à une gorge",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "49-02-01",
+    "name": "Protection capot tôle galvanisée 5 m + traversée massif",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "49-02-02",
+    "name": "Protection capot tôle galvanisée 3 m + traversée massif",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "49-02-03",
+    "name": "Protection tube gaz 3 m 2in + traversée massif",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "49-02-04",
+    "name": "Protection tube gaz 3 m 3in + traversée massif",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "49-02-05",
+    "name": "Tube acier galvanisé diamètre 100",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "49-02-06",
+    "name": "Tube acier galvanisé diamètre 150",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "49-02-07",
+    "name": "Tube acier galvanisé diamètre 150 en demi-coquille",
+    "consistance": "F+M",
+    "unit": "M",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "50-02-01",
+    "name": "Réfection chaussée revêtue bitume",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "51-02-01",
+    "name": "Réfection trottoir revêtement ordinaire",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "51-02-02",
+    "name": "Réfection trottoir revêtement spécial",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "52-02-01",
+    "name": "Borne de signalisation ONE MT ou BT",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "53-02-01",
+    "name": "Regard de visite",
+    "consistance": "F+M",
+    "unit": "M³",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "53-02-02",
+    "name": "Fosse de lovage",
+    "consistance": "F+M",
+    "unit": "M³",
+    "famille": "Terrassement",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-01-01",
+    "name": "Pose coffret en polyester étanche et plombable équipé de coupe-circuit et cartouche AD 22x58 de calibre approprié pour compteur monophasé",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-01-02",
+    "name": "Pose coffret en polyester étanche et plombable équipé de coupe-circuit et cartouche AD 22x58 de calibre approprié pour compteur triphasé",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-01-03",
+    "name": "Pose portillon en tôle standard ONE ou coffret en fonte y compris confection niche monophasé",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-01-04",
+    "name": "Pose portillon en tôle standard ONE ou coffret en fonte y compris confection niche triphasé",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-02-01",
+    "name": "Coffret en polyester étanche et plombable équipé de coupe-circuit et cartouche AD 22x58 de calibre approprié pour compteur monophasé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-02-02",
+    "name": "Coffret en polyester étanche et plombable équipé de coupe-circuit et cartouche AD 22X58 de calibre approprié pour compteur triphasé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-02-03",
+    "name": "Fourniture et pose portillon standard ONE avec tableau plombable  équipé de coupe-circuit et cartouche AD 22X58 de calibre approprié y compris confection niche monophasé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-02-04",
+    "name": "Fourniture et pose portillon standard ONE  avec tableau plombable  équipé de coupe-circuit et cartouche AD 22X58 de calibre approprié  y compris confection niche Triphasé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-02-05",
+    "name": "Fourniture et pose coffret en fonte  équipé de coupe-circuit et cartouche AD 22X58 de calibre approprié y compris confection niche monophasé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "54-02-06",
+    "name": "Fourniture et pose coffret en fonte  équipé de coupe-circuit et cartouche AD 22X58 de calibre approprié y compris confection niche Triphasé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Abris compteurs BT",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "57-00-01",
+    "name": "Moins-value pour récupération de l'ensemble du bois d'emballage (tourets vides ,caisses etc...)",
+    "consistance": "F",
+    "unit": "KG",
+    "famille": "Récupération bois d'emballage",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-01",
+    "name": "Génie civil poste de transformation aérien type H61 sur poteau béton armé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-02",
+    "name": "Génie civil cabine maçonnée poste H61",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-03",
+    "name": "Génie civil poste de transformation type rural ( haut )  y compris pose serrure en applique sur la porte d'accès",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-04",
+    "name": "Génie civil poste maçonné type urbain ( bas ) 1 cellule transfo + 2 cellules réseau (y compris pose serrure en applique sur la porte d'accès )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-05",
+    "name": "Génie civil poste maçonné type urbain ( bas ) 1 cellule transfo + 3 cellules          (y compris pose serrure en applique sur la porte d'accès réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-06",
+    "name": "Génie civil poste maçonné type urbain ( bas ) 1 cellule transfo + 4 cellules réseau   (y compris pose serrure en applique sur la porte d'accès )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-07",
+    "name": "Génie civil poste maçonné type urbain ( bas ) 1 cellule transfo + 6 cellules  réseau   (y compris pose serrure en applique sur la porte d'accès )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-08",
+    "name": "Génie civil poste de transformation maçonné à équipement préfabriqué (y compris pose serrure en applique sur la porte d'accès )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "60-02-09",
+    "name": "Génie civil poste de transformation aérien type H61 sur pylône métallique galvanisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Génie civil poste de transformation",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-01",
+    "name": "Equipement et montage poste type H61 24 kV triphasé + basse tension",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-02",
+    "name": "Equipement et montage poste type H61 36kV  triphasé+ basse tension",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-03",
+    "name": "Equipement et montage 24 kV + basse tension poste de transformation type rural ( haut )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-04",
+    "name": "Equipement et montage 36 kV + basse tension poste de transformation type rural ( haut )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-05",
+    "name": "Equipement et montage 24 kV + basse tension 1 cellule transfo + 2 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-06",
+    "name": "Equipement et montage 24 kV + basse tension 1 cellule transfo + 3 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-07",
+    "name": "Equipement et montage 24 kV et basse tension 1 cellule transfo + 4 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-08",
+    "name": "Equipement et montage 24 kV + basse tension 1 cellule transfo +6 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-09",
+    "name": "Equipement et montage 36 kV + basse tension 1 cellule transfo",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-10",
+    "name": "Equipement et montage 36 kV + basse tension 1 cellule transfo + 2 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-11",
+    "name": "Equipement et montage 36 kV + basse tension 1 cellule transfo + 3 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-12",
+    "name": "Equipement et montage 36 kV + basse tension 1 cellule transfo +4 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-13",
+    "name": "Equipement et montage 36 kV + basse tension 1 cellule transfo +6 cellules réseau",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-14",
+    "name": "Tranche BT de protection départ 22 kV souterrain équipée conformément au détail et schéma de principe ONE",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-15",
+    "name": "Cellule départ 22 kV équipée d'un disjoncteur à faible volume d'huile 24 kV 630 A, 2 sectionneurs 630 A, 3 TC de protection 250/500 A et 3 TT 22000/V3/100/V3V,toutes sujétions copmrise.l'ensemble",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-16",
+    "name": "Cellule départ 22 kV équipée d'un disjoncteur à faible volume d'huile 36 kV 630 A, 2 sectionneurs 630 A, 3 TC de protection 250/500 A et 3 TT 22000/V3/100/V3V,toutes sujétions comprise.l'ensemble",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-20",
+    "name": "Equipement et montage poste monophasé type H61 24 kV + basse tension",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-21",
+    "name": "Equipement et montage poste monophasé type H61 36kV + basse tension",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-22",
+    "name": "Equipement et montage poste biphasé type H61 24 kV + basse tension",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "61-02-23",
+    "name": "Equipement et montage poste biphasé type H61 36kV + basse tension",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste de transformation type ouvert",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-01-01",
+    "name": "Pose cellules préfabriquées",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-01",
+    "name": "Fourniture et pose cellule interrupteur préfabriquée pour réseau à isolement dans l'air 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-02",
+    "name": "Fourniture et pose cellule interrupteur préfabriqué pour réseau à isolement dans l'air 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-03",
+    "name": "Fourniture et pose cellule interrupteur préfabriqué pour réseau à isolement au SF6 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-04",
+    "name": "Fourniture et pose cellule interrupteur préfabriquée pour réseau à isolement au SF6 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-05",
+    "name": "Fourniture et pose cellule protection transformateur préfabriquée  équipée par combiné interrupteur-fusibles à poudre ( compris boites raccordement câble ) à isolement dans l'air 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-06",
+    "name": "Fourniture et pose cellule protection transformateur préfabriquée  équipée par combiné interrupteur-fusibles à poudre ( compris boites raccordement câble ) à isolement dans l'air 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-07",
+    "name": "Fourniture et pose cellule protection transformateur préfabriquée  équipée par combiné interrupteur-fusibles à poudre ( compris boites raccordement câble ) à isolement au SF6 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-08",
+    "name": "Fourniture et pose cellule protection transformateur préfabriquée  équipée par combiné interrupteur-fusibles à poudre ( compris boites raccordement câble ) à isolement au SF6 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-09",
+    "name": "Cellule préfab. équipée d'un disjoncteur à isolement au SF6 36 kV  400 A ,          2 sectionneurs 400 A et de 3 TC de calibre adéquat y compris tranche de protection complète suivant plan type ONE toute sujétion comprise    L'ensemble",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-10",
+    "name": "Fourniture et pose caisson d'adaptation des cellules préfabriquées  *",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-02-11",
+    "name": "Equipement annexe PT maçonné à cellules préfabriquées",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-03-01",
+    "name": "Dépose cellule préfabriquée",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "62-06-01",
+    "name": "Transférement cellule préfabriquée",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Equipement et montage poste préfabriqué",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "63-01-01",
+    "name": "Pose PT cabine préfabriquée (compris plate forme, regard et circuits de terre )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poste cabine préfabriquée",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "63-02-01",
+    "name": "Founiture et pose PT cabine préfabriquée 1 cellule protection transfo 24 kV ou 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poste cabine préfabriquée",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "63-02-02",
+    "name": "Founiture et pose PT cabine préfabriquée 2 cellules réseau + 1cellule protection transfo 24 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poste cabine préfabriquée",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "63-02-03",
+    "name": "Founiture et pose PT cabine préfabriquée 2 cellules réseau + 1cellule protection transfo 36 kV",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Poste cabine préfabriquée",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "63-03-01",
+    "name": "Dépose PT cabine préfabriquée (compris remise en état des lieux )",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poste cabine préfabriquée",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "63-06-01",
+    "name": "Transférement  PT cabine préfabriquée (compris remise en état des lieux)",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poste cabine préfabriquée",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-01-01",
+    "name": "Pose d'une serrure en applique pour porte d'accès ( toutes sujétions comprises)",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-02-01",
+    "name": "Plus-value pour confection G.C toiture spéciale ( architecture locale )",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-03-01",
+    "name": "Dépose d'un poste aérien type H61",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-03-02",
+    "name": "Dépose d'un poste aérien sur deux poteaux",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-03-03",
+    "name": "Démolition génie civil  d'un poste maçonné",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-07-01",
+    "name": "Aménagement G.C interne de poste maçonné ( adaptation cloisons cellules ou adaptation plancher ou aération) y compris menuiserie métallique",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-07-02",
+    "name": "Extension G.C d'un poste pour une cellule réseau ou transfo",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-07-03",
+    "name": "Plus-value pour extension G.C une cellules réseau ou  transfo complémentaire",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-08-01",
+    "name": "Remplacement porte métallique d'accès au poste suivant plan type ONE",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-09-01",
+    "name": "Crépissage , réfection d'enduit et peinture des murs extérieurs local du poste de transformation ( existant )",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-09-02",
+    "name": "Badigeonnage des murs extérieurs local du poste de transformation (existant )",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-09-03",
+    "name": "Badigeonnage des murs intérieurs local du poste de transformation (existant )",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "64-10-01",
+    "name": "Remise en état de l'étanchéité d'un PT",
+    "consistance": "F+M",
+    "unit": "M²",
+    "famille": "Aménagement génie civil poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-01-01",
+    "name": "Pose d'un interrupteur 24 kV ou 36 kV, toutes sujétions de fixation et de raccordement comprises",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-01-02",
+    "name": "Pose isolateur support trolley y compris toutes sujétions de fixation et de raccordement",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-01-03",
+    "name": "Pose d'un tableau de distribution  BT, toutes sujétions de fixation et de raccordement comprises",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-01-04",
+    "name": "Pose d'un disjoncteur BT tout calibre, toutes sujétions de fixation et de raccordement comprises",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-01-05",
+    "name": "Pose d'un interrupteur BT, toutes sujétions de fixation et de raccordement comprises",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-01",
+    "name": "Equipement  cellule réseau : interrupteur 400 A - 24 Kv et tous ses accessoires",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-02",
+    "name": "Equipement  cellule réseau : interrupteur 400 A - 36 Kv et tous ses accessoires",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-03",
+    "name": "Equipement  cellule transfo : interrupteur 200 A -24 Kv et tous ses accessoires",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-04",
+    "name": "Equipement  cellule transfo : interrupteur 200 A -36 Kv et tous ses accessoires",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-05",
+    "name": "Fourniture et montage isolateur support trolley 24 kV avec accessoires de fixation et de raccordement",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-06",
+    "name": "Fourniture et montage isolateur support trolley 36 kV avec accessoires de fixation et de raccordement",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-07",
+    "name": "Fourniture et pose trolley 60/10, 100/10 ou 120/10 cuivre nu, toutes sujétions de fixation et de raccordement comprises",
+    "consistance": "F+M",
+    "unit": "KG",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-08",
+    "name": "Plus-value pour fourniture et pose verrouillage supplémentaire simple ou croisé",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-09",
+    "name": "Fourniture et montage dispositif de détection de défaut sur câble souterrain MT ( DDS)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-10",
+    "name": "Fourniture et pose coupe circuit à fusibles à poudre MT et accessoires (jeu de 3 fusibles calibre adéquat + jeu de rechange)",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-11",
+    "name": "Fourniture et pose chassis pour coupe circuit à fusibles à poudre MT y compris machoires et accessoires",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-12",
+    "name": "Fourniture et pose tableau de distribution BT standard ONE équipé de 4 disjoncteurs tétrapolaires de calibre adéquat",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-13",
+    "name": "Fourniture et pose chassis BT normalisé standard ONE ( sans interrupteur  ni  disjoncteurs BT)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-14",
+    "name": "Fourniture et pose d'un disjoncteur BT tétrapolaire de calibre adéquat",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-15",
+    "name": "Fourniture et pose d'un interrupteur BT tétrapolaire cadenassable à coupure visible de calibre adéquat",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-16",
+    "name": "Fourniture et pose d'un un tableau de distribution type urbain 800 A 4 départs équipés ( genre Simplex )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-02-17",
+    "name": "Fourniture et pose d'un  tableau de distribution type urbain 1200 A 8 départs équipés ( genre Simplex )",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-03-01",
+    "name": "Dépose d'un interrupteur 24 kV ou 36 kV, toutes sujétions de remise en état façades comprises",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-03-02",
+    "name": "Dépose équipement MT/BT d'un poste type ouvert",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-03-03",
+    "name": "Dépose d'un tableau de distribution  BT, toutes sujétions de remise en état façades comprises",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-06-01",
+    "name": "Transférement ensemble équipement PT H 61",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-08-01",
+    "name": "Remplacement des entrées étanches PT 24  Kv",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-08-02",
+    "name": "Remplacement des entrées étanches PT 36 Kv",
+    "consistance": "F+M",
+    "unit": "JEU",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "65-09-01",
+    "name": "Amélioration de la terre des masses et du neutre",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Aménagement équipement poste",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "67-01-01",
+    "name": "Prise en charge  d'un poste mobile",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Poste mobile",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-01",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 24 kV 25 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-02",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 36 kV 25 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-03",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 24 kV 50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-04",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 36 kV 50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-05",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 24 kV 100 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-06",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 36 kV 100 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-07",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 24 kV 160 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-08",
+    "name": "Transformateur de puissance triphasé 22kV/B2 H61 bornes 36 kV 160 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-09",
+    "name": "Transformateur de puissance triphasé type extérieur 22 kV/B2 bornes 24 kV 50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-10",
+    "name": "Transformateur de puissance triphasé type extérieur 22 Kv / B2 bornes 36 Kv 50 KvA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-11",
+    "name": "Transformateur de puissance triphasé type extérieur 22kV/B2 bornes 24 kV 100 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-12",
+    "name": "Transformateur de puissance triphasé type extérieur 22 Kv / B2 bornes 36 Kv 100 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-13",
+    "name": "Transformateur de puissance triphasé type extérieur 22kV/B2 bornes 24kV 160 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-14",
+    "name": "Transformateur de puissance triphasé type extérieur 22 Kv / B2 bornes 36Kv 160 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-15",
+    "name": "Transformateur de puissance triphasé type extérieur 22 kV/B2 bornes 24 kV 250 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-16",
+    "name": "Transformateur de puissance triphasé type extérieur 22 Kv / B2 bornes 36 Kv 250 KvA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-17",
+    "name": "Transformateur de puissance triphasé type extéieur 22 kV/B2 bornes 24 kV 315 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-18",
+    "name": "Transformateur de puissance triphasé type extérieur 22 kV/B2 bornes 36 kV 315 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-19",
+    "name": "Transformateur de puissance triphasé type extérieur 22 kV/B2 bornes 24 kV 400 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-20",
+    "name": "Transformateur de puissance triphasé type extérieur 22 Kv / B2 bornes 36Kv 400KvA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-21",
+    "name": "Transformateur de puissance triphasé type extérieur 22 kV/B2 bornes 24 kV 500 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-22",
+    "name": "Transformateur de puissance triphasé type extérieur 22 Kv / B2 bornes 36 Kv 500 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-23",
+    "name": "Transformateur de puissance triphasé type extérieur 22 kV/B2 bornes 24 kV 630 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-24",
+    "name": "Transformateur de puissance triphasé type extérieur 22 Kv / B2 bornes 36 Kv 630 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-25",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2  commutable en 22 Kv borne 24 Kv  50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-26",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 36 Kv 50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-27",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2  commutable en 22 Kv borne 24 Kv 100 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-28",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 36 Kv 100 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-29",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 kV/B2  commutable en 22 kV borne 24 kV 160 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-30",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 36 Kv 160 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-31",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2  commutable en 22 Kv borne 24 Kv 250 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-32",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 36 Kv 250 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-33",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 24 Kv 315 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-34",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 36 Kv 315 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-35",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 24 Kv 400 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-36",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 36 Kv 400 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-37",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 24 Kv 500 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-38",
+    "name": "Transformateur de puissance triphasé type extérieur 5,5 Kv / B2 commutable en 22Kv borne 36 Kv 500 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-39",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-40",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 100 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-41",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 160 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-42",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 250 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-43",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 315 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-44",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 400 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-45",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 500 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-46",
+    "name": "Transformateur de puissance triphasé à bornes embrochables 22 Kv / B2 630 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-50",
+    "name": "Transformateur de puissance monophasé 22kV/B2 H61 bornes 24 kV 15 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-51",
+    "name": "Transformateur de puissance monophasé 22kV/B2 H61 bornes 24 kV 30 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-52",
+    "name": "Transformateur de puissance monophasé 22kV/B2 H61 bornes 36 kV 15 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-53",
+    "name": "Transformateur de puissance monophasé 22kV/B2 H61 bornes 36 kV 30 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-54",
+    "name": "Transformateur de puissance biphasé 22kV/B2 H61 bornes 24 kV 15 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-55",
+    "name": "Transformateur de puissance biphasé 22kV/B2 H61 bornes 24 kV 30 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-56",
+    "name": "Transformateur de puissance biphasé 22kV/B2 H61 bornes 24 kV 50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-57",
+    "name": "Transformateur de puissance biphasé 22kV/B2 H61 bornes 36 kV 15 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-58",
+    "name": "Transformateur de puissance biphasé 22kV/B2 H61 bornes 36 kV 30 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-00-59",
+    "name": "Transformateur de puissance biphasé 22kV/B2 H61 bornes 36 kV 50 kVA",
+    "consistance": "F",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-01-01",
+    "name": "Pose transformateur de puissance quelque soit la puissance",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-03-01",
+    "name": "Dépose d'un transformateur de puissance quelque soit la puissance",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "70-06-01",
+    "name": "Transfèrement d'un transformateur de puissance quelque soit la puissance",
+    "consistance": "M",
+    "unit": "U",
+    "famille": "Transformateur de puissance",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-01",
+    "name": "Etude complète reseau 2° categorie comprenant reconnaissance, balisage,levé du profil, report sur calque repartition des supports,calcul mécanique et électrique y compris reprise éventuelle aprés examen  par ONE avec fourniture de 16 plans l'ensemble",
+    "consistance": "F+M",
+    "unit": "KM",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-02",
+    "name": "Confection des dossiers définitifs en jeu de 10 exemplaires ( suivant détail CPS)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-03",
+    "name": "Levé planimétrique y compris toponémie et établissement du calque à l'echelle 1/2000 du village (Par photogramétrie et restitution)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-04",
+    "name": "Levé planimetrique y compis toponemie et etablissement du calque à l'echelle 1/2000 des villages desservis par un seul poste (par topographie au sol)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-05",
+    "name": "Levé planimetrique y compis toponemie et etablissement du calque à l'echelle 1/2000 des villages desservis par un seul poste (Par photogramétrie et restitution)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-06",
+    "name": "Levé planimetrique y compis toponemie et etablissement du calque à l'echelle 1/2000 des villages (par topographie au sol)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-07",
+    "name": "Confection du dossier projet de construction pour les lignes MT en 20 exemplaires sur chemise cartonnée (modele ONE)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-08",
+    "name": "Confection d'un dossier d'électrification par village en 20 exemplaires",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-09",
+    "name": "Confection du dossier technique de branchements MT par commune en 20 exemplaires sur chemise simple (Modèle ONE)",
+    "consistance": "F+M",
+    "unit": "U",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-10",
+    "name": "Tracé BT Calcul électrique et mécanique y compris reprise éventuelle après examen par ONE avec fourniture de 12 plans (l'ensemble)",
+    "consistance": "F+M",
+    "unit": "KM",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  },
+  {
+    "reference": "80-02-11",
+    "name": "Tavaux topographique pour ligne 2°catégorie",
+    "consistance": "F+M",
+    "unit": "KM",
+    "famille": "Etude ligne",
+    "initial_stock": 0,
+    "status": "actif"
+  }
+]

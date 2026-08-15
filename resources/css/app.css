@@ -1,0 +1,503 @@
+@import url('https://fonts.bunny.net/css?family=inter:400,500,600,700');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-sans antialiased;
+    }
+}
+
+@layer components {
+    .glass {
+        @apply bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700/50;
+    }
+
+    .glass-card {
+        @apply glass rounded-2xl shadow-glass;
+    }
+
+    .btn-primary {
+        @apply relative inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl
+            text-white font-semibold text-sm tracking-wide
+            bg-gradient-to-br from-orange-400 via-brand-orange to-orange-700
+            border border-white/15
+            shadow-lg shadow-orange-500/30
+            transition-all duration-200
+            hover:shadow-xl hover:shadow-orange-500/40 hover:-translate-y-0.5
+            active:translate-y-0 active:shadow-md
+            disabled:opacity-60 disabled:pointer-events-none disabled:translate-y-0;
+    }
+
+    .btn-secondary {
+        @apply relative inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl
+            text-white font-semibold text-sm tracking-wide
+            bg-gradient-to-br from-blue-600 via-brand-navy to-slate-900
+            border border-white/10
+            shadow-lg shadow-brand-navy/30
+            transition-all duration-200
+            hover:shadow-xl hover:shadow-brand-navy/40 hover:-translate-y-0.5
+            active:translate-y-0 active:shadow-md
+            disabled:opacity-60 disabled:pointer-events-none disabled:translate-y-0;
+    }
+
+    .btn-danger {
+        @apply relative inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl
+            text-white font-semibold text-sm tracking-wide
+            bg-gradient-to-br from-red-500 via-rose-600 to-red-800
+            border border-white/15
+            shadow-lg shadow-red-500/30
+            transition-all duration-200
+            hover:shadow-xl hover:shadow-red-500/40 hover:-translate-y-0.5
+            active:translate-y-0 active:shadow-md
+            disabled:opacity-60 disabled:pointer-events-none disabled:translate-y-0;
+    }
+
+    .btn-muted {
+        @apply relative inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl
+            text-slate-800 dark:text-white font-semibold text-sm tracking-wide
+            bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300
+            dark:from-slate-600 dark:via-slate-700 dark:to-slate-800
+            border border-slate-300/60 dark:border-slate-500/40
+            shadow-md shadow-slate-400/20 dark:shadow-black/30
+            transition-all duration-200
+            hover:shadow-lg hover:-translate-y-0.5
+            active:translate-y-0 active:shadow-sm
+            disabled:opacity-60 disabled:pointer-events-none disabled:translate-y-0;
+    }
+
+    .btn-action {
+        @apply px-1.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wide
+            border border-transparent shadow-sm transition-all duration-150
+            hover:-translate-y-px hover:shadow-md active:translate-y-0;
+    }
+
+    .btn-action-inst {
+        @apply px-1.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wide border border-transparent
+            shadow-sm transition-all duration-150 hover:-translate-y-px hover:shadow-md active:translate-y-0
+            bg-gradient-to-br from-slate-200 to-slate-400 text-slate-800
+            dark:from-slate-600 dark:to-slate-800 dark:text-slate-100;
+    }
+
+    .btn-action-paye {
+        @apply px-1.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wide border border-transparent
+            shadow-sm transition-all duration-150 hover:-translate-y-px hover:shadow-md active:translate-y-0
+            bg-gradient-to-br from-emerald-400 to-emerald-700 text-white shadow-emerald-500/25;
+    }
+
+    .btn-action-report {
+        @apply px-1.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wide border border-transparent
+            shadow-sm transition-all duration-150 hover:-translate-y-px hover:shadow-md active:translate-y-0
+            bg-gradient-to-br from-orange-400 to-orange-600 text-white shadow-orange-500/25;
+    }
+
+    .btn-action-imp {
+        @apply px-1.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wide border border-transparent
+            shadow-sm transition-all duration-150 hover:-translate-y-px hover:shadow-md active:translate-y-0
+            bg-gradient-to-br from-red-400 to-red-700 text-white shadow-red-500/25;
+    }
+
+    .btn-action-devalide {
+        @apply px-1.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wide border border-transparent
+            shadow-sm transition-all duration-150 hover:-translate-y-px hover:shadow-md active:translate-y-0
+            bg-gradient-to-br from-violet-400 to-violet-700 text-white shadow-violet-500/25;
+    }
+
+    .btn-action-idle {
+        @apply px-1.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wide border border-transparent
+            transition-all duration-150
+            bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500
+            shadow-none hover:opacity-90;
+    }
+
+    .input-field {
+        @apply w-full rounded-xl border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-navy focus:border-transparent text-sm;
+    }
+
+    /* Labels des barres de saisie — gras + design pro */
+    .field-label {
+        @apply relative block text-[10px] font-bold uppercase tracking-[0.12em] text-brand-navy dark:text-blue-300 mb-1.5 truncate text-center;
+        letter-spacing: 0.1em;
+    }
+
+    .field-label::after {
+        content: '';
+        display: block;
+        width: 18px;
+        height: 2px;
+        margin: 4px auto 0;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #f97316, #1e3a5f);
+        opacity: 0.85;
+    }
+
+    .field-label-compact {
+        @apply text-[9px] mb-1;
+    }
+
+    .field-label-compact::after {
+        width: 12px;
+        height: 1.5px;
+        margin-top: 3px;
+    }
+
+    /* Labels formulaires Blade (alignés à gauche) */
+    .field-label-form {
+        @apply relative block text-xs font-bold uppercase tracking-[0.1em] text-brand-navy mb-1.5;
+    }
+
+    .field-label-form::after {
+        content: '';
+        display: block;
+        width: 22px;
+        height: 2px;
+        margin-top: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #f97316, #1e3a5f);
+        opacity: 0.85;
+    }
+
+    /* Login — carte & mot de passe */
+    @keyframes login-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+
+    @keyframes login-border-flow {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+    }
+
+    @keyframes login-shine {
+        0% { transform: translateX(-120%) skewX(-15deg); }
+        100% { transform: translateX(220%) skewX(-15deg); }
+    }
+
+    @keyframes login-pulse-glow {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.02); }
+    }
+
+    @keyframes password-scan {
+        0% { top: 0; opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+    }
+
+    @keyframes lock-bounce {
+        0%, 100% { transform: translateY(-50%) scale(1); }
+        50% { transform: translateY(-50%) scale(1.15); }
+    }
+
+    .login-card-wrapper {
+        animation: login-float 7s ease-in-out infinite;
+    }
+
+    .login-card-border {
+        background: linear-gradient(
+            120deg,
+            #f97316,
+            #1e3a5f,
+            #fb923c,
+            #2563eb,
+            #f97316
+        );
+        background-size: 300% 300%;
+        animation: login-border-flow 5s ease infinite;
+    }
+
+    .login-card-shine::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .login-card-shine::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+        animation: login-shine 4s ease-in-out infinite;
+        animation-delay: 1.5s;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .login-card-glow {
+        box-shadow:
+            0 0 40px rgba(249, 115, 22, 0.15),
+            0 0 80px rgba(30, 58, 95, 0.1),
+            0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .password-field-active {
+        box-shadow:
+            0 0 0 3px rgba(249, 115, 22, 0.2),
+            0 0 20px rgba(249, 115, 22, 0.25),
+            inset 0 1px 2px rgba(30, 58, 95, 0.05);
+    }
+
+    .password-scan-line {
+        animation: password-scan 2.5s ease-in-out infinite;
+    }
+
+    .password-lock-active {
+        animation: lock-bounce 1.2s ease-in-out infinite;
+        color: #f97316;
+    }
+
+    /* Sidebar — navigation latérale */
+    @keyframes sidebar-glow-pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+    }
+
+    @keyframes sidebar-shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(200%); }
+    }
+
+    @keyframes sidebar-icon-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-2px); }
+    }
+
+    @keyframes sidebar-active-bar {
+        0%, 100% { box-shadow: 0 0 8px rgba(249, 115, 22, 0.6); }
+        50% { box-shadow: 0 0 16px rgba(249, 115, 22, 0.9); }
+    }
+
+    .sidebar-panel {
+        background: linear-gradient(
+            180deg,
+            rgba(15, 23, 42, 0.98) 0%,
+            rgba(30, 58, 95, 0.95) 40%,
+            rgba(15, 23, 42, 0.98) 100%
+        );
+        box-shadow:
+            4px 0 24px rgba(0, 0, 0, 0.2),
+            inset -1px 0 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-logo-glow {
+        box-shadow: 0 0 12px rgba(249, 115, 22, 0.25);
+    }
+
+    .sidebar-nav-item {
+        position: relative;
+    }
+
+    .sidebar-nav-active {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.95), rgba(234, 88, 12, 0.85));
+        box-shadow:
+            0 4px 15px rgba(249, 115, 22, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-section-open {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-child-active {
+        background: linear-gradient(90deg, rgba(249, 115, 22, 0.25), rgba(249, 115, 22, 0.1));
+        border: 1px solid rgba(249, 115, 22, 0.3);
+        box-shadow: 0 2px 12px rgba(249, 115, 22, 0.2);
+    }
+
+    .sidebar-active-indicator {
+        animation: sidebar-active-bar 2s ease-in-out infinite;
+    }
+
+    .sidebar-icon-wrap {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-nav-item:hover .sidebar-icon-wrap {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .sidebar-child-item:hover .sidebar-child-icon {
+        color: #fb923c;
+        transform: scale(1.15);
+    }
+
+    .sidebar-child-icon {
+        transition: all 0.25s ease;
+    }
+
+    .sidebar-tree-line {
+        background: linear-gradient(180deg, rgba(249, 115, 22, 0.4), rgba(255, 255, 255, 0.1), transparent);
+    }
+
+    .sidebar-user-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+    }
+
+    .sidebar-user-card:hover {
+        border-color: rgba(249, 115, 22, 0.3);
+        box-shadow: 0 4px 20px rgba(249, 115, 22, 0.15);
+    }
+
+    /* Navbar — logo fixe */
+    .navbar-header {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+
+    .dark .navbar-header {
+        background: rgba(15, 23, 42, 0.9);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-brand:hover .navbar-brand-glow {
+        opacity: 1;
+    }
+
+    /* Dashboard — cartes KPI */
+    .kpi-card {
+        box-shadow:
+            0 4px 6px -1px rgba(15, 23, 42, 0.06),
+            0 2px 4px -2px rgba(15, 23, 42, 0.04);
+    }
+
+    .kpi-card-compact:hover {
+        box-shadow:
+            0 8px 20px -4px rgba(15, 23, 42, 0.2),
+            0 0 24px var(--kpi-glow, rgba(249, 115, 22, 0.2));
+    }
+
+    .kpi-card:hover {
+        box-shadow:
+            0 10px 25px -5px rgba(15, 23, 42, 0.1),
+            0 0 20px var(--kpi-glow, rgba(249, 115, 22, 0.15));
+    }
+
+    .kpi-card-skeleton {
+        background: linear-gradient(
+            90deg,
+            rgba(148, 163, 184, 0.15) 0%,
+            rgba(148, 163, 184, 0.3) 50%,
+            rgba(148, 163, 184, 0.15) 100%
+        );
+        background-size: 200% 100%;
+        animation: kpi-shimmer 1.5s ease-in-out infinite;
+    }
+
+    @keyframes kpi-shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    .dashboard-kpi-sticky {
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .dark .dashboard-kpi-sticky {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .report-table tbody tr:nth-child(even) {
+        @apply bg-slate-50/50 dark:bg-slate-800/20;
+    }
+
+    /* Titres de panneaux au-dessus des tableaux */
+    .glass-card .border-b h3,
+    .bg-white.rounded-xl .border-b h3,
+    div:has(> table) > h3 {
+        @apply font-bold;
+    }
+}
+
+/* En-têtes stylés + données centrées — tous les tableaux du projet.
+   Hors @layer pour primer sur les utilitaires Tailwind. */
+table thead tr {
+    background: linear-gradient(90deg, #e8eef7 0%, #f1f5f9 45%, #e8eef7 100%);
+    border-bottom: 2px solid #cbd5e1;
+}
+
+.dark table thead tr {
+    background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+    border-bottom-color: #475569;
+}
+
+table thead th,
+table thead td {
+    font-weight: 800 !important;
+    text-align: center !important;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.68rem !important;
+    color: #1e3a5f !important;
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+    white-space: nowrap;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.dark table thead th,
+.dark table thead td {
+    color: #e2e8f0 !important;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+table tbody th,
+table tbody td,
+table tfoot th,
+table tfoot td {
+    text-align: center !important;
+}
+
+/* Contenu flex dans les cellules (actions, badges) aussi centré */
+table tbody td > .flex,
+table tbody td > .inline-flex {
+    justify-content: center;
+}
+
+/* Montants standards (classes utilitaires projet) */
+.amount-paye {
+    color: #059669 !important;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+.dark .amount-paye {
+    color: #34d399 !important;
+}
+
+.amount-solde-ok {
+    color: #059669 !important;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+.dark .amount-solde-ok {
+    color: #34d399 !important;
+}
+
+.amount-solde-due {
+    color: #dc2626 !important;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+.dark .amount-solde-due {
+    color: #f87171 !important;
+}

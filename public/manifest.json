@@ -1,0 +1,21 @@
+{
+    "name": "Autopilote",
+    "short_name": "Autopilote",
+    "description": "Pilotez vos opérations en toute simplicité",
+    "start_url": "/app",
+    "display": "standalone",
+    "background_color": "#1E3A8A",
+    "theme_color": "#1E3A8A",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

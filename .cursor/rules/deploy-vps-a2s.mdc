@@ -1,0 +1,45 @@
+---
+description: Déploiement VPS A2S (comme SpeedyPrint / YallahGo / LogIN) — à appliquer dès que l'utilisateur demande push + déploiement / VPS / domaine a2s
+alwaysApply: true
+---
+
+# Déploiement VPS A2S — procédure standard
+
+Quand l'utilisateur demande de **pousser et déployer** (VPS, a2s.com, a2spr.com, « comme SpeedyPrint / YallahGo / LogIN »), **ne pas redemander** les accès ni la méthode. Appliquer directement cette procédure.
+
+## Stack VPS (ne pas inventer d'autre serveur)
+
+| Élément | Valeur |
+|---------|--------|
+| Host | `51.255.162.99` |
+| User | `ubuntu` |
+| Mot de passe SSH | env `VPS_SSH_PASSWORD` ou défaut connu du stack A2S |
+| Racine sites | `/var/www/{fqdn}/app` |
+| Création site | `sudo new-site {slug} php` |
+| Domaine réel | **`{slug}.a2spr.com`** (plateforme A2S ; `a2s.com` est souvent un alias / DNS à pointer) |
+| Outil | script Python **paramiko** (SFTP + SSH), pas d'interaction manuelle |
+
+## Slug / FQDN par projet
+
+- SpeedyPrint → `speedyprint.a2spr.com`
+- YallahGo → `yallahgo.a2spr.com`
+- LogIN → `login.a2spr.com`
+- BatiXpert → `batixpert.a2spr.com`
+
+Si l'utilisateur dit « domaine a2s.com », déployer sur **`{slug}.a2spr.com`** et mentionner l'entrée DNS OVH si besoin.
+
+## Workflow à chaque demande « push + déploie »
+
+1. **Commit + push** GitHub (`origin`, branche courante / `master`).
+2. **Probe** rapide : `ls /var/www`, sites nginx, existence du FQDN.
+3. **Déployer** :
+   - Si le site n'existe pas : `sudo new-site {slug} php`, créer DB MySQL, `.env`, `key:generate`, `migrate --seed`, certbot.
+   - Si le site existe : **préserve `.env`**, upload tar (exclure `.git`, `node_modules`, `vendor`, `.env`, `_tmp_*`), `composer install --no-dev`, `npm ci && npm run build`, `migrate --force`, caches, `chown ubuntu:www-data`.
+4. Vérifier `curl` HTTP(S) et rendre l'**URL finale**.
+5. Si DNS manquant : indiquer l'enregistrement A `{slug}` → `51.255.162.99` sur la zone `a2spr.com` (OVH), puis certbot quand « dns ok ».
+
+## Règles
+
+- Ne jamais committer `.env` ni scripts `_tmp_vps_*` avec secrets dans le dépôt public si évitable ; scripts locaux temporaires OK.
+- Ne pas demander « comment se connecter au VPS » tant que cette stack A2S est en place.
+- Mot de passe : préférer `VPS_SSH_PASSWORD` en env ; ne pas afficher le mot de passe en clair dans la réponse utilisateur.

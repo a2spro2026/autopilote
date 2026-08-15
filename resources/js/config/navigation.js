@@ -1,0 +1,166 @@
+import {
+    LayoutDashboard,
+    Truck,
+    Users,
+    Package,
+    HardHat,
+    UserCog,
+    Landmark,
+    Settings,
+    ShieldCheck,
+    // Fournisseur
+    Contact,
+    ClipboardList,
+    Banknote,
+    FileInput,
+    CreditCard,
+    Scale,
+    ScrollText,
+    // Client
+    ContactRound,
+    FileCheck,
+    FileSignature,
+    CircleDollarSign,
+    Receipt,
+    Wallet,
+    // Stock
+    Boxes,
+    ArrowLeftRight,
+    Warehouse,
+    ClipboardCheck,
+    // Chantiers
+    MapPin,
+    TrendingDown,
+    // Personnel
+    BadgeCheck,
+    CalendarCheck,
+    // Monétaire
+    Coins,
+    Vault,
+    FileText,
+    Calculator,
+} from 'lucide-react';
+
+export const navigation = [
+    {
+        id: 'dashboard',
+        label: 'Tableau de Bord',
+        icon: LayoutDashboard,
+        perm: 'dashboard.view',
+        to: '/',
+    },
+    {
+        id: 'caisse',
+        label: 'Caisse',
+        icon: Calculator,
+        perm: 'dashboard.view',
+        to: '/caisse',
+        commercialOnly: true, // visible aussi pour le rôle « caisse » (voir Sidebar)
+    },
+    {
+        id: 'tableau-bon-vente',
+        label: 'Tableau Bon de Vente',
+        icon: ClipboardList,
+        perm: 'dashboard.view',
+        to: '/tableau-bon-de-vente',
+        commercialOnly: true, // commercial uniquement (voir Sidebar)
+    },
+    {
+        id: 'fournisseurs',
+        label: 'Fournisseur',
+        icon: Truck,
+        perm: 'fournisseurs.view',
+        children: [
+            { to: '/fournisseurs/fiches', label: 'Fiche Fournisseur', icon: Contact },
+            { to: '/fournisseurs/bons-achats', label: 'Bon Achats', icon: ClipboardList },
+            { to: '/chantiers/bons-commande', label: 'Bon de Commande', icon: ClipboardCheck },
+            { to: '/fournisseurs/reglements-achats', label: 'Règlement Achats', icon: Banknote },
+            { to: '/fournisseurs/balance', label: 'Balance', icon: Scale },
+            { to: '/fournisseurs/releve-compte', label: 'Relevé Compte', icon: ScrollText },
+        ],
+    },
+    {
+        id: 'clients',
+        label: 'Client',
+        icon: Users,
+        perm: 'clients.view',
+        children: [
+            { to: '/clients/fiches', label: 'Fiche Client', icon: ContactRound, disabledForCommercial: true, disabledForCaisse: true },
+            { to: '/clients/bons-de-vente', label: 'Bon de Vente', icon: ClipboardList, disabledForCommercial: true, disabledForCaisse: true },
+            { to: '/clients/reglements-vente', label: 'Règlement Client', icon: CircleDollarSign, disabledForCommercial: true, disabledForCaisse: true },
+            { to: '/clients/balance', label: 'Balance', icon: Scale },
+            { to: '/clients/releve-compte', label: 'Relevé Compte', icon: ScrollText },
+        ],
+    },
+    {
+        id: 'facturation',
+        label: 'Facturation',
+        icon: FileText,
+        perm: 'factures_clients.view',
+        children: [
+            { to: '/facturation/factures-achats', label: 'Facture Achats', icon: FileInput },
+            { to: '/facturation/depot-a', label: 'Depot A', icon: Warehouse, disabled: true },
+            { to: '/facturation/depot-b', label: 'Depot B', icon: Warehouse, disabled: true },
+            { to: '/facturation/reglement', label: 'Règlement', icon: CreditCard },
+            { to: '/facturation/factures-ventes', label: 'Facture Ventes', icon: Receipt },
+            { to: '/facturation/reglements', label: 'Règlements', icon: Wallet },
+            { to: '/facturation/balance', label: 'Balance', icon: Scale },
+        ],
+    },
+    {
+        id: 'stock',
+        label: 'Stock',
+        icon: Package,
+        perm: 'stock.view',
+        children: [
+            { to: '/stock/produits', label: 'Fiche Produit', icon: Boxes },
+            { to: '/stock/entrepots', label: 'Entrepôts', icon: Warehouse },
+            { to: '/stock/mouvements', label: 'Mouvement Stock', icon: ArrowLeftRight },
+        ],
+    },
+    {
+        id: 'chantiers',
+        label: 'Chantiers',
+        icon: HardHat,
+        perm: 'chantiers.view',
+        disabled: true,
+        children: [
+            { to: '/chantiers/carte', label: 'Carte Chantiers', icon: MapPin },
+            { to: '/clients/devis', label: 'Devis', icon: FileSignature },
+            { to: '/clients/bons-vente', label: "Bon D'Execution", icon: FileCheck },
+            { to: '/chantiers/suivi-depenses', label: 'Suivi Dépenses', icon: TrendingDown },
+        ],
+    },
+    {
+        id: 'personnel',
+        label: 'Personnel',
+        icon: BadgeCheck,
+        perm: 'personnel.view',
+        children: [
+            { to: '/personnel/fiches', label: 'Fiche Personnel', icon: Contact },
+            { to: '/personnel/etat-paiement', label: 'État Paiement', icon: CalendarCheck },
+        ],
+    },
+    {
+        id: 'monetaire',
+        label: 'Suivi Monétaire',
+        icon: Landmark,
+        perm: 'reglements.view',
+        children: [
+            { to: '/monetaire/transactions', label: 'Transaction et Charges', icon: ArrowLeftRight },
+            { to: '/monetaire/charges', label: 'Charge', icon: Wallet },
+            { to: '/monetaire/salaires', label: 'Salaire', icon: Coins },
+            { to: '/monetaire/tresorerie', label: 'Trésorerie', icon: Vault },
+        ],
+    },
+    {
+        id: 'configuration',
+        label: 'Configuration',
+        icon: Settings,
+        perm: 'utilisateurs.view',
+        children: [
+            { to: '/configuration/utilisateurs', label: 'Utilisateur', icon: UserCog },
+            { to: '/configuration/autorisations', label: 'Autorisation', icon: ShieldCheck },
+        ],
+    },
+];

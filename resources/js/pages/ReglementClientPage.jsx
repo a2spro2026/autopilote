@@ -1,0 +1,900 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+    CheckCircle2, XCircle, Receipt, Scale, Plus, Eye, Pencil, Trash2, Printer,
+    Banknote, Wallet, AlertCircle, Search, X, RefreshCw,
+} from 'lucide-react';
+import api from '../lib/api';
+
+const REGLEMENT_OPTIONS = ['', 'Esp', 'Chq', 'Eff', 'Vir', 'Vers'];
+const BANQUE_OPTIONS = ['', 'Attijariwafa', 'BMCE', 'Banque Populaire', 'CIH', 'SGMB', 'Crédit Agricole', 'CDM', 'Al Barid Bank', 'Autre'];
+const STATUT_OPTIONS = [
+    { value: 'Inst', label: 'Inst', className: 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600' },
+    { value: 'Payé', label: 'Payé', className: 'bg-emerald-500 text-white border-emerald-600' },
+    { value: 'Report', label: 'Report', className: 'bg-amber-400 text-amber-950 border-amber-500' },
+    { value: 'Imp', label: 'Imp', className: 'bg-red-500 text-white border-red-600' },
+    { value: 'Dévalidé', label: 'Dévalidé', className: 'bg-violet-600 text-white border-violet-700' },
+];
+const ACTION_OPTIONS = [
+    { value: 'Inst', label: 'Inst', activeClass: 'btn-action-inst' },
+    { value: 'Payé', label: 'Payé', activeClass: 'btn-action-paye' },
+    { value: 'Report', label: 'Report', activeClass: 'btn-action-report' },
+    { value: 'Imp', label: 'Imp', activeClass: 'btn-action-imp' },
+    { value: 'Dévalidé', label: 'Dévalidé', activeClass: 'btn-action-devalide' },
+];
+
+const emptyForm = {
+    payment_date: '',
+    client_id: '',
+    reglement: '',
+    numero: '',
+    banque: '',
+    nom_tire: '',
+    montant: '',
+    date_decaissement: '',
+    remarque: '',
+};
+
+const emptyFilters = {
+    statut: '',
+    numero: '',
+    banque: '',
+    montant: '',
+    mois: '',
+};
+
+function Field({ label, children }) {
+    return (
+        <div className="min-w-0">
+            <label className="field-label field-label-compact">{label}</label>
+            {children}
+        </div>
+    );
+}
+
+const inputClass =
+    'w-full rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-1.5 py-1 text-[11px] text-center outline-none focus:ring-1 focus:ring-brand-navy/30 focus:border-brand-navy transition-all';
+const readOnlyClass =
+    'w-full rounded-md border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 px-1.5 py-1 text-[11px] text-center cursor-not-allowed';
+const filterClass =
+    'w-full rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-2.5 py-2 text-xs outline-none focus:ring-2 focus:ring-brand-navy/30 focus:border-brand-navy';
+
+function formatMontant(value) {
+    return (Number(value) || 0).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function ActionBtn({ title, icon: Icon, color = 'slate', onClick }) {
+    const colors = {
+        blue: 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400',
+        amber: 'hover:bg-amber-50 hover:text-amber-600 dark:hover:bg-amber-900/30 dark:hover:text-amber-400',
+        red: 'hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400',
+        slate: 'hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200',
+    };
+    return (
+        <button type="button" title={title} onClick={onClick} className={`p-1.5 rounded-lg text-slate-400 transition-colors ${colors[color]}`}>
+            <Icon className="w-3.5 h-3.5" strokeWidth={2} />
+        </button>
+    );
+}
+
+function statutClass(statut) {
+    return STATUT_OPTIONS.find((s) => s.value === statut)?.className
+        || 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600';
+}
+
+const STATUT_ROW_CLASS = {
+    Inst: 'bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800/60',
+    Payé: 'bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30',
+    Report: 'bg-amber-50 dark:bg-amber-900/20 hover:bg-amber-100 dark:hover:bg-amber-900/30',
+    Imp: 'bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30',
+    Dévalidé: 'bg-violet-50 dark:bg-violet-900/20 hover:bg-violet-100 dark:hover:bg-violet-900/30',
+};
+
+function statutRowClass(statut) {
+    return STATUT_ROW_CLASS[statut] || 'hover:bg-blue-50/40 dark:hover:bg-slate-800/40';
+}
+
+function buildPrintHtml(row) {
+    const allocRows = (row.allocations || []).map((a) =>
+        `<tr><td>${a.bon || '—'}</td><td>${formatMontant(a.amount)}</td><td>${a.action || '—'}</td></tr>`
+    ).join('') || '<tr><td colspan="3">—</td></tr>';
+
+    return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Règlement ${row.reference}</title>
+<style>body{font-family:Arial,sans-serif;padding:32px;color:#1e293b}h1{color:#1e3a5f;font-size:22px}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border:1px solid #e2e8f0;padding:8px;font-size:12px;text-align:center}
+th{background:#f8fafc;font-weight:700}.badge{background:#dbeafe;color:#1d4ed8;padding:4px 10px;border-radius:999px;font-weight:700}
+</style></head><body>
+<h1>Autopilote — Règlement Achats <span class="badge">${row.reference || ''}</span></h1>
+<table>
+<tr><th>Date</th><td>${row.payment_date || '—'}</td><th>Client</th><td>${row.client || '—'}</td></tr>
+<tr><th>Type</th><td>${row.reglement || '—'}</td><th>N°</th><td>${row.numero || '—'}</td></tr>
+<tr><th>Banque</th><td>${row.banque || '—'}</td><th>Date Décaiss</th><td>${row.date_decaissement || '—'}</td></tr>
+<tr><th>Montant</th><td><strong>${formatMontant(row.montant)}</strong></td><th>Statut</th><td>${row.statut || '—'}</td></tr>
+<tr><th>Nom tiré</th><td>${row.nom_tire || '—'}</td><th>Remarque</th><td>${row.remarque || '—'}</td></tr>
+</table>
+<table><thead><tr><th>Bon</th><th>Montant</th><th>Action</th></tr></thead><tbody>${allocRows}</tbody></table>
+</body></html>`;
+}
+
+function openPrintable(row) {
+    const w = window.open('', '_blank', 'width=900,height=700');
+    if (!w) return;
+    w.document.write(buildPrintHtml(row));
+    w.document.close();
+    w.focus();
+    setTimeout(() => w.print(), 300);
+}
+
+function ViewModal({ row, onClose }) {
+    if (!row) return null;
+    const fields = [
+        ['Réf', row.reference],
+        ['Date', row.payment_date],
+        ['Client', row.client],
+        ['Type', row.reglement],
+        ['N°', row.numero],
+        ['Banque', row.banque],
+        ['Date Décaiss', row.date_decaissement],
+        ['Montant', formatMontant(row.montant)],
+        ['Statut', row.statut],
+        ['Nom tiré', row.nom_tire],
+        ['Remarque', row.remarque],
+    ];
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
+            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-lg border border-slate-200 dark:border-slate-700 overflow-hidden" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-blue-600 to-blue-800">
+                    <h3 className="text-white font-bold text-sm">Détail règlement {row.reference}</h3>
+                    <button type="button" onClick={onClose} className="text-white/80 hover:text-white"><X className="w-5 h-5" /></button>
+                </div>
+                <div className="p-5 grid grid-cols-2 gap-3 text-sm">
+                    {fields.map(([label, value]) => (
+                        <div key={label}>
+                            <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">{label}</p>
+                            <p className="font-medium text-slate-800 dark:text-slate-100">{value || '—'}</p>
+                        </div>
+                    ))}
+                </div>
+                {(row.allocations || []).length > 0 && (
+                    <div className="px-5 pb-5">
+                        <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-2">Allocations</p>
+                        <div className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                            <table className="w-full text-xs">
+                                <thead><tr className="bg-slate-50 dark:bg-slate-800"><th className="px-2 py-1.5">Bon</th><th className="px-2 py-1.5">Montant</th><th className="px-2 py-1.5">Action</th></tr></thead>
+                                <tbody>
+                                    {row.allocations.map((a) => (
+                                        <tr key={a.id} className="border-t border-slate-100 dark:border-slate-800 text-center">
+                                            <td className="px-2 py-1.5 font-mono">{a.bon}</td>
+                                            <td className="px-2 py-1.5 tabular-nums">{formatMontant(a.amount)}</td>
+                                            <td className="px-2 py-1.5">{a.action || '—'}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+function monthOptions() {
+    const now = new Date();
+    const options = [];
+    for (let i = 0; i < 24; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        const label = d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+        options.push({ value, label: label.charAt(0).toUpperCase() + label.slice(1) });
+    }
+    return options;
+}
+
+export default function ReglementClientPage() {
+    const [view, setView] = useState('list'); // list | form
+    const [editingId, setEditingId] = useState(null);
+    const [form, setForm] = useState(emptyForm);
+    const [filters, setFilters] = useState(emptyFilters);
+    const [appliedFilters, setAppliedFilters] = useState(emptyFilters);
+    const [payments, setPayments] = useState([]);
+    const [summary, setSummary] = useState({ total_reglement: 0, total_decaisse: 0, total_impaye: 0 });
+    const [clients, setClients] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [selected, setSelected] = useState({});
+    const [actions, setActions] = useState({});
+    const [meta, setMeta] = useState({ next_ref: 'RC-0001', date_raw: '' });
+    const [totals, setTotals] = useState({ total_ttc: 0, solde_ttc: 0 });
+    const [loading, setLoading] = useState(false);
+    const [loadingList, setLoadingList] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [error, setError] = useState('');
+    const [viewRow, setViewRow] = useState(null);
+
+    const set = (key, value) => setForm((f) => ({ ...f, [key]: value }));
+    const setFilter = (key, value) => setFilters((f) => ({ ...f, [key]: value }));
+
+    const loadMeta = useCallback(() => {
+        api.get('/client-payments/meta')
+            .then((r) => setMeta(r.data ?? { next_ref: 'RC-0001', date_raw: '' }))
+            .catch(() => {});
+    }, []);
+
+    const loadClients = useCallback(() => {
+        api.get('/clients', { params: { all: 1 } })
+            .then((r) => setClients(r.data.data ?? []))
+            .catch(() => setClients([]));
+    }, []);
+
+    const loadPayments = useCallback(() => {
+        setLoadingList(true);
+        const params = {};
+        Object.entries(appliedFilters).forEach(([k, v]) => {
+            if (v) params[k] = v;
+        });
+        api.get('/client-payments', { params })
+            .then((r) => {
+                setPayments(r.data.data ?? []);
+                setSummary({
+                    total_reglement: Number(r.data.meta?.total_reglement) || 0,
+                    total_decaisse: Number(r.data.meta?.total_decaisse) || 0,
+                    total_impaye: Number(r.data.meta?.total_impaye) || 0,
+                });
+            })
+            .catch(() => {
+                setPayments([]);
+                setSummary({ total_reglement: 0, total_decaisse: 0, total_impaye: 0 });
+            })
+            .finally(() => setLoadingList(false));
+    }, [appliedFilters]);
+
+    const loadOrders = useCallback((clientId) => {
+        if (!clientId) {
+            setOrders([]);
+            setSelected({});
+            setActions({});
+            setTotals({ total_ttc: 0, solde_ttc: 0 });
+            return;
+        }
+        setLoading(true);
+        api.get('/client-payments/orders', { params: { client_id: clientId } })
+            .then((r) => {
+                const rows = r.data.data ?? [];
+                setOrders(rows);
+                setTotals({
+                    total_ttc: Number(r.data.meta?.total_ttc) || 0,
+                    solde_ttc: Number(r.data.meta?.solde_ttc) || 0,
+                });
+                const nextActions = {};
+                rows.forEach((o) => {
+                    nextActions[o.id] = o.payment_action || 'Inst';
+                });
+                setActions(nextActions);
+                setSelected({});
+            })
+            .catch(() => {
+                setOrders([]);
+                setTotals({ total_ttc: 0, solde_ttc: 0 });
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    useEffect(() => {
+        loadMeta();
+        loadClients();
+    }, [loadMeta, loadClients]);
+
+    useEffect(() => {
+        if (view === 'list') loadPayments();
+    }, [view, loadPayments]);
+
+    useEffect(() => {
+        if (view === 'form' && !editingId) {
+            loadOrders(form.client_id);
+        }
+    }, [form.client_id, view, editingId, loadOrders]);
+
+    const selectedIds = useMemo(
+        () => Object.keys(selected).filter((id) => selected[id]).map(Number),
+        [selected],
+    );
+
+    const montantReglement = useMemo(
+        () => parseFloat(String(form.montant).replace(',', '.')) || 0,
+        [form.montant],
+    );
+
+    const previewById = useMemo(() => {
+        const map = {};
+        orders.forEach((o) => {
+            const bon = Number(o.montant_bon) || 0;
+            const paid = Number(o.montant_paye) || 0;
+            map[o.id] = { montant_paye: paid, solde: bon - paid, allocation: 0, preview: false };
+        });
+
+        if (!selectedIds.length || montantReglement <= 0) return map;
+
+        // Répartition sur les lignes cochées : Montant Payé = déjà payé + règlement saisi
+        // Solde = Montant Bon − Montant Payé (ex. solde 50000 − 15000 = 35000)
+        let remaining = montantReglement;
+        orders.filter((o) => selectedIds.includes(o.id)).forEach((o) => {
+            const bon = Number(o.montant_bon) || 0;
+            const paid = Number(o.montant_paye) || 0;
+            const due = Math.max(bon - paid, 0);
+            if (remaining <= 0) return;
+
+            const applied = Math.round(Math.min(due > 0 ? due : remaining, remaining) * 100) / 100;
+            const newPaid = Math.round((paid + applied) * 100) / 100;
+            map[o.id] = {
+                montant_paye: newPaid,
+                solde: Math.round((bon - newPaid) * 100) / 100,
+                allocation: applied,
+                preview: true,
+            };
+            remaining = Math.round((remaining - applied) * 100) / 100;
+        });
+
+        return map;
+    }, [orders, selectedIds, montantReglement]);
+
+    const selectedTotals = useMemo(() => {
+        const totalTtc = orders.length
+            ? orders.reduce((s, o) => s + (Number(o.montant_bon) || 0), 0)
+            : totals.total_ttc;
+
+        // Solde TTC = somme des soldes affichés (après aperçu règlement)
+        const soldeTtc = orders.length
+            ? Math.round(orders.reduce((s, o) => {
+                const preview = previewById[o.id];
+                return s + (preview ? Number(preview.solde) || 0 : Number(o.solde) || 0);
+            }, 0) * 100) / 100
+            : totals.solde_ttc;
+
+        return { total_ttc: totalTtc, solde_ttc: soldeTtc };
+    }, [orders, totals, previewById]);
+
+    const displayRow = (row) => {
+        const preview = previewById[row.id];
+        return {
+            montant_paye: preview?.montant_paye ?? (Number(row.montant_paye) || 0),
+            solde: preview?.solde ?? (Number(row.solde) || 0),
+            isPreview: !!preview?.preview,
+        };
+    };
+
+    const openNew = () => {
+        const today = new Date().toISOString().slice(0, 10);
+        setEditingId(null);
+        setForm({ ...emptyForm, payment_date: today, date_decaissement: today });
+        setSelected({});
+        setOrders([]);
+        setError('');
+        loadMeta();
+        setView('form');
+    };
+
+    const openEdit = (row) => {
+        setEditingId(row.id);
+        setForm({
+            payment_date: row.payment_date_raw || '',
+            client_id: String(row.client_id || ''),
+            reglement: row.reglement || '',
+            numero: row.numero || '',
+            banque: row.banque || '',
+            nom_tire: row.nom_tire || '',
+            montant: row.montant || '',
+            date_decaissement: row.date_decaissement_raw || '',
+            remarque: row.remarque || '',
+        });
+        setSelected({});
+        setOrders([]);
+        setError('');
+        setMeta((m) => ({ ...m, next_ref: row.reference }));
+        setView('form');
+    };
+
+    const closeForm = () => {
+        setView('list');
+        setEditingId(null);
+        setError('');
+        setSelected({});
+        setOrders([]);
+        loadPayments();
+    };
+
+    const toggleSelect = (id) => setSelected((prev) => ({ ...prev, [id]: !prev[id] }));
+
+    const toggleSelectAll = () => {
+        if (selectedIds.length === orders.length) {
+            setSelected({});
+            return;
+        }
+        const next = {};
+        orders.forEach((o) => { next[o.id] = true; });
+        setSelected(next);
+    };
+
+    const setAction = async (orderId, action) => {
+        setActions((prev) => ({ ...prev, [orderId]: action }));
+        try {
+            await api.patch(`/client-payments/orders/${orderId}/action`, { payment_action: action });
+            setOrders((prev) => prev.map((o) => (o.id === orderId ? { ...o, payment_action: action } : o)));
+        } catch {
+            // keep local
+        }
+    };
+
+    const handleStatutChange = async (row, statut) => {
+        setPayments((prev) => prev.map((p) => (p.id === row.id ? { ...p, statut } : p)));
+        try {
+            await api.patch(`/client-payments/${row.id}/statut`, { statut });
+            loadPayments();
+        } catch {
+            loadPayments();
+        }
+    };
+
+    const handleDelete = async (row) => {
+        if (!window.confirm(`Supprimer le règlement ${row.reference} ?`)) return;
+        try {
+            await api.delete(`/client-payments/${row.id}`);
+            loadPayments();
+        } catch (err) {
+            setError(err.response?.data?.message || 'Erreur lors de la suppression');
+        }
+    };
+
+    const handleSearch = (e) => {
+        e?.preventDefault?.();
+        setAppliedFilters({ ...filters });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        if (!form.client_id) {
+            setError('Sélectionnez un client');
+            return;
+        }
+
+        const montant = montantReglement;
+        if (montant <= 0) {
+            setError('Saisissez un montant de règlement');
+            return;
+        }
+
+        setSaving(true);
+        try {
+            if (editingId) {
+                await api.put(`/client-payments/${editingId}`, {
+                    payment_date: form.payment_date,
+                    client_id: form.client_id,
+                    reglement: form.reglement || null,
+                    numero: form.numero || null,
+                    banque: form.banque || null,
+                    nom_tire: form.nom_tire || null,
+                    montant,
+                    date_decaissement: form.date_decaissement || null,
+                    remarque: form.remarque || null,
+                });
+            } else {
+                if (!selectedIds.length) {
+                    setError('Sélectionnez au moins une commande à payer');
+                    setSaving(false);
+                    return;
+                }
+                await api.post('/client-payments', {
+                    payment_date: form.payment_date,
+                    client_id: form.client_id,
+                    reglement: form.reglement || null,
+                    numero: form.numero || null,
+                    banque: form.banque || null,
+                    nom_tire: form.nom_tire || null,
+                    montant,
+                    date_decaissement: form.date_decaissement || null,
+                    remarque: form.remarque || null,
+                    allocations: selectedIds.map((id) => ({
+                        sales_order_id: id,
+                        amount: previewById[id]?.allocation ?? 0,
+                        action: actions[id] || 'Payé',
+                    })),
+                });
+            }
+            closeForm();
+        } catch (err) {
+            setError(err.response?.data?.message || 'Erreur lors de la validation du règlement');
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const months = useMemo(() => monthOptions(), []);
+
+    /* ───────────── LIST VIEW ───────────── */
+    if (view === 'list') {
+        return (
+            <div className="space-y-4">
+                {error && (
+                    <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-100 dark:border-red-800">{error}</div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-2.5">
+                    <button type="button" onClick={openNew} className="btn-primary">
+                        <Plus className="w-4 h-4" />
+                        Nouveau Règlement
+                    </button>
+
+                    <div className="ml-auto flex flex-wrap items-center gap-3">
+                        <div className="relative overflow-hidden min-w-[150px] rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-blue-800 shadow-lg shadow-blue-500/25 border border-white/10">
+                            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/10 blur-xl pointer-events-none" />
+                            <div className="relative flex items-center gap-3 px-4 py-3">
+                                <div className="p-2 rounded-xl bg-white/20 backdrop-blur-sm text-white shrink-0">
+                                    <Banknote className="w-4 h-4" strokeWidth={2.2} />
+                                </div>
+                                <div className="text-right min-w-0 flex-1">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/80">Total Règlement</p>
+                                    <p className="text-lg font-bold tabular-nums leading-tight text-white tracking-tight">
+                                        {formatMontant(summary.total_reglement)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative overflow-hidden min-w-[150px] rounded-2xl bg-gradient-to-br from-emerald-500 via-green-600 to-teal-700 shadow-lg shadow-emerald-500/25 border border-white/10">
+                            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/10 blur-xl pointer-events-none" />
+                            <div className="relative flex items-center gap-3 px-4 py-3">
+                                <div className="p-2 rounded-xl bg-white/20 backdrop-blur-sm text-white shrink-0">
+                                    <Wallet className="w-4 h-4" strokeWidth={2.2} />
+                                </div>
+                                <div className="text-right min-w-0 flex-1">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/80">Total Décaissé</p>
+                                    <p className="text-lg font-bold tabular-nums leading-tight text-white tracking-tight">
+                                        {formatMontant(summary.total_decaisse)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative overflow-hidden min-w-[150px] rounded-2xl bg-gradient-to-br from-red-500 via-rose-600 to-red-800 shadow-lg shadow-red-500/25 border border-white/10">
+                            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/10 blur-xl pointer-events-none" />
+                            <div className="relative flex items-center gap-3 px-4 py-3">
+                                <div className="p-2 rounded-xl bg-white/20 backdrop-blur-sm text-white shrink-0">
+                                    <AlertCircle className="w-4 h-4" strokeWidth={2.2} />
+                                </div>
+                                <div className="text-right min-w-0 flex-1">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/80">Total Impayé</p>
+                                    <p className="text-lg font-bold tabular-nums leading-tight text-white tracking-tight">
+                                        {formatMontant(summary.total_impaye)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form onSubmit={handleSearch} className="glass-card p-3 shadow-card border border-slate-200/60 dark:border-slate-700/60">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(5,minmax(0,1fr))_auto] gap-2 items-end">
+                        <Field label="Statut">
+                            <select value={filters.statut} onChange={(e) => setFilter('statut', e.target.value)} className={filterClass}>
+                                <option value="">Tous</option>
+                                {STATUT_OPTIONS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+                            </select>
+                        </Field>
+                        <Field label="N° Régl">
+                            <input type="text" value={filters.numero} onChange={(e) => setFilter('numero', e.target.value)} placeholder="N°" className={filterClass} />
+                        </Field>
+                        <Field label="Bnq">
+                            <select value={filters.banque} onChange={(e) => setFilter('banque', e.target.value)} className={filterClass}>
+                                {BANQUE_OPTIONS.map((v) => <option key={v || 'b'} value={v}>{v || 'Toutes'}</option>)}
+                            </select>
+                        </Field>
+                        <Field label="Montant">
+                            <input type="number" step="0.01" value={filters.montant} onChange={(e) => setFilter('montant', e.target.value)} placeholder="0.00" className={filterClass} />
+                        </Field>
+                        <Field label="Mois">
+                            <select value={filters.mois} onChange={(e) => setFilter('mois', e.target.value)} className={filterClass}>
+                                <option value="">Tous</option>
+                                {months.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                            </select>
+                        </Field>
+                        <div className="flex items-center gap-2">
+                            <button type="submit" className="btn-primary justify-center flex-1 min-w-[120px]">
+                                <Search className="w-4 h-4" />
+                                Rechercher
+                            </button>
+                            <button
+                                type="button"
+                                title="Actualiser"
+                                disabled={loadingList}
+                                onClick={() => {
+                                    setFilters(emptyFilters);
+                                    setAppliedFilters({ ...emptyFilters });
+                                }}
+                                className="group relative h-[38px] w-[38px] shrink-0 rounded-xl bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 text-white shadow-lg shadow-blue-500/30 border border-white/20 hover:shadow-blue-500/45 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:opacity-60 disabled:pointer-events-none"
+                            >
+                                <span className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <RefreshCw className={`relative w-4 h-4 mx-auto ${loadingList ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'}`} strokeWidth={2.4} />
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div className="glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
+                    <div className="px-5 py-3.5 bg-gradient-to-r from-blue-600 via-blue-700 to-slate-800 border-b border-white/10">
+                        <h3 className="text-sm font-bold text-white uppercase tracking-wide">Tableau de consultation</h3>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-sm min-w-[1100px]">
+                            <thead>
+                                <tr className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
+                                    {['Réf', 'Date', 'Client', 'Type', 'Nom de Tiré', 'N°', 'Bnq', 'Date Décaiss', 'Montant', 'Statut', 'Action'].map((h) => (
+                                        <th key={h} className="px-3 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-center">{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                                {loadingList ? (
+                                    [...Array(4)].map((_, i) => (
+                                        <tr key={i}>{[...Array(11)].map((__, j) => (
+                                            <td key={j} className="px-3 py-3 text-center"><div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mx-auto max-w-[80px]" /></td>
+                                        ))}</tr>
+                                    ))
+                                ) : payments.length ? (
+                                    payments.map((row) => (
+                                        <tr key={row.id} className={`transition-colors ${statutRowClass(row.statut || 'Inst')}`}>
+                                            <td className="px-3 py-2.5 text-center font-mono text-xs font-semibold text-brand-navy dark:text-blue-400">{row.reference}</td>
+                                            <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.payment_date}</td>
+                                            <td className="px-3 py-2.5 text-center font-medium text-slate-800 dark:text-white">{row.client || '—'}</td>
+                                            <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.reglement || '—'}</td>
+                                            <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.nom_tire || '—'}</td>
+                                            <td className="px-3 py-2.5 text-center font-mono text-xs text-slate-600 dark:text-slate-300">{row.numero || '—'}</td>
+                                            <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.banque || '—'}</td>
+                                            <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.date_decaissement || '—'}</td>
+                                            <td className="px-3 py-2.5 text-center font-semibold tabular-nums text-brand-navy dark:text-blue-300">{formatMontant(row.montant)}</td>
+                                            <td className="px-3 py-2.5 text-center">
+                                                <select
+                                                    value={row.statut || 'Inst'}
+                                                    onChange={(e) => handleStatutChange(row, e.target.value)}
+                                                    className={`rounded-md border px-2 py-1 text-[11px] font-bold outline-none ${statutClass(row.statut || 'Inst')}`}
+                                                >
+                                                    {STATUT_OPTIONS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+                                                </select>
+                                            </td>
+                                            <td className="px-3 py-2.5">
+                                                <div className="flex items-center justify-center gap-0.5">
+                                                    <ActionBtn title="Voir" icon={Eye} color="blue" onClick={() => setViewRow(row)} />
+                                                    <ActionBtn title="Imprimer" icon={Printer} color="slate" onClick={() => openPrintable(row)} />
+                                                    <ActionBtn title="Modifier" icon={Pencil} color="amber" onClick={() => openEdit(row)} />
+                                                    <ActionBtn title="Supprimer" icon={Trash2} color="red" onClick={() => handleDelete(row)} />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr><td colSpan={11} className="px-4 py-12 text-center text-slate-400">Aucun règlement enregistré</td></tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <ViewModal row={viewRow} onClose={() => setViewRow(null)} />
+            </div>
+        );
+    }
+
+    /* ───────────── FORM VIEW (Nouveau / Modifier) ───────────── */
+    return (
+        <div className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3">
+                {error && (
+                    <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-100 dark:border-red-800">{error}</div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-2.5">
+                    <button type="submit" disabled={saving} className="btn-primary">
+                        <CheckCircle2 className="w-4 h-4" />
+                        {saving ? 'Validation...' : 'Valider'}
+                    </button>
+                    <button type="button" onClick={closeForm} className="btn-danger">
+                        <XCircle className="w-4 h-4" />
+                        Fermer
+                    </button>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">
+                        {editingId ? `Modifier ${meta.next_ref}` : 'Nouveau Règlement'}
+                    </span>
+
+                    <div className="ml-auto flex flex-wrap items-center gap-3">
+                        <div className="relative overflow-hidden min-w-[150px] rounded-2xl bg-gradient-to-br from-red-500 via-rose-600 to-red-800 shadow-lg shadow-red-500/25 border border-white/10">
+                            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/10 blur-xl pointer-events-none" />
+                            <div className="relative flex items-center gap-3 px-4 py-3">
+                                <div className="p-2 rounded-xl bg-white/20 backdrop-blur-sm text-white shrink-0">
+                                    <Receipt className="w-4 h-4" strokeWidth={2.2} />
+                                </div>
+                                <div className="text-right min-w-0 flex-1">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/80">Total TTC</p>
+                                    <p className="text-lg font-bold tabular-nums leading-tight text-white tracking-tight">
+                                        {formatMontant(selectedTotals.total_ttc)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative overflow-hidden min-w-[150px] rounded-2xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30 border border-white/10">
+                            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/15 blur-xl pointer-events-none" />
+                            <div className="relative flex items-center gap-3 px-4 py-3">
+                                <div className="p-2 rounded-xl bg-white/25 backdrop-blur-sm text-amber-950 shrink-0">
+                                    <Scale className="w-4 h-4" strokeWidth={2.2} />
+                                </div>
+                                <div className="text-right min-w-0 flex-1">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-amber-950/70">Solde TTC</p>
+                                    <p className="text-lg font-bold tabular-nums leading-tight text-amber-950 tracking-tight">
+                                        {formatMontant(selectedTotals.solde_ttc)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="glass-card p-2.5 shadow-card border border-slate-200/60 dark:border-slate-700/60 overflow-x-auto">
+                    <div className="grid grid-cols-[100px_88px_minmax(140px,1.3fr)_72px_90px_minmax(110px,1fr)_minmax(110px,1fr)_95px_100px_minmax(120px,1fr)] gap-1.5 items-end min-w-[1280px]">
+                        <Field label="Date">
+                            <input type="date" required value={form.payment_date} onChange={(e) => set('payment_date', e.target.value)} className={inputClass} />
+                        </Field>
+                        <Field label="Réf Régl">
+                            <input type="text" readOnly value={meta.next_ref || 'RC-0001'} className={readOnlyClass} />
+                        </Field>
+                        <Field label="Nom Client">
+                            <select required value={form.client_id} onChange={(e) => set('client_id', e.target.value)} className={inputClass} disabled={!!editingId}>
+                                <option value="">—</option>
+                                {clients.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                            </select>
+                        </Field>
+                        <Field label="Type Rég">
+                            <select
+                                value={form.reglement}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    setForm((f) => ({
+                                        ...f,
+                                        reglement: value,
+                                        ...(value === 'Esp' ? { numero: '', banque: '', nom_tire: '' } : {}),
+                                    }));
+                                }}
+                                className={inputClass}
+                            >
+                                {REGLEMENT_OPTIONS.map((v) => <option key={v || 'r'} value={v}>{v || '—'}</option>)}
+                            </select>
+                        </Field>
+                        <Field label="N° régl">
+                            <input
+                                type="text"
+                                value={form.numero}
+                                onChange={(e) => set('numero', e.target.value)}
+                                placeholder="N°"
+                                disabled={form.reglement === 'Esp'}
+                                className={form.reglement === 'Esp' ? readOnlyClass : inputClass}
+                            />
+                        </Field>
+                        <Field label="Banq">
+                            <select
+                                value={form.banque}
+                                onChange={(e) => set('banque', e.target.value)}
+                                disabled={form.reglement === 'Esp'}
+                                className={form.reglement === 'Esp' ? readOnlyClass : inputClass}
+                            >
+                                {BANQUE_OPTIONS.map((v) => <option key={v || 'b'} value={v}>{v || '—'}</option>)}
+                            </select>
+                        </Field>
+                        <Field label="Nom de Tiré">
+                            <input
+                                type="text"
+                                value={form.nom_tire}
+                                onChange={(e) => set('nom_tire', e.target.value)}
+                                placeholder="Nom tiré"
+                                disabled={form.reglement === 'Esp'}
+                                className={form.reglement === 'Esp' ? readOnlyClass : inputClass}
+                            />
+                        </Field>
+                        <Field label="Montant Régl">
+                            <input type="number" step="0.01" min="0" value={form.montant} onChange={(e) => set('montant', e.target.value)} placeholder="0.00" className={inputClass} disabled={!!editingId} />
+                        </Field>
+                        <Field label="Date Décaiss">
+                            <input type="date" value={form.date_decaissement} onChange={(e) => set('date_decaissement', e.target.value)} className={inputClass} />
+                        </Field>
+                        <Field label="Remarque">
+                            <input type="text" value={form.remarque} onChange={(e) => set('remarque', e.target.value)} placeholder="Remarque" className={inputClass} />
+                        </Field>
+                    </div>
+                </div>
+            </form>
+
+            {!editingId && (
+                <div className="glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
+                    <div className="px-5 py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-orange-700 border-b border-white/10">
+                        <h3 className="text-sm font-bold text-white uppercase tracking-wide">Commande à Encaisser :</h3>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-sm min-w-[1100px]">
+                            <thead>
+                                <tr className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
+                                    {['N° Bon', 'Date Commande', 'Adresse Livraison', 'Montant Bon', 'Montant Payé', 'Solde', 'Sélection', 'Action'].map((h) => (
+                                        <th key={h} className="px-3 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-center">{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                                {loading ? (
+                                    [...Array(3)].map((_, i) => (
+                                        <tr key={i}>{[...Array(8)].map((__, j) => (
+                                            <td key={j} className="px-3 py-3 text-center"><div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mx-auto max-w-[80px]" /></td>
+                                        ))}</tr>
+                                    ))
+                                ) : !form.client_id ? (
+                                    <tr><td colSpan={8} className="px-4 py-12 text-center text-slate-400">Sélectionnez un client</td></tr>
+                                ) : orders.length ? (
+                                    <>
+                                        <tr className="bg-slate-50/70 dark:bg-slate-800/40">
+                                            <td colSpan={6} className="px-3 py-2 text-xs text-slate-500">Tout sélectionner</td>
+                                            <td className="px-3 py-2 text-center">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={orders.length > 0 && selectedIds.length === orders.length}
+                                                    onChange={toggleSelectAll}
+                                                    className="rounded border-slate-300 text-brand-navy focus:ring-brand-navy"
+                                                />
+                                            </td>
+                                            <td />
+                                        </tr>
+                                        {orders.map((row) => {
+                                            const shown = displayRow(row);
+                                            return (
+                                                <tr key={row.id} className={`hover:bg-orange-50/40 dark:hover:bg-slate-800/40 transition-colors ${selected[row.id] ? 'bg-amber-50/50 dark:bg-amber-900/10' : ''}`}>
+                                                    <td className="px-3 py-2.5 text-center font-mono text-xs font-semibold text-brand-navy dark:text-orange-400">{row.reference}</td>
+                                                    <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.order_date}</td>
+                                                    <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.client_livre || row.address || row.ville || '—'}</td>
+                                                    <td className="px-3 py-2.5 text-center font-semibold tabular-nums text-brand-navy dark:text-orange-400">{formatMontant(row.montant_bon)}</td>
+                                                    <td className={`px-3 py-2.5 text-center tabular-nums font-semibold amount-paye`}>
+                                                        {formatMontant(shown.montant_paye)}
+                                                    </td>
+                                                    <td className={`px-3 py-2.5 text-center font-semibold tabular-nums ${Number(shown.solde) > 0 ? 'amount-solde-due' : 'amount-solde-ok'}`}>
+                                                        {formatMontant(shown.solde)}
+                                                    </td>
+                                                    <td className="px-3 py-2.5 text-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={!!selected[row.id]}
+                                                            onChange={() => toggleSelect(row.id)}
+                                                            className="rounded border-slate-300 text-brand-navy focus:ring-brand-navy"
+                                                        />
+                                                    </td>
+                                                    <td className="px-2 py-2">
+                                                        <div className="flex flex-wrap items-center justify-center gap-1">
+                                                            {ACTION_OPTIONS.map((opt) => (
+                                                                <button
+                                                                    key={opt.value}
+                                                                    type="button"
+                                                                    onClick={() => setAction(row.id, opt.value)}
+                                                                    className={(actions[row.id] || row.payment_action) === opt.value
+                                                                        ? opt.activeClass
+                                                                        : 'btn-action-idle'
+                                                                    }
+                                                                >
+                                                                    {opt.label}
+                                                                </button>
+                                                            ))}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </>
+                                ) : (
+                                    <tr><td colSpan={8} className="px-4 py-12 text-center text-slate-400">Aucune commande pour ce client</td></tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
