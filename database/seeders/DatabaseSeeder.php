@@ -33,17 +33,19 @@ class DatabaseSeeder extends Seeder
             'admin@batixpert.com',
             'admin@socimpro.com',
             'admin@autopilote.local',
+            'admin@autopilote.com',
+            'yahay@autopilote.com',
         ])->update([
-            'email' => 'admin@autopilote.com',
+            'email' => 'yahay@adeso.com',
         ]);
 
         User::updateOrCreate(
-            ['email' => 'admin@autopilote.com'],
+            ['email' => 'yahay@adeso.com'],
             [
-                'name' => 'Admin Autopilote',
-                'password' => Hash::make('password'),
+                'name' => 'Yahay',
+                'password' => Hash::make('0661755048'),
                 'role_id' => $adminRole->id,
-                'phone' => '0600000000',
+                'phone' => '0661755048',
                 'is_active' => true,
                 'email_verified_at' => now(),
             ]

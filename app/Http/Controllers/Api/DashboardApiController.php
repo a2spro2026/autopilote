@@ -56,7 +56,8 @@ class DashboardApiController extends Controller
         $tresorerie = (float) Payment::where('type', 'client')->sum('amount')
             - (float) Payment::whereIn('type', ['fournisseur', 'personnel'])->sum('amount');
 
-        $soldeFournisseur = (float) Supplier::sum('initial_balance');
+        $soldesFournisseurs = $this->soldesFournisseurs();
+        $soldeFournisseur = round(collect($soldesFournisseurs)->sum('solde'), 2);
 
         $chantiersActifs = Chantier::where('status', 'en_cours')->where('archived', false)->count();
         $chantiersTermines = Chantier::where('status', 'termine')->count();
@@ -253,6 +254,7 @@ class DashboardApiController extends Controller
                 'valeur_stock_depot' => round($stockDepot, 2),
                 'total_charges' => round($totalCharges, 2),
                 'solde_fournisseur' => round($soldeFournisseur, 2),
+                'soldes_fournisseurs' => $soldesFournisseurs,
                 'tresorerie' => round($tresorerie, 2),
                 'chantiers_actifs' => $chantiersActifs,
                 'chantiers_termines' => $chantiersTermines,
@@ -317,5 +319,44 @@ class DashboardApiController extends Controller
         }
 
         return $series;
+    }
+
+    /**
+     * @return array<int, array{id: int, name: string, solde: float}>
+     */
+    private function soldesFournisseurs(): array
+    {
+        $achatsBySupplier = PurchaseOrder::query()
+            ->where('status', '!=', 'annule')
+            ->selectRaw('supplier_id, SUM(total_ttc) as total_achats')
+            ->groupBy('supplier_id')
+            ->pluck('total_achats', 'supplier_id');
+
+        $paiementsBySupplier = SupplierPayment::query()
+            ->selectRaw('supplier_id, SUM(montant) as montant_paye')
+            ->groupBy('supplier_id')
+            ->pluck('montant_paye', 'supplier_id');
+
+        $supplierIds = $achatsBySupplier->keys()
+            ->merge($paiementsBySupplier->keys())
+            ->unique()
+            ->filter()
+            ->values();
+
+        $suppliers = Supplier::whereIn('id', $supplierIds)->get()->keyBy('id');
+
+        return $supplierIds->map(function ($supplierId) use ($achatsBySupplier, $paiementsBySupplier, $suppliers) {
+            $totalAchats = (float) ($achatsBySupplier[$supplierId] ?? 0);
+            $montantPaye = (float) ($paiementsBySupplier[$supplierId] ?? 0);
+
+            return [
+                'id' => (int) $supplierId,
+                'name' => $suppliers->get($supplierId)?->name ?? '—',
+                'solde' => round(max($totalAchats - $montantPaye, 0), 2),
+            ];
+        })
+            ->sortBy('name')
+            ->values()
+            ->all();
     }
 }

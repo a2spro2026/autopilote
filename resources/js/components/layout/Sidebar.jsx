@@ -1,19 +1,17 @@
 import { useMemo, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, LogOut } from 'lucide-react';
+import { ChevronDown, LogOut, Lock } from 'lucide-react';
 import { navigation } from '../../config/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import { SidebarBrand } from '../Logo';
 import { getPageTitle } from '../../lib/pageMeta';
 
 const sectionColors = {
-    caisse: 'from-emerald-500/20 to-teal-600/10',
-    'tableau-bon-vente': 'from-blue-500/20 to-indigo-600/10',
     fournisseurs: 'from-amber-500/20 to-orange-600/10',
+    catalogue: 'from-emerald-500/20 to-teal-600/10',
     clients: 'from-blue-500/20 to-cyan-600/10',
     facturation: 'from-indigo-500/20 to-blue-700/10',
     stock: 'from-emerald-500/20 to-teal-600/10',
-    chantiers: 'from-yellow-500/20 to-amber-600/10',
     personnel: 'from-violet-500/20 to-purple-600/10',
     monetaire: 'from-rose-500/20 to-pink-600/10',
     configuration: 'from-slate-400/20 to-slate-600/10',
@@ -77,7 +75,25 @@ function NavChildItem({ child, onClose }) {
     );
 }
 
+function LockedNavItem({ item }) {
+    return (
+        <div
+            title="Section à venir"
+            className="sidebar-nav-item relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/25 cursor-not-allowed select-none grayscale opacity-60"
+        >
+            <span className="sidebar-icon-wrap flex items-center justify-center rounded-lg shrink-0 w-8 h-8 bg-white/5">
+                <item.icon className="w-4 h-4 text-white/30" strokeWidth={2} />
+            </span>
+            <span className="flex-1 text-left truncate">{item.label}</span>
+            <Lock className="w-3.5 h-3.5 text-white/25 shrink-0" strokeWidth={2} />
+        </div>
+    );
+}
+
 function DashboardLink({ item, onClose }) {
+    if (item.locked) {
+        return <LockedNavItem item={item} />;
+    }
     return (
         <NavLink
             to={item.to}
@@ -107,11 +123,19 @@ function DashboardLink({ item, onClose }) {
 function NavGroup({ group, onClose }) {
     const location = useLocation();
     const disabled = !!group.disabled;
-    const isChildActive = !disabled && group.children?.some(
+    const isChildActive = !disabled && !group.locked && group.children?.some(
         (c) => !c.disabled && (location.pathname === c.to || location.pathname.startsWith(`${c.to}/`)),
     );
     const [open, setOpen] = useState(isChildActive);
     const accent = sectionColors[group.id] || 'from-white/10 to-white/5';
+
+    if (group.locked) {
+        return (
+            <div className="mb-1">
+                <LockedNavItem item={group} />
+            </div>
+        );
+    }
 
     if (group.to) {
         return (
@@ -185,46 +209,25 @@ export default function Sidebar({ mobile, onClose }) {
     const pageTitle = getPageTitle(pathname);
 
     const hasMenuConfig = Array.isArray(user?.menu_access);
-    const slug = user?.role?.slug;
-    const isCommercial = slug === 'commercial';
-    const isCaisse = slug === 'caisse';
-    const isDesk = isCommercial || isCaisse;
 
     const { dashboardItem, menuGroups } = useMemo(() => {
-        const applyChildFlags = (children) => (children || []).map((c) => {
-            const disabled = !!(
-                c.disabled
-                || (isCommercial && c.disabledForCommercial)
-                || (isCaisse && c.disabledForCaisse)
-            );
-            return disabled ? { ...c, disabled: true } : c;
-        });
-
         const visibleNav = navigation
             .map((item) => {
-                if (item.id === 'caisse') return isDesk ? item : null;
-                if (item.id === 'tableau-bon-vente') return isCommercial ? item : null;
-                if (item.id === 'facturation' && isDesk) return null;
-                if (item.id === 'stock' && isDesk) {
-                    return { ...item, children: applyChildFlags(item.children) };
-                }
-                if (item.commercialOnly && !isDesk) return null;
-                if (!can(item.perm)) return null;
+                if (!can(item.perm) && !item.locked) return null;
 
                 if (item.children) {
-                    let children = applyChildFlags(item.children);
-                    if (isDesk) children = children.filter((c) => !c.disabled);
+                    let children = item.children || [];
                     if (hasMenuConfig) {
                         children = children.filter((c) => c.disabled || canMenu(c.to));
-                        const sectionOk = canMenu(item.id) || children.length > 0;
+                        const sectionOk = canMenu(item.id) || children.length > 0 || item.locked;
                         if (!sectionOk) return null;
                         return { ...item, children };
                     }
-                    if (!children.length) return null;
+                    if (!children.length && !item.locked) return null;
                     return { ...item, children };
                 }
 
-                if (hasMenuConfig && item.id === 'dashboard' && !canMenu('dashboard') && !canMenu('/')) {
+                if (hasMenuConfig && item.id === 'dashboard' && !canMenu('dashboard') && !canMenu('/') && !canMenu('/dashboard')) {
                     return null;
                 }
                 return item;
@@ -235,7 +238,7 @@ export default function Sidebar({ mobile, onClose }) {
             dashboardItem: visibleNav.find((item) => item.id === 'dashboard'),
             menuGroups: visibleNav.filter((item) => item.id !== 'dashboard'),
         };
-    }, [can, canMenu, hasMenuConfig, isCaisse, isCommercial, isDesk]);
+    }, [can, canMenu, hasMenuConfig]);
 
     const handleLogout = async () => {
         await logout();

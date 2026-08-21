@@ -7,7 +7,7 @@ import DashboardSection from '../dashboard/DashboardSection';
 export default function Layout() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const { pathname } = useLocation();
-    const isDashboard = pathname === '/';
+    const isDashboard = pathname === '/' || pathname === '/dashboard';
     const isDevisForm = /^\/clients\/devis\/(nouveau|\d+)/.test(pathname);
 
     return (

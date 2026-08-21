@@ -11,7 +11,8 @@ class ClientPayment extends Model
     protected $fillable = [
         'reference', 'payment_date', 'client_id', 'client_name', 'ville_chantier',
         'chantier_type', 'montant_total', 'reglement', 'numero', 'banque', 'nom_tire',
-        'montant', 'date_decaissement', 'remarque', 'solde', 'statut', 'user_id',
+        'montant', 'tresorerie', 'date_decaissement', 'remarque', 'solde', 'statut', 'user_id',
+        'endosse_supplier_payment_id',
     ];
 
     protected function casts(): array
@@ -33,5 +34,10 @@ class ClientPayment extends Model
     public function allocations(): HasMany
     {
         return $this->hasMany(ClientPaymentAllocation::class);
+    }
+
+    public function endosseSupplierPayment(): BelongsTo
+    {
+        return $this->belongsTo(SupplierPayment::class, 'endosse_supplier_payment_id');
     }
 }

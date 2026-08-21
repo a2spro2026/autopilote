@@ -10,8 +10,8 @@ class SaleOrderItem extends Model
     protected $table = 'sales_order_items';
 
     protected $fillable = [
-        'sales_order_id', 'product_id', 'article_ref', 'code_barre', 'description',
-        'categorie', 'famille', 'marque', 'unit',
+        'sales_order_id', 'product_id', 'article_ref', 'code_barre', 'barcode', 'description',
+        'categorie', 'category', 'famille', 'marque', 'brand', 'unit',
         'quantity', 'unit_price', 'tva_rate', 'total',
     ];
 

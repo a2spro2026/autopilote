@@ -2,18 +2,21 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { CatalogueCartProvider } from './contexts/CatalogueCartContext';
 import Layout from './components/layout/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
-const ChantiersPage = lazy(() => import('./pages/ChantiersPage'));
 const BonAchatsPage = lazy(() => import('./pages/BonAchatsPage'));
 const BonVentesPage = lazy(() => import('./pages/BonVentesPage'));
 const ReglementFournisseurPage = lazy(() => import('./pages/ReglementFournisseurPage'));
 const ReglementClientPage = lazy(() => import('./pages/ReglementClientPage'));
+const ReglementFactureVentePage = lazy(() => import('./pages/ReglementFactureVentePage'));
 const FicheProduitPage = lazy(() => import('./pages/FicheProduitPage'));
+const CataloguePage = lazy(() => import('./pages/CataloguePage'));
+const ConfigCataloguePage = lazy(() => import('./pages/ConfigCataloguePage'));
 const GenericListPage = lazy(() => import('./pages/GenericListPage'));
-const MouvementStockPage = lazy(() => import('./pages/MouvementStockPage'));
+const StockMouvementsPage = lazy(() => import('./pages/StockMouvementsPage'));
 const ModulePage = lazy(() => import('./pages/ModulePage'));
 const FicheFournisseurPage = lazy(() => import('./pages/FicheFournisseurPage'));
 const FicheClientPage = lazy(() => import('./pages/FicheClientPage'));
@@ -25,10 +28,9 @@ const TransactionsPage = lazy(() => import('./pages/TransactionsPage'));
 const ChargesPage = lazy(() => import('./pages/ChargesPage'));
 const FactureAchatsPage = lazy(() => import('./pages/FactureAchatsPage'));
 const UtilisateursPage = lazy(() => import('./pages/UtilisateursPage'));
-const AutorisationsPage = lazy(() => import('./pages/AutorisationsPage'));
-const CaissePage = lazy(() => import('./pages/CaissePage'));
-const TableauBonVentePage = lazy(() => import('./pages/TableauBonVentePage'));
+const ChauffeursPage = lazy(() => import('./pages/ChauffeursPage'));
 const SupplierBalancePage = lazy(() => import('./pages/SupplierBalancePage'));
+const SupplierRelevePage = lazy(() => import('./pages/SupplierRelevePage'));
 
 function PageLoader() {
     return (
@@ -64,15 +66,17 @@ function AppRoutes() {
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-                <Route index element={<Dashboard />} />
-                <Route path="caisse" element={<CaissePage />} />
-                <Route path="tableau-bon-de-vente" element={<TableauBonVentePage />} />
+                <Route index element={<Navigate to="/dashboard" replace />} />
+                <Route path="dashboard" element={<Dashboard />} />
 
+                {/* Fournisseur */}
                 <Route path="fournisseurs/fiches" element={<FicheFournisseurPage />} />
                 <Route path="fournisseurs/bons-achats" element={<BonAchatsPage />} />
                 <Route path="fournisseurs/balance" element={<SupplierBalancePage />} />
-                <Route path="fournisseurs/releve-compte" element={<ModulePage />} />
+                <Route path="fournisseurs/releve-compte" element={<SupplierRelevePage />} />
+                <Route path="fournisseurs/reglements-achats" element={<ReglementFournisseurPage />} />
 
+                {/* Client */}
                 <Route path="clients/fiches" element={<FicheClientPage />} />
                 <Route path="clients/bons-de-vente" element={<BonVentesPage />} />
                 <Route path="clients/devis/nouveau" element={<DevisFormPage />} />
@@ -86,35 +90,45 @@ function AppRoutes() {
                 <Route path="clients/balance" element={<ClientBalancePage />} />
                 <Route path="clients/releve-compte" element={<ModulePage />} />
 
-                <Route path="facturation/factures-achats" element={<FactureAchatsPage />} />
-                <Route path="facturation/depot-a" element={<FactureAchatsPage depotFilter="depot_a" pageTitle="Depot A" pageSubtitle="Factures achats — destination Depot A" />} />
-                <Route path="facturation/depot-b" element={<FactureAchatsPage depotFilter="depot_b" pageTitle="Depot B" pageSubtitle="Factures achats — destination Depot B" />} />
+                {/* Facturation */}
+                <Route path="facturation/factures-achats" element={<FactureAchatsPage pageTitle="Factures Achats" />} />
+                <Route path="facturation/stock-fiscal" element={<ModulePage />} />
+                <Route path="facturation/depot-a" element={<Navigate to="/facturation/factures-achats" replace />} />
+                <Route path="facturation/depot-b" element={<Navigate to="/facturation/factures-achats" replace />} />
                 <Route path="facturation/reglement" element={<ReglementFournisseurPage />} />
                 <Route path="facturation/factures-ventes" element={<ModulePage />} />
-                <Route path="facturation/reglements" element={<ReglementClientPage />} />
+                <Route path="facturation/reglements" element={<ReglementFactureVentePage />} />
                 <Route path="facturation/balance" element={<ModulePage />} />
-                <Route path="fournisseurs/reglements-achats" element={<ReglementFournisseurPage />} />
 
+                {/* Catalogue */}
+                <Route path="catalogue/config" element={<ConfigCataloguePage />} />
+                <Route path="catalogue" element={<CataloguePage />} />
+
+                {/* Stock */}
                 <Route path="stock/produits" element={<FicheProduitPage />} />
-                <Route path="stock/entrepots" element={<ModulePage />} />
-                <Route path="stock/mouvements" element={<MouvementStockPage />} />
+                <Route path="stock/catalogue" element={<Navigate to="/catalogue" replace />} />
+                <Route path="stock/mouvements" element={<StockMouvementsPage />} />
+                <Route path="stock/fiscal" element={<Navigate to="/facturation/stock-fiscal" replace />} />
 
-                <Route path="chantiers/carte" element={<ChantiersPage />} />
-                <Route path="chantiers/bons-commande" element={<ModulePage />} />
-                <Route path="chantiers/suivi-depenses" element={<ModulePage />} />
-
+                {/* Personnel */}
                 <Route path="personnel/fiches" element={<GenericListPage title="Fiche Personnel" subtitle="Gestion des employés" endpoint="/employees" columns={employeeCols} />} />
                 <Route path="personnel/etat-paiement" element={<ModulePage />} />
 
+                {/* Suivi Monétaire */}
                 <Route path="monetaire/transactions" element={<TransactionsPage />} />
                 <Route path="monetaire/charges" element={<ChargesPage />} />
                 <Route path="monetaire/salaires" element={<ModulePage />} />
                 <Route path="monetaire/tresorerie" element={<ModulePage />} />
 
+                {/* Configuration */}
                 <Route path="configuration/utilisateurs" element={<UtilisateursPage />} />
-                <Route path="configuration/autorisations" element={<AutorisationsPage />} />
+                <Route path="configuration/chauffeurs" element={<ChauffeursPage />} />
 
-                <Route path="chantiers" element={<Navigate to="/chantiers/carte" replace />} />
+                {/* Redirections anciennes routes Autopilote */}
+                <Route path="caisse" element={<Navigate to="/dashboard" replace />} />
+                <Route path="tableau-bon-de-vente" element={<Navigate to="/clients/bons-de-vente" replace />} />
+                <Route path="chantiers/*" element={<Navigate to="/dashboard" replace />} />
+                <Route path="configuration/autorisations" element={<Navigate to="/configuration/utilisateurs" replace />} />
                 <Route path="achats" element={<Navigate to="/fournisseurs/bons-achats" replace />} />
                 <Route path="stock" element={<Navigate to="/stock/produits" replace />} />
                 <Route path="fournisseurs" element={<Navigate to="/fournisseurs/fiches" replace />} />
@@ -133,9 +147,11 @@ export default function App() {
         <ThemeProvider>
             <AuthProvider>
                 <BrowserRouter basename="/app">
-                    <Suspense fallback={<PageLoader />}>
-                        <AppRoutes />
-                    </Suspense>
+                    <CatalogueCartProvider>
+                        <Suspense fallback={<PageLoader />}>
+                            <AppRoutes />
+                        </Suspense>
+                    </CatalogueCartProvider>
                 </BrowserRouter>
             </AuthProvider>
         </ThemeProvider>

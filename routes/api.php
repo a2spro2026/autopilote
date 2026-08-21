@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\AuthorizationApiController;
+use App\Http\Controllers\Api\CatalogProductApiController;
 use App\Http\Controllers\Api\ChargeApiController;
 use App\Http\Controllers\Api\ChantierApiController;
+use App\Http\Controllers\Api\ChauffeurApiController;
 use App\Http\Controllers\Api\ClientOrderApiController;
 use App\Http\Controllers\Api\ClientPaymentApiController;
 use App\Http\Controllers\Api\ClientApiController;
@@ -11,14 +12,17 @@ use App\Http\Controllers\Api\DashboardApiController;
 use App\Http\Controllers\Api\DocumentApiController;
 use App\Http\Controllers\Api\EmployeeApiController;
 use App\Http\Controllers\Api\ExpenseApiController;
+use App\Http\Controllers\Api\InvoicePaymentApiController;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\PurchaseOrderApiController;
 use App\Http\Controllers\Api\SaleOrderApiController;
 use App\Http\Controllers\Api\SupplierInvoiceApiController;
 use App\Http\Controllers\Api\SupplierPaymentApiController;
+use App\Http\Controllers\Api\SupplierReleveApiController;
 use App\Http\Controllers\Api\QuoteApiController;
 use App\Http\Controllers\Api\ReportApiController;
 use App\Http\Controllers\Api\StockMovementApiController;
+use App\Http\Controllers\Api\StockMouvementApiController;
 use App\Http\Controllers\Api\SupplierApiController;
 use App\Http\Controllers\Api\TaskApiController;
 use App\Http\Controllers\Api\TransactionApiController;
@@ -53,8 +57,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('quotes/{quote}/validate', [QuoteApiController::class, 'validateQuote']);
     Route::apiResource('suppliers', SupplierApiController::class);
     Route::apiResource('products', ProductApiController::class);
+    Route::apiResource('catalog-products', CatalogProductApiController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::get('stock-movements', [StockMovementApiController::class, 'index']);
+    Route::get('stock-mouvements', [StockMouvementApiController::class, 'index']);
     Route::get('purchase-orders/balance', [PurchaseOrderApiController::class, 'balance']);
+    Route::get('supplier-releve', [SupplierReleveApiController::class, 'index']);
     Route::apiResource('purchase-orders', PurchaseOrderApiController::class);
     Route::post('purchase-orders/{purchase_order}/validate', [PurchaseOrderApiController::class, 'validateOrder']);
     Route::apiResource('sales-orders', SaleOrderApiController::class);
@@ -63,6 +70,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('sales-orders/encaisser', [SaleOrderApiController::class, 'encaisser']);
     Route::post('sales-orders/payer', [SaleOrderApiController::class, 'payer']);
     Route::post('sales-orders/{sales_order}/validate', [SaleOrderApiController::class, 'validateOrder']);
+
+    Route::get('invoice-payments/invoices', [InvoicePaymentApiController::class, 'invoices']);
+    Route::apiResource('invoice-payments', InvoicePaymentApiController::class)
+        ->parameters(['invoice-payments' => 'invoicePayment'])
+        ->only(['index', 'store', 'update', 'destroy']);
 
     Route::get('supplier-invoices/meta', [SupplierInvoiceApiController::class, 'meta']);
     Route::apiResource('supplier-invoices', SupplierInvoiceApiController::class);
@@ -94,14 +106,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reports/financial', [ReportApiController::class, 'financial']);
     Route::get('/reports/export/{type}', [ReportApiController::class, 'export']);
 
-    Route::get('users', [UserApiController::class, 'index']);
-    Route::post('users', [UserApiController::class, 'store']);
-    Route::get('users/{user}', [UserApiController::class, 'show']);
-    Route::put('users/{user}', [UserApiController::class, 'update']);
-    Route::delete('users/{user}', [UserApiController::class, 'destroy']);
     Route::patch('users/{user}/suspend', [UserApiController::class, 'suspend']);
-
-    Route::get('authorizations/meta', [AuthorizationApiController::class, 'meta']);
-    Route::get('authorizations/{user}', [AuthorizationApiController::class, 'show']);
-    Route::put('authorizations/{user}', [AuthorizationApiController::class, 'update']);
+    Route::apiResource('users', UserApiController::class);
+    Route::get('chauffeurs', [ChauffeurApiController::class, 'index']);
 });
