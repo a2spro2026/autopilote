@@ -175,7 +175,7 @@ export default function Login() {
         setLoading(true);
         try {
             await login(`${local}${LOGIN_DOMAIN}`, password, status);
-            navigate('/');
+            navigate('/dashboard');
         } catch (err) {
             setError(
                 err.response?.data?.errors?.status?.[0] ||
@@ -201,9 +201,9 @@ export default function Login() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#05070d]/92 via-[#05070d]/60 to-[#05070d]/85" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#05070d]/85 via-[#05070d]/35 to-[#05070d]/92" />
 
-            <div className="relative z-10 min-h-screen flex flex-col px-5 sm:px-8 lg:px-10 xl:px-14 py-6 lg:py-8">
+            <div className="relative z-10 min-h-screen flex flex-col px-5 sm:px-8 lg:px-10 xl:px-14 py-4 lg:py-5">
                 {/* Header */}
-                <header className="flex items-start justify-between gap-6">
+                <header className="flex items-start justify-between gap-6 shrink-0">
                     <div className="flex flex-col items-start">
                         <AdesoMark className="w-24 h-16 sm:w-28 sm:h-20 mb-2" />
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none">
@@ -225,20 +225,20 @@ export default function Login() {
                     </p>
                 </header>
 
-                {/* Corps : contenu + formulaire */}
-                <div className="flex-1 grid lg:grid-cols-[1fr_min(100%,400px)] gap-8 lg:gap-10 items-center mt-6 lg:mt-4">
+                {/* Corps : contenu + formulaire (panneau remonté pour laisser voir les cartes du bas) */}
+                <div className="flex-1 min-h-0 grid lg:grid-cols-[1fr_min(100%,400px)] gap-6 lg:gap-8 items-start mt-3 lg:mt-2 pb-2">
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.45 }}
-                        className="hidden lg:block max-w-3xl"
+                        className="hidden lg:block max-w-3xl pt-1"
                     >
                         <h2 className="text-3xl xl:text-4xl font-semibold leading-tight text-white">
                             Votre solution complète pour la gestion{' '}
                             <span className="font-bold">des pièces de rechange</span>
                         </h2>
 
-                        <div className="mt-8 grid grid-cols-2 xl:grid-cols-4 gap-3">
+                        <div className="mt-6 grid grid-cols-2 xl:grid-cols-4 gap-3">
                             {featureCards.map(({ icon: Icon, label }) => (
                                 <div
                                     key={label}
@@ -256,24 +256,24 @@ export default function Login() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full max-w-[400px] mx-auto lg:mx-0 lg:justify-self-end"
+                        className="w-full max-w-[400px] mx-auto lg:mx-0 lg:justify-self-end lg:self-start lg:-mt-1"
                     >
-                        <div className="rounded-2xl border border-white/10 bg-[#0b1220]/88 backdrop-blur-xl shadow-2xl shadow-black/50 px-6 sm:px-7 py-7">
-                            <div className="mb-6 text-center">
+                        <div className="rounded-2xl border border-white/10 bg-[#0b1220]/88 backdrop-blur-xl shadow-2xl shadow-black/50 px-6 sm:px-7 py-5 sm:py-6">
+                            <div className="mb-5 text-center">
                                 <p className="text-[10px] uppercase tracking-[0.28em] text-[#e31e24] font-semibold mb-2">
                                     Pièces de rechange
                                 </p>
                                 <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-none">
                                     STE <span className="text-[#e31e24]">ADESO</span>
                                 </h2>
-                                <h3 className="mt-4 text-base font-semibold text-white flex items-center justify-center gap-2">
+                                <h3 className="mt-3 text-base font-semibold text-white flex items-center justify-center gap-2">
                                     Connexion
                                     <Sparkles className="w-4 h-4 text-red-400/90" />
                                 </h3>
                                 <p className="text-sm text-white/45 mt-1">Accédez à votre espace</p>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
+                            <form onSubmit={handleSubmit} className="space-y-3.5" autoComplete="off">
                                 <AnimatePresence>
                                     {error && (
                                         <motion.div
@@ -409,7 +409,7 @@ export default function Login() {
                                 </motion.button>
                             </form>
 
-                            <footer className="mt-6 pt-4 border-t border-white/10">
+                            <footer className="mt-5 pt-3 border-t border-white/10">
                                 <p className="text-[11px] text-white/35 tracking-wide">
                                     Créé par{' '}
                                     <span className="text-red-400 font-bold tracking-wider">A2SPRO</span>
@@ -422,12 +422,12 @@ export default function Login() {
                 </div>
 
                 {/* Cartes bas + copyright */}
-                <div className="mt-6 lg:mt-4 space-y-4">
+                <div className="mt-auto shrink-0 space-y-3 pt-2">
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
                         {valueCards.map(({ icon: Icon, title, text }) => (
                             <div
                                 key={title}
-                                className="rounded-2xl border border-white/15 bg-white/[0.07] backdrop-blur-md px-4 py-4 flex items-start gap-3 shadow-lg shadow-black/20"
+                                className="rounded-2xl border border-white/15 bg-white/[0.07] backdrop-blur-md px-4 py-3.5 flex items-start gap-3 shadow-lg shadow-black/20"
                             >
                                 <Icon className="w-6 h-6 text-[#e31e24] shrink-0 mt-0.5" strokeWidth={1.75} />
                                 <div>
@@ -437,8 +437,8 @@ export default function Login() {
                             </div>
                         ))}
                     </div>
-                    <div className="pt-2 border-t border-[#e31e24]/70">
-                        <p className="text-center text-xs sm:text-sm text-white/70 py-2">
+                    <div className="border-t border-[#e31e24]/70">
+                        <p className="text-center text-xs sm:text-sm text-white/70 py-1.5">
                             © 2026 - STE ADESO - Tous Droits Réservés
                         </p>
                     </div>
