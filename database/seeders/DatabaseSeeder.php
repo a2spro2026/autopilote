@@ -35,14 +35,15 @@ class DatabaseSeeder extends Seeder
             'admin@autopilote.local',
             'admin@autopilote.com',
             'yahay@autopilote.com',
+            'yahay@adeso.com',
         ])->update([
-            'email' => 'yahay@adeso.com',
+            'email' => 'admin@adeso.com',
         ]);
 
         User::updateOrCreate(
-            ['email' => 'yahay@adeso.com'],
+            ['email' => 'admin@adeso.com'],
             [
-                'name' => 'Yahay',
+                'name' => 'Administrateur',
                 'password' => Hash::make('0661755048'),
                 'role_id' => $adminRole->id,
                 'phone' => '0661755048',

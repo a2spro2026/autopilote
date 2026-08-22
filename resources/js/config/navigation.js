@@ -56,16 +56,6 @@ export const navigation = [
         ],
     },
     {
-        id: 'catalogue',
-        label: 'Catalogue',
-        icon: LayoutGrid,
-        perm: 'stock.view',
-        children: [
-            { to: '/catalogue', label: 'Catalogue', icon: LayoutGrid },
-            { to: '/catalogue/config', label: 'Config Catalogue', icon: SlidersHorizontal },
-        ],
-    },
-    {
         id: 'stock',
         label: 'Stock',
         icon: Package,
@@ -73,6 +63,16 @@ export const navigation = [
         children: [
             { to: '/stock/produits', label: 'Fiche Produit', icon: Boxes },
             { to: '/stock/mouvements', label: 'Mouvement Stock', icon: ArrowLeftRight },
+        ],
+    },
+    {
+        id: 'catalogue',
+        label: 'Catalogue',
+        icon: LayoutGrid,
+        perm: 'stock.view',
+        children: [
+            { to: '/catalogue', label: 'Catalogue', icon: LayoutGrid },
+            { to: '/catalogue/config', label: 'Config Catalogue', icon: SlidersHorizontal },
         ],
     },
     {
@@ -90,6 +90,28 @@ export const navigation = [
         ],
     },
     {
+        id: 'monetaire',
+        label: 'Suivi Monétaire',
+        icon: Landmark,
+        perm: 'reglements.view',
+        children: [
+            { to: '/monetaire/transactions', label: 'Transaction et Charges', icon: ArrowLeftRight },
+            { to: '/monetaire/charges', label: 'Charge', icon: Wallet },
+            { to: '/monetaire/salaires', label: 'Salaire', icon: Coins },
+            { to: '/monetaire/tresorerie', label: 'Trésorerie', icon: Vault },
+        ],
+    },
+    {
+        id: 'configuration',
+        label: 'Configuration',
+        icon: Settings,
+        perm: 'utilisateurs.view',
+        children: [
+            { to: '/configuration/utilisateurs', label: 'Utilisateur', icon: UserCog },
+            { to: '/configuration/chauffeurs', label: 'Chauffeur', icon: CarFront },
+        ],
+    },
+    {
         id: 'facturation',
         label: 'Facturation',
         icon: FileText,
@@ -104,18 +126,6 @@ export const navigation = [
         ],
     },
     {
-        id: 'monetaire',
-        label: 'Suivi Monétaire',
-        icon: Landmark,
-        perm: 'reglements.view',
-        children: [
-            { to: '/monetaire/transactions', label: 'Transaction et Charges', icon: ArrowLeftRight },
-            { to: '/monetaire/charges', label: 'Charge', icon: Wallet },
-            { to: '/monetaire/salaires', label: 'Salaire', icon: Coins },
-            { to: '/monetaire/tresorerie', label: 'Trésorerie', icon: Vault },
-        ],
-    },
-    {
         id: 'personnel',
         label: 'Personnels',
         icon: BadgeCheck,
@@ -124,16 +134,6 @@ export const navigation = [
         children: [
             { to: '/personnel/fiches', label: 'Fiche Personnel', icon: Contact },
             { to: '/personnel/etat-paiement', label: 'État Paiement', icon: CalendarCheck },
-        ],
-    },
-    {
-        id: 'configuration',
-        label: 'Configuration',
-        icon: Settings,
-        perm: 'utilisateurs.view',
-        children: [
-            { to: '/configuration/utilisateurs', label: 'Utilisateur', icon: UserCog },
-            { to: '/configuration/chauffeurs', label: 'Chauffeur', icon: CarFront },
         ],
     },
 ];

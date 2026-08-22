@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Save, RotateCcw, Eye, Pencil, Trash2, Printer, FileText, X, RefreshCw } from 'lucide-react';
 import api from '../lib/api';
 import { useAuth } from '../contexts/AuthContext';
@@ -173,6 +174,7 @@ function ViewModal({ row, onClose }) {
 
 export default function FicheProduitPage() {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const readOnly = ['commercial', 'caisse'].includes(user?.role?.slug);
     const [form, setForm] = useState(emptyForm);
     const [rows, setRows] = useState([]);
@@ -289,10 +291,16 @@ export default function FicheProduitPage() {
                         <h1 className="text-lg font-bold text-slate-800 dark:text-white">Fiche Produit</h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">Consultation du stock (tous les produits)</p>
                     </div>
-                    <button type="button" onClick={load} disabled={loading} className="btn-secondary text-sm" title="Actualiser">
-                        <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                        Actualiser
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button type="button" onClick={load} disabled={loading} className="btn-secondary text-sm" title="Actualiser">
+                            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                            Actualiser
+                        </button>
+                        <button type="button" onClick={() => navigate('/dashboard')} className="btn-secondary text-sm">
+                            <X className="w-4 h-4" />
+                            Fermer
+                        </button>
+                    </div>
                 </div>
             ) : (
             <form onSubmit={handleSubmit} className="shrink-0 glass-card p-4 lg:p-5 shadow-card border border-slate-200/60 dark:border-slate-700/60 overflow-x-auto">
@@ -394,6 +402,10 @@ export default function FicheProduitPage() {
                             <RotateCcw className="w-4 h-4" /> Annuler
                         </button>
                     )}
+                    <button type="button" onClick={() => navigate('/dashboard')} className="btn-secondary text-sm">
+                        <X className="w-4 h-4" />
+                        Fermer
+                    </button>
                 </div>
             </form>
             )}
