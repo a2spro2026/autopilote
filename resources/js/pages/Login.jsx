@@ -79,13 +79,9 @@ function PasswordField({ value, onChange, showPassword, onToggle }) {
 }
 
 export default function Login() {
-    const isLocalHost =
-        typeof window !== 'undefined' &&
-        ['127.0.0.1', 'localhost'].includes(window.location.hostname);
-
-    const [status, setStatus] = useState(isLocalHost ? 'administrateur' : '');
-    const [loginLocal, setLoginLocal] = useState(isLocalHost ? 'admin' : '');
-    const [password, setPassword] = useState(isLocalHost ? '0661755048' : '');
+    const [status, setStatus] = useState('');
+    const [loginLocal, setLoginLocal] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [remember, setRemember] = useState(false);
     const [error, setError] = useState('');
@@ -96,15 +92,9 @@ export default function Login() {
 
     useEffect(() => {
         logout();
-        if (isLocalHost) {
-            setStatus('administrateur');
-            setLoginLocal('admin');
-            setPassword('0661755048');
-        } else {
-            setStatus('');
-            setLoginLocal('');
-            setPassword('');
-        }
+        setStatus('');
+        setLoginLocal('');
+        setPassword('');
     }, []);
 
     const handleSubmit = async (e) => {

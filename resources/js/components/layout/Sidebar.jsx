@@ -1,30 +1,86 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, LogOut, Lock } from 'lucide-react';
+import { LogOut, Lock } from 'lucide-react';
 import { navigation } from '../../config/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import { SidebarBrand } from '../Logo';
 import { getPageTitle } from '../../lib/pageMeta';
 
-const sectionColors = {
-    fournisseurs: 'from-amber-500/20 to-orange-600/10',
-    catalogue: 'from-emerald-500/20 to-teal-600/10',
-    clients: 'from-blue-500/20 to-cyan-600/10',
-    facturation: 'from-indigo-500/20 to-blue-700/10',
-    stock: 'from-emerald-500/20 to-teal-600/10',
-    personnel: 'from-violet-500/20 to-purple-600/10',
-    monetaire: 'from-rose-500/20 to-pink-600/10',
-    configuration: 'from-slate-400/20 to-slate-600/10',
+const sectionThemes = {
+    fournisseurs: {
+        bar: 'bg-amber-400',
+        soft: 'from-amber-500/25 via-orange-600/10 to-transparent',
+        ring: 'ring-amber-400/25',
+        icon: 'text-amber-300',
+        glow: 'bg-amber-400/20',
+    },
+    catalogue: {
+        bar: 'bg-teal-400',
+        soft: 'from-teal-500/25 via-emerald-600/10 to-transparent',
+        ring: 'ring-teal-400/25',
+        icon: 'text-teal-300',
+        glow: 'bg-teal-400/20',
+    },
+    clients: {
+        bar: 'bg-sky-400',
+        soft: 'from-sky-500/25 via-cyan-600/10 to-transparent',
+        ring: 'ring-sky-400/25',
+        icon: 'text-sky-300',
+        glow: 'bg-sky-400/20',
+    },
+    facturation: {
+        bar: 'bg-indigo-400',
+        soft: 'from-indigo-500/25 via-blue-700/10 to-transparent',
+        ring: 'ring-indigo-400/25',
+        icon: 'text-indigo-300',
+        glow: 'bg-indigo-400/20',
+    },
+    stock: {
+        bar: 'bg-emerald-400',
+        soft: 'from-emerald-500/25 via-teal-600/10 to-transparent',
+        ring: 'ring-emerald-400/25',
+        icon: 'text-emerald-300',
+        glow: 'bg-emerald-400/20',
+    },
+    personnel: {
+        bar: 'bg-violet-400',
+        soft: 'from-violet-500/25 via-purple-600/10 to-transparent',
+        ring: 'ring-violet-400/25',
+        icon: 'text-violet-300',
+        glow: 'bg-violet-400/20',
+    },
+    monetaire: {
+        bar: 'bg-rose-400',
+        soft: 'from-rose-500/25 via-pink-600/10 to-transparent',
+        ring: 'ring-rose-400/25',
+        icon: 'text-rose-300',
+        glow: 'bg-rose-400/20',
+    },
+    configuration: {
+        bar: 'bg-slate-300',
+        soft: 'from-slate-400/25 via-slate-600/10 to-transparent',
+        ring: 'ring-slate-300/25',
+        icon: 'text-slate-200',
+        glow: 'bg-slate-300/15',
+    },
 };
 
-function NavIcon({ icon: Icon, active, size = 'md' }) {
+const defaultTheme = {
+    bar: 'bg-white/50',
+    soft: 'from-white/15 via-white/5 to-transparent',
+    ring: 'ring-white/15',
+    icon: 'text-blue-200',
+    glow: 'bg-white/10',
+};
+
+function NavIcon({ icon: Icon, active, size = 'md', tone }) {
     const sizeClass = size === 'sm' ? 'w-7 h-7' : 'w-8 h-8';
     const iconSize = size === 'sm' ? 'w-3.5 h-3.5' : 'w-4 h-4';
 
     return (
         <span
             className={`sidebar-icon-wrap flex items-center justify-center rounded-lg shrink-0 ${sizeClass} ${
-                active ? 'bg-white/25 shadow-inner' : 'bg-white/5'
+                active ? 'bg-white/25 shadow-inner' : tone || 'bg-white/5'
             }`}
         >
             <Icon className={`${iconSize} ${active ? 'text-white' : 'text-blue-200'}`} strokeWidth={2} />
@@ -32,13 +88,14 @@ function NavIcon({ icon: Icon, active, size = 'md' }) {
     );
 }
 
-function NavChildItem({ child, onClose }) {
-    if (child.disabled) {
+function NavChildItem({ child, onClose, locked }) {
+    if (locked || child.disabled) {
         return (
-            <div title="Indisponible" className="opacity-40 grayscale pointer-events-none">
-                <div className="sidebar-child-item flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[13px] font-medium text-slate-400 cursor-not-allowed">
+            <div title={locked ? 'Section à venir' : 'Indisponible'} className="opacity-45 grayscale pointer-events-none">
+                <div className="sidebar-child-item flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[13px] font-medium text-slate-300 cursor-not-allowed">
                     <child.icon className="sidebar-child-icon w-4 h-4 shrink-0 opacity-60" strokeWidth={1.75} />
                     <span className="truncate">{child.label}</span>
+                    {locked && <Lock className="ml-auto w-3 h-3 text-white/30 shrink-0" strokeWidth={2} />}
                 </div>
             </div>
         );
@@ -75,25 +132,7 @@ function NavChildItem({ child, onClose }) {
     );
 }
 
-function LockedNavItem({ item }) {
-    return (
-        <div
-            title="Section à venir"
-            className="sidebar-nav-item relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-white/25 cursor-not-allowed select-none grayscale opacity-60"
-        >
-            <span className="sidebar-icon-wrap flex items-center justify-center rounded-lg shrink-0 w-8 h-8 bg-white/5">
-                <item.icon className="w-4 h-4 text-white/30" strokeWidth={2} />
-            </span>
-            <span className="flex-1 text-left truncate">{item.label}</span>
-            <Lock className="w-3.5 h-3.5 text-white/25 shrink-0" strokeWidth={2} />
-        </div>
-    );
-}
-
 function DashboardLink({ item, onClose }) {
-    if (item.locked) {
-        return <LockedNavItem item={item} />;
-    }
     return (
         <NavLink
             to={item.to}
@@ -123,19 +162,14 @@ function DashboardLink({ item, onClose }) {
 function NavGroup({ group, onClose }) {
     const location = useLocation();
     const disabled = !!group.disabled;
-    const isChildActive = !disabled && !group.locked && group.children?.some(
-        (c) => !c.disabled && (location.pathname === c.to || location.pathname.startsWith(`${c.to}/`)),
-    );
-    const [open, setOpen] = useState(isChildActive);
-    const accent = sectionColors[group.id] || 'from-white/10 to-white/5';
-
-    if (group.locked) {
-        return (
-            <div className="mb-1">
-                <LockedNavItem item={group} />
-            </div>
+    const locked = !!group.locked;
+    const theme = sectionThemes[group.id] || defaultTheme;
+    const isChildActive =
+        !disabled &&
+        !locked &&
+        group.children?.some(
+            (c) => !c.disabled && (location.pathname === c.to || location.pathname.startsWith(`${c.to}/`)),
         );
-    }
 
     if (group.to) {
         return (
@@ -167,37 +201,51 @@ function NavGroup({ group, onClose }) {
     }
 
     return (
-        <div className={`mb-1 ${disabled ? 'opacity-40 grayscale' : ''}`} title={disabled ? 'Section indisponible' : undefined}>
-            <button
-                type="button"
-                onClick={() => !disabled && setOpen((v) => !v)}
-                disabled={disabled}
-                className={`sidebar-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors duration-100 ${
-                    disabled
-                        ? 'text-slate-400 cursor-not-allowed bg-white/5'
-                        : isChildActive || open
-                            ? `sidebar-section-open text-white bg-gradient-to-r ${accent}`
-                            : 'text-blue-100 hover:bg-white/10 hover:text-white'
-                }`}
-            >
-                <NavIcon icon={group.icon} active={!disabled && (isChildActive || open)} />
-                <span className="flex-1 text-left truncate">{group.label}</span>
-                <span
-                    className={`flex items-center justify-center w-6 h-6 rounded-md bg-white/5 transition-transform duration-150 ${
-                        open ? 'rotate-180' : ''
-                    }`}
-                >
-                    <ChevronDown className="w-3.5 h-3.5 opacity-80" />
-                </span>
-            </button>
+        <div
+            className={`sidebar-section-card relative mb-2.5 overflow-hidden rounded-2xl ring-1 ${theme.ring} ${
+                disabled ? 'opacity-40 grayscale' : ''
+            } ${locked ? 'opacity-80' : ''}`}
+            title={disabled ? 'Section indisponible' : locked ? 'Section à venir' : undefined}
+        >
+            <div className={`absolute inset-0 bg-gradient-to-r ${theme.soft} pointer-events-none`} />
+            <div className={`absolute left-0 top-0 bottom-0 w-1 ${theme.bar} ${isChildActive ? 'opacity-100' : 'opacity-70'}`} />
 
-            {!disabled && open && (
-                <div className="mt-1.5 ml-4 pl-3 border-l-2 sidebar-tree-line space-y-0.5 py-1">
-                    {group.children.map((child) => (
-                        <NavChildItem key={child.to} child={child} onClose={onClose} />
-                    ))}
+            <div className="relative px-3 pt-2.5 pb-2">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                    <span
+                        className={`sidebar-icon-wrap flex items-center justify-center rounded-lg shrink-0 w-8 h-8 ${theme.glow} ring-1 ring-white/10`}
+                    >
+                        <group.icon className={`w-4 h-4 ${theme.icon}`} strokeWidth={2.25} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-white/45 font-semibold leading-none mb-1">
+                            Module
+                        </p>
+                        <p className="text-sm font-bold text-white truncate leading-tight">{group.label}</p>
+                    </div>
+                    {locked ? (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white/45 ring-1 ring-white/10">
+                            <Lock className="w-3 h-3" strokeWidth={2} />
+                            Bientôt
+                        </span>
+                    ) : (
+                        <span className={`h-1.5 w-1.5 rounded-full ${theme.bar} shadow-[0_0_8px_rgba(255,255,255,0.35)]`} />
+                    )}
                 </div>
-            )}
+
+                {group.children?.length > 0 && (
+                    <div className="mt-1 ml-1 pl-3 border-l border-white/10 space-y-0.5 py-0.5">
+                        {group.children.map((child) => (
+                            <NavChildItem
+                                key={child.to}
+                                child={child}
+                                onClose={onClose}
+                                locked={locked}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
@@ -269,7 +317,7 @@ export default function Sidebar({ mobile, onClose }) {
             </div>
 
             <nav className="relative flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-3">
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                     {menuGroups.map((group) => (
                         <NavGroup key={group.id} group={group} onClose={onClose} />
                     ))}

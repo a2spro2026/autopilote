@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
 
         $adminRole = Role::where('slug', 'administrateur')->first();
 
-        // Migrer les anciens comptes administrateur si présents
-        User::whereIn('email', [
+        // Migrer un ancien compte admin seulement si la cible n'existe pas encore
+        $legacyEmails = [
             'admin@batixpert.ma',
             'admin@batixpert.com',
             'admin@socimpro.com',
@@ -36,9 +36,14 @@ class DatabaseSeeder extends Seeder
             'yahay@autopilote.com',
             'yahay@adeso.com',
             'admin@adeso.com',
-        ])->update([
-            'email' => 'admin@autopilote.com',
-        ]);
+        ];
+
+        if (! User::where('email', 'admin@autopilote.com')->exists()) {
+            $legacy = User::whereIn('email', $legacyEmails)->orderBy('id')->first();
+            if ($legacy) {
+                $legacy->update(['email' => 'admin@autopilote.com']);
+            }
+        }
 
         User::updateOrCreate(
             ['email' => 'admin@autopilote.com'],
