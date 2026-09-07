@@ -189,6 +189,7 @@ export default function Login() {
                                     >
                                         <option value="">— Sélectionner —</option>
                                         <option value="administrateur">Administrateur</option>
+                                        <option value="gerant">Gérant</option>
                                         <option value="commercial">Commercial</option>
                                         <option value="caisse">Caisse</option>
                                         <option value="facturation">Facturation</option>

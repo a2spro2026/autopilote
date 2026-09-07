@@ -5,9 +5,12 @@ import {
 } from 'lucide-react';
 import api from '../lib/api';
 
+const LOGIN_DOMAIN = '@autopilote.com';
+
 const STATUT_OPTIONS = [
     { value: '', label: '— Sélectionner —' },
     { value: 'administrateur', label: 'Administrateur' },
+    { value: 'gerant', label: 'Gérant' },
     { value: 'commercial', label: 'Commercial' },
     { value: 'caisse', label: 'Caisse' },
     { value: 'facturation', label: 'Facturation' },
@@ -23,9 +26,20 @@ const emptyForm = {
     contact: '',
     statut: '',
     is_active: '1',
-    login: '',
+    loginLocal: '',
     password: '',
 };
+
+function sanitizeLoginLocal(value) {
+    return String(value || '')
+        .split('@')[0]
+        .replace(/\s+/g, '')
+        .toLowerCase();
+}
+
+function toLoginLocal(emailOrLogin) {
+    return sanitizeLoginLocal(emailOrLogin);
+}
 
 const inputClass =
     'w-full rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-2 py-1.5 text-xs text-center outline-none focus:ring-1 focus:ring-brand-navy/30 focus:border-brand-navy transition-all';
@@ -158,7 +172,7 @@ export default function UtilisateursPage() {
             contact: row.contact || row.phone || '',
             statut: row.statut_slug || '',
             is_active: row.is_active ? '1' : '0',
-            login: row.login || row.email || '',
+            loginLocal: toLoginLocal(row.login || row.email || ''),
             password: '',
         });
         setEditingId(row.id);
@@ -186,12 +200,17 @@ export default function UtilisateursPage() {
             setError('Veuillez sélectionner un statut.');
             return;
         }
+        const local = sanitizeLoginLocal(form.loginLocal);
+        if (!local) {
+            setError('Veuillez saisir le login.');
+            return;
+        }
         setSaving(true);
 
         const payload = {
             name: form.name.trim(),
             phone: form.contact.trim() || null,
-            email: form.login.trim(),
+            email: `${local}${LOGIN_DOMAIN}`,
             statut: form.statut,
             is_active: form.is_active === '1',
         };
@@ -302,7 +321,20 @@ export default function UtilisateursPage() {
                             </select>
                         </Field>
                         <Field label="Login">
-                            <input type="email" required value={form.login} onChange={(e) => set('login', e.target.value)} placeholder="email@exemple.com" className={inputClass} />
+                            <div className="flex items-stretch rounded-md border border-slate-200 dark:border-slate-600 overflow-hidden bg-white dark:bg-slate-800 focus-within:ring-1 focus-within:ring-brand-navy/30 focus-within:border-brand-navy">
+                                <input
+                                    type="text"
+                                    required
+                                    value={form.loginLocal}
+                                    onChange={(e) => set('loginLocal', sanitizeLoginLocal(e.target.value))}
+                                    placeholder="login"
+                                    className="w-full min-w-0 bg-transparent text-slate-900 dark:text-white px-2 py-1.5 text-xs text-center outline-none"
+                                    autoComplete="off"
+                                />
+                                <span className="shrink-0 px-2 py-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/80 border-l border-slate-200 dark:border-slate-600 flex items-center">
+                                    {LOGIN_DOMAIN}
+                                </span>
+                            </div>
                         </Field>
                         <Field label="Mot de Passe" className="xl:col-span-2 md:col-span-2">
                             <input

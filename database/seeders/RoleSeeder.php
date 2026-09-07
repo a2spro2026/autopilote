@@ -79,6 +79,21 @@ class RoleSeeder extends Seeder
                     'reglements.view',
                 ],
             ],
+            'gerant' => [
+                'name' => 'Gérant',
+                'description' => 'Gestion opérationnelle large de l\'activité',
+                'permissions' => [
+                    'dashboard.view', 'clients.view', 'clients.create', 'clients.edit',
+                    'fournisseurs.view', 'fournisseurs.create', 'fournisseurs.edit',
+                    'stock.view', 'stock.create', 'stock.edit',
+                    'chantiers.view', 'chantiers.create', 'chantiers.edit',
+                    'factures_clients.view', 'factures_clients.create', 'factures_clients.edit',
+                    'factures_fournisseurs.view', 'factures_fournisseurs.create', 'factures_fournisseurs.edit',
+                    'reglements.view', 'reglements.create', 'reglements.edit',
+                    'personnel.view', 'personnel.create', 'personnel.edit',
+                    'avances.view', 'avances.create', 'avances.edit',
+                ],
+            ],
             'caisse' => [
                 'name' => 'Caisse',
                 'description' => 'Caisse calculatrice, consultation stock et clients',

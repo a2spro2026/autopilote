@@ -15,7 +15,7 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'status' => 'required|in:administrateur,commercial,caisse,facturation',
+            'status' => 'required|in:administrateur,gerant,commercial,caisse,facturation',
         ]);
 
         $user = User::with('role.permissions')->where('email', $request->email)->first();
@@ -34,6 +34,7 @@ class AuthController extends Controller
 
         $statusRoles = [
             'administrateur' => ['administrateur'],
+            'gerant' => ['gerant', 'directeur'],
             'commercial' => ['commercial'],
             'caisse' => ['caisse'],
             'facturation' => ['facturation', 'comptable'],

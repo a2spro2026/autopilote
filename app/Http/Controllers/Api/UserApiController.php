@@ -12,6 +12,7 @@ class UserApiController extends Controller
 {
     private const LOGIN_STATUTS = [
         'administrateur' => 'Administrateur',
+        'gerant' => 'Gérant',
         'commercial' => 'Commercial',
         'caisse' => 'Caisse',
         'facturation' => 'Facturation',
