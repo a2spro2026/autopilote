@@ -10,12 +10,16 @@ class Client extends Model
     protected $fillable = [
         'name', 'contact_person', 'email', 'phone', 'address', 'city', 'ice', 'status', 'notes',
         'chantier_type', 'reglement', 'chantier_address', 'budget', 'work_delay',
+        'latitude', 'longitude', 'located_at',
     ];
 
     protected function casts(): array
     {
         return [
             'budget' => 'decimal:2',
+            'latitude' => 'float',
+            'longitude' => 'float',
+            'located_at' => 'datetime',
         ];
     }
 

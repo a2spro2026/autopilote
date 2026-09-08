@@ -61,7 +61,19 @@ class ClientApiController extends Controller
 
     public function update(Request $request, Client $client)
     {
-        $client->update($this->validated($request, true));
+        $validated = $this->validated($request, true);
+
+        if (array_key_exists('latitude', $validated) || array_key_exists('longitude', $validated)) {
+            $lat = array_key_exists('latitude', $validated) ? $validated['latitude'] : $client->latitude;
+            $lng = array_key_exists('longitude', $validated) ? $validated['longitude'] : $client->longitude;
+            if ($lat !== null && $lng !== null) {
+                $validated['located_at'] = now();
+            } elseif ($lat === null || $lng === null) {
+                $validated['located_at'] = null;
+            }
+        }
+
+        $client->update($validated);
 
         return response()->json($this->formatClient($client->fresh()));
     }
@@ -89,6 +101,8 @@ class ClientApiController extends Controller
             'budget' => 'nullable|numeric|min:0',
             'work_delay' => 'nullable|string|max:100',
             'status' => 'in:actif,inactif',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
         ]);
     }
 
@@ -111,6 +125,9 @@ class ClientApiController extends Controller
             'phone' => $client->phone,
             'address' => $client->address,
             'city' => $client->city,
+            'latitude' => $client->latitude !== null ? (float) $client->latitude : null,
+            'longitude' => $client->longitude !== null ? (float) $client->longitude : null,
+            'located_at' => $client->located_at?->format('d/m/Y H:i'),
             'chantier_type' => $client->chantier_type,
             'reglement' => $client->reglement,
             'chantier_address' => $client->chantier_address,

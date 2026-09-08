@@ -124,7 +124,7 @@ export default function Login() {
     return (
         <div className="relative min-h-screen overflow-hidden bg-[#0a1628] text-white">
             <img
-                src="/images/login-bg.png?v=40"
+                src="/images/login-bg.png?v=41"
                 alt="Autopilote — Vente de pièces auto"
                 className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none"
                 draggable={false}

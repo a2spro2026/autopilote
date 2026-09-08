@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 
     Route::get('/dashboard', [DashboardApiController::class, 'index']);
+    Route::get('/dashboard/map-clients', [DashboardApiController::class, 'mapClients']);
 
     Route::apiResource('chantiers', ChantierApiController::class);
     Route::post('chantiers/{chantier}/archive', [ChantierApiController::class, 'archive']);

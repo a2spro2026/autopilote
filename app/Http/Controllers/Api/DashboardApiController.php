@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Charge;
 use App\Models\Chantier;
+use App\Models\Client;
 use App\Models\ClientInvoice;
 use App\Models\Employee;
 use App\Models\Expense;
@@ -301,6 +302,32 @@ class DashboardApiController extends Controller
                 'derniers_bons_charge' => $derniersBonsCharge->values(),
                 'regl_a_decaisser' => $reglADecaisser->values(),
             ],
+        ]);
+    }
+
+    public function mapClients()
+    {
+        $clients = Client::query()
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->where('status', 'actif')
+            ->orderBy('name')
+            ->get(['id', 'name', 'phone', 'email', 'address', 'city', 'latitude', 'longitude', 'located_at', 'contact_person']);
+
+        return response()->json([
+            'data' => $clients->map(fn (Client $c) => [
+                'id' => $c->id,
+                'code' => $c->code,
+                'name' => $c->name,
+                'phone' => $c->phone,
+                'email' => $c->email,
+                'address' => $c->address,
+                'city' => $c->city,
+                'contact_person' => $c->contact_person,
+                'latitude' => (float) $c->latitude,
+                'longitude' => (float) $c->longitude,
+                'located_at' => $c->located_at?->format('d/m/Y H:i'),
+            ])->values(),
         ]);
     }
 
