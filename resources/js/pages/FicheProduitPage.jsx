@@ -181,7 +181,6 @@ export default function FicheProduitPage() {
     const [familles, setFamilles] = useState([]);
     const [categories, setCategories] = useState([]);
     const [marques, setMarques] = useState([]);
-    const [meta, setMeta] = useState({ next_ref: '—' });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
@@ -190,13 +189,12 @@ export default function FicheProduitPage() {
 
     const load = useCallback(() => {
         setLoading(true);
-        api.get('/products', { params: { all: 1 } })
+        api.get('/products', { params: { all: 1, from_purchase: 1 } })
             .then((res) => {
                 setRows(res.data.data ?? []);
                 setFamilles(res.data.meta?.familles ?? []);
                 setCategories(res.data.meta?.categories ?? []);
                 setMarques(res.data.meta?.marques ?? []);
-                setMeta(res.data.meta ?? { next_ref: '—' });
             })
             .catch(() => setRows([]))
             .finally(() => setLoading(false));
@@ -213,9 +211,10 @@ export default function FicheProduitPage() {
         load();
     };
 
-    const handleNew = () => {
-        resetForm();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    const cancelEdit = () => {
+        setForm(emptyForm);
+        setEditingId(null);
+        setError('');
     };
 
     const fillForm = (row) => {
@@ -266,10 +265,8 @@ export default function FicheProduitPage() {
         try {
             if (editingId) {
                 await api.put(`/products/${editingId}`, payload);
-            } else {
-                await api.post('/products', payload);
+                resetForm();
             }
-            resetForm();
         } catch (err) {
             setError(err.response?.data?.message || 'Erreur lors de l\'enregistrement');
         } finally {
@@ -277,41 +274,37 @@ export default function FicheProduitPage() {
         }
     };
 
-    const currentRef = editingId
-        ? rows.find((r) => r.id === editingId)?.reference ?? meta.next_ref
-        : meta.next_ref;
-
     return (
         <div className="flex flex-col flex-1 min-h-0 gap-4">
             <ViewModal row={viewRow} onClose={() => setViewRow(null)} />
 
-            {readOnly ? (
-                <div className="shrink-0 flex flex-wrap items-center justify-between gap-3">
-                    <div>
-                        <h1 className="text-lg font-bold text-slate-800 dark:text-white">Fiche Produit</h1>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">Consultation du stock (tous les produits)</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <button type="button" onClick={load} disabled={loading} className="btn-secondary text-sm" title="Actualiser">
-                            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                            Actualiser
-                        </button>
-                        <button type="button" onClick={() => navigate('/dashboard')} className="btn-secondary text-sm">
-                            <X className="w-4 h-4" />
-                            Fermer
-                        </button>
-                    </div>
+            <div className="shrink-0 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <h1 className="text-lg font-bold text-slate-800 dark:text-white">Fiche Produit</h1>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                        Produits saisis dans les bons d&apos;achat
+                    </p>
                 </div>
-            ) : (
+                <div className="flex items-center gap-2">
+                    <button type="button" onClick={load} disabled={loading} className="btn-secondary text-sm" title="Actualiser">
+                        <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                        Actualiser
+                    </button>
+                    <button type="button" onClick={() => navigate('/dashboard')} className="btn-secondary text-sm">
+                        <X className="w-4 h-4" />
+                        Fermer
+                    </button>
+                </div>
+            </div>
+
+            {!readOnly && editingId && (
             <form onSubmit={handleSubmit} className="shrink-0 glass-card p-4 lg:p-5 shadow-card border border-slate-200/60 dark:border-slate-700/60 overflow-x-auto">
                 {error && (
                     <div className="mb-4 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-100 dark:border-red-800">{error}</div>
                 )}
-                {editingId && (
-                    <div className="mb-3 px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs font-medium border border-amber-200 dark:border-amber-800">
-                        Mode modification — Mettez à jour puis enregistrez
-                    </div>
-                )}
+                <div className="mb-3 px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs font-medium border border-amber-200 dark:border-amber-800">
+                    Mode modification — ID {editingId}
+                </div>
 
                 <div className="grid grid-cols-[0.65fr_1.15fr_1.2fr_1fr_1fr_1fr_0.55fr_0.55fr_0.55fr_0.55fr] gap-1.5 items-end w-full min-w-[1140px]">
                     <Field label="Réf" compact>
@@ -320,7 +313,7 @@ export default function FicheProduitPage() {
                             required
                             value={form.reference}
                             onChange={(e) => set('reference', e.target.value)}
-                            placeholder={currentRef || 'Réf'}
+                            placeholder="Réf"
                             className={inputClass}
                         />
                     </Field>
@@ -387,24 +380,11 @@ export default function FicheProduitPage() {
                 <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                     <button type="submit" disabled={saving} className="btn-primary text-sm">
                         <Save className="w-4 h-4" />
-                        {saving ? 'Enregistrement...' : editingId ? 'Mettre à jour' : 'Enregistrer'}
+                        {saving ? 'Enregistrement...' : 'Mettre à jour'}
                     </button>
-                    <button type="button" onClick={handleNew} className="btn-muted">
+                    <button type="button" onClick={cancelEdit} className="btn-secondary text-sm">
                         <RotateCcw className="w-4 h-4" />
-                        Nouveau
-                    </button>
-                    <button type="button" onClick={load} disabled={loading} className="btn-secondary text-sm" title="Actualiser">
-                        <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                        Actualiser
-                    </button>
-                    {editingId && (
-                        <button type="button" onClick={handleNew} className="btn-secondary text-sm">
-                            <RotateCcw className="w-4 h-4" /> Annuler
-                        </button>
-                    )}
-                    <button type="button" onClick={() => navigate('/dashboard')} className="btn-secondary text-sm">
-                        <X className="w-4 h-4" />
-                        Fermer
+                        Annuler
                     </button>
                 </div>
             </form>
@@ -412,7 +392,7 @@ export default function FicheProduitPage() {
 
             <div className="flex-1 min-h-0 flex flex-col glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
                 <div className="shrink-0 px-5 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-teal-700 border-b border-white/10">
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wide">Liste des produits</h3>
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wide">Liste des produits (bons d&apos;achat)</h3>
                 </div>
                 <div className="flex-1 min-h-0 overflow-auto">
                     <table className="w-full text-sm min-w-[1280px] border-collapse">
@@ -471,7 +451,7 @@ export default function FicheProduitPage() {
                                     </tr>
                                 ))
                             ) : (
-                                <tr><td colSpan={11} className="px-4 py-12 text-center text-slate-400">Aucun produit enregistré</td></tr>
+                                <tr><td colSpan={11} className="px-4 py-12 text-center text-slate-400">Aucun produit issu des bons d&apos;achat</td></tr>
                             )}
                         </tbody>
                     </table>

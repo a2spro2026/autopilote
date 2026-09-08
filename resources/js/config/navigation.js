@@ -23,7 +23,6 @@ import {
     // Stock
     Boxes,
     ArrowLeftRight,
-    Archive,
     LayoutGrid,
     // Personnel
     BadgeCheck,
@@ -94,10 +93,9 @@ export const navigation = [
         label: 'Facturation',
         icon: FileText,
         perm: 'factures_clients.view',
-        locked: true,
         children: [
             { to: '/facturation/factures-achats', label: 'Factures Achats', icon: Receipt },
-            { to: '/facturation/stock-fiscal', label: 'Stock Fiscale', icon: Archive },
+            { to: '/facturation/mouvement-fiscal', label: 'Mouvement Fiscal', icon: ArrowLeftRight },
             { to: '/facturation/factures-ventes', label: 'Facture Ventes', icon: Receipt },
             { to: '/facturation/reglements', label: 'Règlements Factures Ventes', icon: Wallet },
             { to: '/facturation/balance', label: 'Balance', icon: Scale },

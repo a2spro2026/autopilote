@@ -33,6 +33,15 @@ const emptyLine = () => ({
     unit_price: '',
 });
 
+function findProductByRef(ref, products) {
+    const q = String(ref || '').trim().toLowerCase();
+    if (!q) return null;
+    return products.find((p) =>
+        (p.article_id || '').toLowerCase() === q
+        || (p.reference || '').toLowerCase() === q,
+    ) || null;
+}
+
 function Field({ label, children, className = '' }) {
     return (
         <div className={`min-w-0 ${className}`}>
@@ -242,18 +251,12 @@ export default function BonAchatsPage() {
         setLines((prev) => prev.map((l) => (l.key === key ? { ...l, ...patch } : l)));
     };
 
-    const handleSelectProduct = (lineKey, productId) => {
-        const product = products.find((p) => String(p.id) === String(productId));
-        if (!product) {
-            updateLine(lineKey, {
-                product_id: '', article_ref: '', code_barre: '', description: '',
-                categorie: '', famille: '', marque: '', unit: '',
-            });
-            return;
-        }
+    const handleRefBlur = (lineKey, ref) => {
+        const product = findProductByRef(ref, products);
+        if (!product) return;
         updateLine(lineKey, {
             product_id: product.id,
-            article_ref: product.article_id || product.reference || '',
+            article_ref: product.article_id || product.reference || ref,
             code_barre: product.code_barre || product.article_id || product.reference || '',
             description: product.name || '',
             categorie: product.categorie || '',
@@ -528,19 +531,19 @@ export default function BonAchatsPage() {
                                 {lines.map((line) => (
                                     <tr key={line.key} className="hover:bg-orange-50/30 dark:hover:bg-slate-800/30">
                                         <td className="px-2 py-1.5 w-[110px]">
-                                            <select
-                                                value={line.product_id}
-                                                onChange={(e) => handleSelectProduct(line.key, e.target.value)}
+                                            <input
+                                                type="text"
+                                                list="bon-achat-refs"
+                                                value={line.article_ref}
+                                                onChange={(e) => updateLine(line.key, {
+                                                    article_ref: e.target.value,
+                                                    product_id: '',
+                                                })}
+                                                onBlur={(e) => handleRefBlur(line.key, e.target.value)}
+                                                placeholder="Réf"
                                                 className={tableInput}
-                                                title="Liste des références"
-                                            >
-                                                <option value="">— Réf —</option>
-                                                {products.map((p) => (
-                                                    <option key={p.id} value={p.id}>
-                                                        {p.article_id || p.reference || p.name}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                                title="Saisie manuelle ou choix dans la liste"
+                                            />
                                         </td>
                                         <td className="px-2 py-1.5 w-[210px]">
                                             <input
@@ -617,6 +620,11 @@ export default function BonAchatsPage() {
                             </tbody>
                         </table>
                     </div>
+                    <datalist id="bon-achat-refs">
+                        {products.map((p) => (
+                            <option key={p.id} value={p.article_id || p.reference || ''} label={p.name || ''} />
+                        ))}
+                    </datalist>
                     <div className="px-3 py-2 border-t border-slate-100 dark:border-slate-800 flex justify-end">
                         <button
                             type="button"

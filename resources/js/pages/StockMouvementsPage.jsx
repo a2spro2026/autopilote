@@ -20,7 +20,7 @@ function qtyClass(value, tone) {
         : 'text-rose-700 dark:text-rose-400';
 }
 
-function buildPrintHtml(row, year, months) {
+function buildPrintHtml(row, year, months, printTitle = 'Mouvement Stock') {
     const monthHeads = months.map((m) => `<th colspan="2">${m.full}</th>`).join('');
     const subHeads = months.map(() => '<th>Achat</th><th>Vente</th>').join('');
     const monthCells = months.map((m) => {
@@ -39,7 +39,7 @@ th,td{border:1px solid #e2e8f0;padding:7px 6px;font-size:11px}
 th{background:#f1f5f9;font-weight:700;text-align:center}
 .badge{background:#dbeafe;color:#1e3a5f;padding:3px 8px;border-radius:999px;font-weight:700;font-size:11px}
 </style></head><body>
-<h1>Autopilote — Mouvement Stock</h1>
+<h1>Autopilote — ${printTitle}</h1>
 <p class="sub">Année ${year} · <span class="badge">${row.reference || '—'}</span></p>
 <table>
 <tr>
@@ -58,10 +58,10 @@ ${monthCells}
 </body></html>`;
 }
 
-function openPrintable(row, year, months) {
+function openPrintable(row, year, months, printTitle) {
     const w = window.open('', '_blank', 'width=1200,height=700');
     if (!w) return;
-    w.document.write(buildPrintHtml(row, year, months));
+    w.document.write(buildPrintHtml(row, year, months, printTitle));
     w.document.close();
     w.focus();
     setTimeout(() => w.print(), 300);
@@ -96,7 +96,11 @@ function FragmentMonthSubHeads({ even }) {
     );
 }
 
-export default function StockMouvementsPage() {
+export default function StockMouvementsPage({
+    title = 'Mouvement Stock',
+    subtitle = 'Achats et ventes mensuels par produit',
+    printTitle = 'Mouvement Stock',
+}) {
     const currentYear = new Date().getFullYear();
     const [year, setYear] = useState(currentYear);
     const [rows, setRows] = useState([]);
@@ -133,9 +137,9 @@ export default function StockMouvementsPage() {
         <div className="space-y-4 h-full min-h-0 flex flex-col">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 shrink-0">
                 <div>
-                    <h1 className="text-xl font-bold text-slate-900 dark:text-white">Mouvement Stock</h1>
+                    <h1 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Achats et ventes mensuels par produit — {year}
+                        {subtitle} — {year}
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -274,13 +278,13 @@ export default function StockMouvementsPage() {
                                                 <ActionBtn
                                                     title="Imprimer"
                                                     icon={Printer}
-                                                    onClick={() => openPrintable(row, year, monthsMeta)}
+                                                    onClick={() => openPrintable(row, year, monthsMeta, printTitle)}
                                                 />
                                                 <ActionBtn
                                                     title="PDF"
                                                     icon={FileText}
                                                     color="orange"
-                                                    onClick={() => openPrintable(row, year, monthsMeta)}
+                                                    onClick={() => openPrintable(row, year, monthsMeta, printTitle)}
                                                 />
                                             </div>
                                         </td>

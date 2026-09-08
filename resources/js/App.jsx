@@ -17,6 +17,7 @@ const CataloguePage = lazy(() => import('./pages/CataloguePage'));
 const ConfigCataloguePage = lazy(() => import('./pages/ConfigCataloguePage'));
 const GenericListPage = lazy(() => import('./pages/GenericListPage'));
 const StockMouvementsPage = lazy(() => import('./pages/StockMouvementsPage'));
+const MouvementFiscalPage = lazy(() => import('./pages/MouvementFiscalPage'));
 const ModulePage = lazy(() => import('./pages/ModulePage'));
 const FicheFournisseurPage = lazy(() => import('./pages/FicheFournisseurPage'));
 const FicheClientPage = lazy(() => import('./pages/FicheClientPage'));
@@ -92,7 +93,8 @@ function AppRoutes() {
 
                 {/* Facturation */}
                 <Route path="facturation/factures-achats" element={<FactureAchatsPage pageTitle="Factures Achats" />} />
-                <Route path="facturation/stock-fiscal" element={<ModulePage />} />
+                <Route path="facturation/mouvement-fiscal" element={<MouvementFiscalPage />} />
+                <Route path="facturation/stock-fiscal" element={<Navigate to="/facturation/mouvement-fiscal" replace />} />
                 <Route path="facturation/depot-a" element={<Navigate to="/facturation/factures-achats" replace />} />
                 <Route path="facturation/depot-b" element={<Navigate to="/facturation/factures-achats" replace />} />
                 <Route path="facturation/reglement" element={<ReglementFournisseurPage />} />
@@ -108,7 +110,7 @@ function AppRoutes() {
                 <Route path="stock/produits" element={<FicheProduitPage />} />
                 <Route path="stock/catalogue" element={<Navigate to="/catalogue" replace />} />
                 <Route path="stock/mouvements" element={<StockMouvementsPage />} />
-                <Route path="stock/fiscal" element={<Navigate to="/facturation/stock-fiscal" replace />} />
+                <Route path="stock/fiscal" element={<Navigate to="/facturation/mouvement-fiscal" replace />} />
 
                 {/* Personnel */}
                 <Route path="personnel/fiches" element={<GenericListPage title="Fiche Personnel" subtitle="Gestion des employés" endpoint="/employees" columns={employeeCols} />} />

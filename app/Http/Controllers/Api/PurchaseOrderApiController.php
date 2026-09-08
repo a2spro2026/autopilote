@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\PurchaseOrder;
 use App\Models\Supplier;
 use App\Models\SupplierPayment;
@@ -300,8 +301,9 @@ class PurchaseOrderApiController extends Controller
     {
         $order->items()->delete();
         foreach ($items as $item) {
+            $productId = $this->resolveOrCreateProduct($item);
             $order->items()->create([
-                'product_id' => $item['product_id'],
+                'product_id' => $productId,
                 'article_ref' => $item['article_ref'],
                 'code_barre' => $item['code_barre'],
                 'description' => $item['description'],
@@ -315,6 +317,89 @@ class PurchaseOrderApiController extends Controller
                 'total' => $item['total'],
             ]);
         }
+    }
+
+    private function resolveOrCreateProduct(array $item): ?int
+    {
+        $ref = trim((string) ($item['article_ref'] ?? ''));
+        $name = trim((string) ($item['description'] ?? ''));
+        $unitPrice = (float) ($item['unit_price'] ?? 0);
+
+        $product = null;
+        if (! empty($item['product_id'])) {
+            $product = Product::find((int) $item['product_id']);
+        }
+
+        if (! $product && $ref !== '') {
+            $product = Product::query()
+                ->where(function ($q) use ($ref) {
+                    $q->where('article_id', $ref)->orWhere('reference', $ref);
+                })
+                ->first();
+        }
+
+        if ($product) {
+            $updates = [];
+            if (($product->origin ?? '') !== 'bon_achat') {
+                $updates['origin'] = 'bon_achat';
+            }
+            if ($unitPrice > 0) {
+                $updates['purchase_price'] = $unitPrice;
+            }
+            $codeBarre = trim((string) ($item['code_barre'] ?? ''));
+            if ($codeBarre !== '' && blank($product->code_barre)) {
+                $updates['code_barre'] = $codeBarre;
+            }
+            $marque = trim((string) ($item['marque'] ?? ''));
+            if ($marque !== '' && blank($product->brand)) {
+                $updates['brand'] = $marque;
+            }
+            $famille = trim((string) ($item['famille'] ?? $item['categorie'] ?? ''));
+            if ($famille !== '' && blank($product->famille)) {
+                $updates['famille'] = $famille;
+            }
+            if ($updates !== []) {
+                $product->update($updates);
+            }
+
+            return $product->id;
+        }
+
+        if ($ref === '' && $name === '') {
+            return null;
+        }
+
+        $allowedUnits = ['Kg', 'U', 'Sac', 'ML', 'M²', 'M³', 'Tn', 'M'];
+        $unit = trim((string) ($item['unit'] ?? ''));
+        if (! in_array($unit, $allowedUnits, true)) {
+            $unit = 'U';
+        }
+
+        $product = Product::create([
+            'reference' => $ref !== '' ? $ref : 'Réf-PENDING',
+            'article_id' => $ref !== '' ? $ref : null,
+            'code_barre' => trim((string) ($item['code_barre'] ?? '')) ?: null,
+            'name' => $name !== '' ? $name : ($ref !== '' ? $ref : 'Article'),
+            'unit' => $unit,
+            'famille' => trim((string) ($item['famille'] ?? $item['categorie'] ?? '')) ?: null,
+            'brand' => trim((string) ($item['marque'] ?? '')) ?: null,
+            'purchase_price' => $unitPrice > 0 ? $unitPrice : null,
+            'unit_price' => $unitPrice > 0 ? $unitPrice : 0,
+            'initial_stock' => 0,
+            'quantity_in_stock' => 0,
+            'min_stock_alert' => 0,
+            'status' => 'actif',
+            'etat' => 'Dispo',
+            'origin' => 'bon_achat',
+        ]);
+
+        if ($ref === '') {
+            $product->update([
+                'reference' => 'Réf-'.str_pad((string) $product->id, 4, '0', STR_PAD_LEFT),
+            ]);
+        }
+
+        return $product->id;
     }
 
     private function nextReference(): string

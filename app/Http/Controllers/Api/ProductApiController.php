@@ -28,6 +28,16 @@ class ProductApiController extends Controller
             ->when($request->filled('reference'), fn ($q) => $q->where('reference', 'like', '%'.$request->reference.'%'))
             ->when($request->filled('code_barre'), fn ($q) => $q->where('code_barre', 'like', '%'.$request->code_barre.'%'))
             ->when($request->filled('designation'), fn ($q) => $q->where('name', 'like', '%'.$request->designation.'%'))
+            ->when($request->boolean('from_purchase') || $request->get('origin') === 'bon_achat', function ($q) {
+                $q->where(function ($inner) {
+                    $inner->where('origin', 'bon_achat')
+                        ->orWhereExists(function ($sub) {
+                            $sub->select(DB::raw(1))
+                                ->from('purchase_order_items')
+                                ->whereColumn('purchase_order_items.product_id', 'products.id');
+                        });
+                });
+            })
             ->orderBy('id');
 
         if ($request->boolean('all')) {

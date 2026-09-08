@@ -64,9 +64,7 @@ class AuthorizationApiController extends Controller
             'label' => 'Facturation',
             'children' => [
                 ['key' => '/facturation/factures-achats', 'label' => 'Facture Achats'],
-                ['key' => '/facturation/depot-a', 'label' => 'Depot A'],
-                ['key' => '/facturation/depot-b', 'label' => 'Depot B'],
-                ['key' => '/facturation/reglement', 'label' => 'Règlement'],
+                ['key' => '/facturation/mouvement-fiscal', 'label' => 'Mouvement Fiscal'],
                 ['key' => '/facturation/factures-ventes', 'label' => 'Facture Ventes'],
                 ['key' => '/facturation/reglements', 'label' => 'Règlements'],
                 ['key' => '/facturation/balance', 'label' => 'Balance'],
