@@ -84,12 +84,17 @@ class UserApiController extends Controller
             'phone' => $validated['phone'] ?? null,
         ];
 
+        $passwordChanged = false;
+        $deactivated = false;
+
         if (array_key_exists('is_active', $validated)) {
             $data['is_active'] = (bool) $validated['is_active'];
+            $deactivated = $user->is_active && ! $data['is_active'];
         }
 
         if (! empty($validated['password'])) {
             $data['password'] = $validated['password'];
+            $passwordChanged = true;
         }
 
         if (! empty($validated['statut'])) {
@@ -97,6 +102,11 @@ class UserApiController extends Controller
         }
 
         $user->update($data);
+
+        // Nouveau mot de passe ou suspension → coupe l’accès immédiat (sessions API)
+        if ($passwordChanged || $deactivated) {
+            $user->tokens()->delete();
+        }
 
         return response()->json($this->formatUser($user->fresh()->load('role')));
     }
@@ -107,6 +117,7 @@ class UserApiController extends Controller
             return response()->json(['message' => 'Vous ne pouvez pas supprimer votre propre compte.'], 422);
         }
 
+        $user->tokens()->delete();
         $user->delete();
 
         return response()->json(['message' => 'Utilisateur supprimé']);
@@ -118,7 +129,11 @@ class UserApiController extends Controller
             return response()->json(['message' => 'Vous ne pouvez pas suspendre votre propre compte.'], 422);
         }
 
-        $user->update(['is_active' => ! $user->is_active]);
+        $user->update(['is_active' => ! $user->is_active']);
+
+        if (! $user->is_active) {
+            $user->tokens()->delete();
+        }
 
         return response()->json($this->formatUser($user->fresh()->load('role')));
     }

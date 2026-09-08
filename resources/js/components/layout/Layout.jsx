@@ -11,7 +11,7 @@ export default function Layout() {
     const isDevisForm = /^\/clients\/devis\/(nouveau|\d+)/.test(pathname);
 
     return (
-        <div className="min-h-screen h-screen max-sm:h-[100dvh] bg-slate-50 dark:bg-slate-950 flex overflow-hidden app-shell">
+        <div className="min-h-screen h-[100dvh] bg-slate-50 dark:bg-slate-950 flex overflow-hidden app-shell">
             <Sidebar />
             {mobileOpen && (
                 <>
@@ -33,13 +33,13 @@ export default function Layout() {
                         <Outlet />
                     </main>
                 ) : (
-                    <main className="flex-1 flex flex-col min-h-0 overflow-hidden max-sm:overflow-auto p-4 lg:p-6 max-sm:p-3 page-scroll">
+                    <main className="flex-1 flex flex-col min-h-0 overflow-y-auto overflow-x-hidden p-4 lg:p-6 max-sm:p-3 page-scroll pb-8 max-sm:pb-10">
                         <Outlet />
                     </main>
                 )}
 
                 {!isDevisForm && (
-                    <footer className="mt-auto shrink-0 px-6 py-4 max-sm:px-3 max-sm:py-2 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 safe-bottom">
+                    <footer className="hidden sm:block mt-auto shrink-0 px-6 py-4 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500">
                         © {new Date().getFullYear()} Autopilote — Gestion commerciale | v1.0.0
                     </footer>
                 )}

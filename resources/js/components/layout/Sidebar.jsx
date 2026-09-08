@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { LogOut, Lock } from 'lucide-react';
+import { LogOut, Lock, X } from 'lucide-react';
 import { navigation } from '../../config/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import { SidebarBrand } from '../Logo';
@@ -296,11 +296,11 @@ export default function Sidebar({ mobile, onClose }) {
 
     return (
         <aside
-            className={`sidebar-panel ${
+            className={`sidebar-panel flex flex-col text-white shrink-0 overflow-hidden ${
                 mobile
-                    ? 'fixed inset-y-0 left-0 z-50 w-72 max-w-[88vw] safe-left'
-                    : 'hidden lg:flex lg:w-72 lg:sticky lg:top-0'
-            } flex-col h-screen max-sm:h-[100dvh] text-white shrink-0`}
+                    ? 'fixed inset-y-0 left-0 z-50 w-[min(18.5rem,92vw)] max-w-sm h-[100dvh] safe-left'
+                    : 'hidden lg:flex lg:w-72 lg:sticky lg:top-0 lg:h-screen'
+            }`}
         >
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-brand-orange/10" />
@@ -308,8 +308,20 @@ export default function Sidebar({ mobile, onClose }) {
             </div>
 
             <div className="relative shrink-0 z-10 border-b border-white/10 bg-slate-900/40">
-                <div className="p-4 pb-3">
-                    <SidebarBrand pageTitle={pageTitle} />
+                <div className="p-4 pb-3 flex items-start gap-2">
+                    <div className="min-w-0 flex-1">
+                        <SidebarBrand pageTitle={pageTitle} />
+                    </div>
+                    {mobile && (
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="p-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 shrink-0 touch-target"
+                            aria-label="Fermer le menu"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    )}
                 </div>
                 {dashboardItem && (
                     <div className="px-3 pb-3">
@@ -318,19 +330,19 @@ export default function Sidebar({ mobile, onClose }) {
                 )}
             </div>
 
-            <nav className="relative flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-3">
-                <div className="space-y-1.5">
+            <nav className="relative flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain p-3 pb-6 [-webkit-overflow-scrolling:touch]">
+                <div className="space-y-1.5 pb-4">
                     {menuGroups.map((group) => (
                         <NavGroup key={group.id} group={group} onClose={onClose} />
                     ))}
                 </div>
             </nav>
 
-            <div className="relative shrink-0 p-4 border-t border-white/10 bg-slate-900/40 z-10">
+            <div className="relative shrink-0 p-4 border-t border-white/10 bg-slate-900/40 z-10 safe-bottom">
                 <button
                     type="button"
                     onClick={handleLogout}
-                    className="sidebar-nav-item w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold text-red-200 hover:text-white hover:bg-red-500/20 border border-red-500/20 hover:border-red-400/40 transition-colors duration-100"
+                    className="sidebar-nav-item w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold text-red-200 hover:text-white hover:bg-red-500/20 border border-red-500/20 hover:border-red-400/40 transition-colors duration-100 touch-target"
                 >
                     <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/15 shrink-0">
                         <LogOut className="w-4 h-4" strokeWidth={2} />

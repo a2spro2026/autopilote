@@ -65,6 +65,12 @@ class AuthController extends Controller
     {
         $user = $request->user()->load('role.permissions');
 
+        if (! $user->is_active) {
+            $user->tokens()->delete();
+
+            return response()->json(['message' => 'Compte désactivé.'], 401);
+        }
+
         return response()->json($this->formatUser($user));
     }
 
