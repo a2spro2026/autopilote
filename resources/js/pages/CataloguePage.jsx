@@ -1,32 +1,150 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    Search, Trash2, ImagePlus, Hash, Type, BadgeDollarSign, Award, Layers, RotateCcw,
+    Search, Trash2, ImagePlus, Hash, Type, Award, Layers, RotateCcw,
     ShoppingCart, FileSpreadsheet,
 } from 'lucide-react';
 import api from '../lib/api';
 import { useCatalogueCart } from '../contexts/CatalogueCartContext';
 
+const MEMORY_KEY = 'autopilote_catalogue_search_memory';
+
 const emptyFilters = {
-    reference: '',
-    name: '',
-    price: '',
-    brand: '',
+    code: '',
+    code_barre: '',
     category: '',
+    brand: '',
 };
 
 const FILTER_FIELDS = [
-    { key: 'reference', label: 'Réf', icon: Hash, hint: 'N° pièce' },
-    { key: 'name', label: 'Désignation', icon: Type, hint: 'Pièce' },
-    { key: 'price', label: 'Prix', icon: BadgeDollarSign, hint: 'MAD' },
-    { key: 'brand', label: 'Marque', icon: Award, hint: 'OEM / Aftermarket' },
+    { key: 'code', label: 'Code', icon: Hash, hint: 'Code produit' },
+    { key: 'code_barre', label: 'Réf Equiv', icon: Type, hint: 'Réf équivalente' },
     { key: 'category', label: 'Catégorie', icon: Layers, hint: 'Famille' },
+    { key: 'brand', label: 'Marque', icon: Award, hint: 'OEM / Aftermarket' },
 ];
+
+function readMemory() {
+    try {
+        return JSON.parse(localStorage.getItem(MEMORY_KEY) || '{}') || {};
+    } catch {
+        return {};
+    }
+}
+
+function rememberValue(field, value) {
+    const v = String(value || '').trim();
+    if (!v) return;
+    const data = readMemory();
+    const prev = Array.isArray(data[field]) ? data[field] : [];
+    data[field] = [v, ...prev.filter((x) => String(x).toLowerCase() !== v.toLowerCase())].slice(0, 40);
+    localStorage.setItem(MEMORY_KEY, JSON.stringify(data));
+}
+
+function uniqueSorted(values) {
+    const map = new Map();
+    values.forEach((v) => {
+        const t = String(v || '').trim();
+        if (!t) return;
+        const k = t.toLowerCase();
+        if (!map.has(k)) map.set(k, t);
+    });
+    return [...map.values()].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+}
+
+function matchSuggestions(query, pool) {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    const starts = [];
+    const contains = [];
+    pool.forEach((v) => {
+        const low = v.toLowerCase();
+        if (low.startsWith(q)) starts.push(v);
+        else if (low.includes(q)) contains.push(v);
+    });
+    return [...starts, ...contains].slice(0, 12);
+}
+
+function SearchSuggestInput({
+    fieldKey,
+    value,
+    onChange,
+    onRemember,
+    suggestionsPool,
+    placeholder,
+    inputClassName,
+}) {
+    const [open, setOpen] = useState(false);
+    const wrapRef = useRef(null);
+    const blurTimer = useRef(null);
+
+    const suggestions = useMemo(
+        () => matchSuggestions(value, suggestionsPool),
+        [value, suggestionsPool],
+    );
+
+    useEffect(() => () => {
+        if (blurTimer.current) clearTimeout(blurTimer.current);
+    }, []);
+
+    const pick = (val) => {
+        onChange(val);
+        onRemember(fieldKey, val);
+        setOpen(false);
+    };
+
+    return (
+        <div ref={wrapRef} className="relative">
+            <input
+                type="text"
+                value={value}
+                autoComplete="off"
+                onChange={(e) => {
+                    onChange(e.target.value);
+                    setOpen(true);
+                }}
+                onFocus={() => setOpen(true)}
+                onBlur={() => {
+                    blurTimer.current = setTimeout(() => {
+                        setOpen(false);
+                        onRemember(fieldKey, value);
+                    }, 150);
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === 'Escape') setOpen(false);
+                    if (e.key === 'Enter' && suggestions[0]) {
+                        e.preventDefault();
+                        pick(suggestions[0]);
+                    }
+                }}
+                placeholder={placeholder}
+                className={inputClassName}
+            />
+            {open && value.trim() && suggestions.length > 0 && (
+                <ul className="absolute left-0 right-0 top-full z-50 mt-0.5 max-h-40 overflow-y-auto rounded-md border border-zinc-600 bg-zinc-950 shadow-xl">
+                    {suggestions.map((opt) => (
+                        <li key={opt}>
+                            <button
+                                type="button"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => pick(opt)}
+                                className="w-full px-2 py-1.5 text-left text-[11px] font-semibold text-white hover:bg-brand-orange/90 truncate"
+                            >
+                                {opt}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}
 
 export default function CataloguePage() {
     const navigate = useNavigate();
     const { count, toggleItem, setQuantity, isInCart, getQuantity, clear } = useCatalogueCart();
     const [items, setItems] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [memory, setMemory] = useState(() => readMemory());
     const [loading, setLoading] = useState(true);
     const [filters, setFilters] = useState(emptyFilters);
     const [error, setError] = useState('');
@@ -35,9 +153,18 @@ export default function CataloguePage() {
 
     const load = useCallback(() => {
         setLoading(true);
-        api.get('/catalog-products')
-            .then((res) => setItems(res.data.data ?? []))
-            .catch(() => setItems([]))
+        Promise.all([
+            api.get('/catalog-products'),
+            api.get('/products', { params: { all: 1 } }),
+        ])
+            .then(([catalogRes, productsRes]) => {
+                setItems(catalogRes.data.data ?? []);
+                setProducts(productsRes.data.data ?? []);
+            })
+            .catch(() => {
+                setItems([]);
+                setProducts([]);
+            })
             .finally(() => setLoading(false));
     }, []);
 
@@ -52,6 +179,32 @@ export default function CataloguePage() {
         }
         setFocusQtyId(null);
     }, [focusQtyId, count]);
+
+    const handleRemember = useCallback((field, value) => {
+        rememberValue(field, value);
+        setMemory(readMemory());
+    }, []);
+
+    const suggestionPools = useMemo(() => {
+        const fromCatalog = {
+            code: items.map((i) => i.code || i.article_id),
+            code_barre: items.map((i) => i.code_barre),
+            category: items.map((i) => i.category),
+            brand: items.map((i) => i.brand),
+        };
+        const fromProducts = {
+            code: products.map((p) => p.code || p.article_id || p.reference),
+            code_barre: products.map((p) => p.code_barre),
+            category: products.map((p) => p.categorie || p.famille),
+            brand: products.map((p) => p.marque || p.brand),
+        };
+        return {
+            code: uniqueSorted([...(memory.code || []), ...fromCatalog.code, ...fromProducts.code]),
+            code_barre: uniqueSorted([...(memory.code_barre || []), ...fromCatalog.code_barre, ...fromProducts.code_barre]),
+            category: uniqueSorted([...(memory.category || []), ...fromCatalog.category, ...fromProducts.category]),
+            brand: uniqueSorted([...(memory.brand || []), ...fromCatalog.brand, ...fromProducts.brand]),
+        };
+    }, [items, products, memory]);
 
     const handleCartClick = (item) => {
         const already = isInCart(item.id);
@@ -70,24 +223,22 @@ export default function CataloguePage() {
     };
 
     const filteredItems = useMemo(() => {
-        const refQ = filters.reference.trim().toLowerCase();
-        const nameQ = filters.name.trim().toLowerCase();
-        const priceQ = filters.price.trim().toLowerCase();
+        const codeQ = filters.code.trim().toLowerCase();
+        const refEquivQ = filters.code_barre.trim().toLowerCase();
         const brandQ = filters.brand.trim().toLowerCase();
         const catQ = filters.category.trim().toLowerCase();
 
         return items.filter((item) => {
-            if (refQ) {
-                const ref = `${item.reference || ''} ${item.article_id || ''}`.toLowerCase();
-                if (!ref.includes(refQ)) return false;
+            if (codeQ) {
+                const code = String(item.code || item.article_id || '').trim().toLowerCase();
+                if (!code.includes(codeQ)) return false;
             }
-            if (nameQ && !(item.name || '').toLowerCase().includes(nameQ)) return false;
+            if (refEquivQ) {
+                const refEquiv = String(item.code_barre || '').toLowerCase();
+                if (!refEquiv.includes(refEquivQ)) return false;
+            }
             if (brandQ && !(item.brand || '').toLowerCase().includes(brandQ)) return false;
             if (catQ && !(item.category || '').toLowerCase().includes(catQ)) return false;
-            if (priceQ) {
-                const priceStr = item.price != null ? String(item.price) : '';
-                if (!priceStr.toLowerCase().includes(priceQ)) return false;
-            }
             return true;
         });
     }, [items, filters]);
@@ -132,7 +283,7 @@ export default function CataloguePage() {
                 )}
             </div>
 
-            <div className="relative overflow-hidden rounded-xl border border-zinc-800 dark:border-zinc-700 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.28)]">
+            <div className="relative overflow-visible rounded-xl border border-zinc-800 dark:border-zinc-700 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.28)]">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-orange to-transparent" />
 
                 <div className="relative z-10 flex items-center justify-between gap-2 px-2.5 pt-1.5 pb-1 border-b border-white/10">
@@ -156,7 +307,7 @@ export default function CataloguePage() {
                     )}
                 </div>
 
-                <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1.5 p-2">
+                <div className="relative z-20 grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-2 overflow-visible">
                     {FILTER_FIELDS.map(({ key, label, icon: Icon, hint }) => {
                         const active = String(filters[key] || '').trim() !== '';
                         return (
@@ -179,12 +330,14 @@ export default function CataloguePage() {
                                         {label}
                                     </span>
                                 </span>
-                                <input
-                                    type="text"
+                                <SearchSuggestInput
+                                    fieldKey={key}
                                     value={filters[key]}
-                                    onChange={(e) => setFilters((f) => ({ ...f, [key]: e.target.value }))}
+                                    onChange={(val) => setFilters((f) => ({ ...f, [key]: val }))}
+                                    onRemember={handleRemember}
+                                    suggestionsPool={suggestionPools[key] || []}
                                     placeholder={hint}
-                                    className="w-full h-6 bg-transparent border-0 px-1.5 pb-1 pt-0 text-[11px] font-semibold tracking-wide text-white placeholder:text-zinc-500 focus:outline-none focus:ring-0"
+                                    inputClassName="w-full h-6 bg-transparent border-0 px-1.5 pb-1 pt-0 text-[11px] font-semibold tracking-wide text-white placeholder:text-zinc-500 focus:outline-none focus:ring-0"
                                 />
                             </label>
                         );
@@ -270,8 +423,17 @@ export default function CataloguePage() {
                                     )}
                                 </div>
                                 <div className="px-1.5 py-1.5 space-y-0.5">
-                                    <p className="text-[9px] font-mono font-semibold text-brand-orange truncate">{item.reference || item.article_id}</p>
+                                    <p className="text-[9px] font-mono font-semibold text-brand-orange truncate" title={item.code || item.article_id || ''}>
+                                        {item.code || item.article_id || '—'}
+                                    </p>
+                                    <p className="text-[9px] font-mono text-slate-500 dark:text-slate-400 truncate" title={item.code_barre || ''}>
+                                        {item.code_barre || '—'}
+                                    </p>
                                     <p className="text-[11px] font-bold text-slate-800 dark:text-white line-clamp-1 leading-tight">{item.name}</p>
+                                    <div className="flex items-center justify-between gap-1 text-[9px] text-slate-500 dark:text-slate-400">
+                                        <span className="truncate">{item.category || '—'}</span>
+                                        <span className="truncate shrink-0">{item.brand || '—'}</span>
+                                    </div>
                                     <div className="flex items-end justify-between gap-1 pt-0.5">
                                         <p className="text-[11px] font-bold tabular-nums text-emerald-600 dark:text-emerald-400 truncate">
                                             {item.price != null && item.price !== ''

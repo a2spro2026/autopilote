@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { RefreshCw, Truck } from 'lucide-react';
 import api from '../lib/api';
 
-const columns = ['ID', 'Nom Chauffeur', 'Matricule'];
+const columns = ['ID', 'Nom Transport', 'Matricule'];
 
 export default function ChauffeursPage() {
     const [rows, setRows] = useState([]);
@@ -24,9 +24,9 @@ export default function ChauffeursPage() {
         <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                 <div>
-                    <h1 className="text-xl font-bold text-slate-900 dark:text-white">Chauffeur</h1>
+                    <h1 className="text-xl font-bold text-slate-900 dark:text-white">Transport</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Chauffeurs et matricules saisis sur les bons d&apos;achats
+                        Transports et matricules saisis sur les bons d&apos;achats
                     </p>
                 </div>
             </div>
@@ -35,7 +35,7 @@ export default function ChauffeursPage() {
                 <div className="px-5 py-3.5 bg-gradient-to-r from-slate-700 via-slate-800 to-brand-navy border-b border-white/10 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Truck className="w-4 h-4 text-white/80" />
-                        <h3 className="text-sm font-bold text-white uppercase tracking-wide">Liste des Chauffeurs</h3>
+                        <h3 className="text-sm font-bold text-white uppercase tracking-wide">Liste des Transports</h3>
                     </div>
                     <button
                         type="button"
@@ -90,7 +90,7 @@ export default function ChauffeursPage() {
                             ) : (
                                 <tr>
                                     <td colSpan={3} className="px-4 py-12 text-center text-slate-400">
-                                        Aucun chauffeur saisi sur les bons d&apos;achats
+                                        Aucun transport saisi sur les bons d&apos;achats
                                     </td>
                                 </tr>
                             )}

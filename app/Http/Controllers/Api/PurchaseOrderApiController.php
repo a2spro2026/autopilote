@@ -244,6 +244,7 @@ class PurchaseOrderApiController extends Controller
             'items.*.unit' => 'nullable|string|max:20',
             'items.*.quantity' => 'required|numeric|min:0.001',
             'items.*.unit_price' => 'required|numeric|min:0',
+            'items.*.remise' => 'nullable|numeric|min:0|max:100',
             // compat ancien format mono-ligne
             'designation' => 'nullable|string|max:255',
             'article_ref' => 'nullable|string|max:100',
@@ -262,6 +263,7 @@ class PurchaseOrderApiController extends Controller
             return collect($validated['items'])->map(function ($item) {
                 $qty = (float) ($item['quantity'] ?? 1);
                 $price = (float) ($item['unit_price'] ?? 0);
+                $remise = min(100, max(0, (float) ($item['remise'] ?? 0)));
 
                 return [
                     'product_id' => $item['product_id'] ?? null,
@@ -274,7 +276,8 @@ class PurchaseOrderApiController extends Controller
                     'unit' => $item['unit'] ?? null,
                     'quantity' => $qty,
                     'unit_price' => $price,
-                    'total' => round($qty * $price, 2),
+                    'remise' => $remise,
+                    'total' => round($qty * $price * (1 - ($remise / 100)), 2),
                 ];
             })->values()->all();
         }
@@ -293,6 +296,7 @@ class PurchaseOrderApiController extends Controller
             'unit' => $validated['unit'] ?? null,
             'quantity' => $qty,
             'unit_price' => $price,
+            'remise' => 0,
             'total' => round($qty * $price, 2),
         ]];
     }
@@ -313,6 +317,7 @@ class PurchaseOrderApiController extends Controller
                 'unit' => $item['unit'],
                 'quantity' => $item['quantity'],
                 'unit_price' => $item['unit_price'],
+                'remise' => $item['remise'] ?? 0,
                 'tva_rate' => 0,
                 'total' => $item['total'],
             ]);
@@ -323,6 +328,7 @@ class PurchaseOrderApiController extends Controller
     {
         $ref = trim((string) ($item['article_ref'] ?? ''));
         $name = trim((string) ($item['description'] ?? ''));
+        $codeBarre = trim((string) ($item['code_barre'] ?? ''));
         $unitPrice = (float) ($item['unit_price'] ?? 0);
 
         $product = null;
@@ -330,11 +336,19 @@ class PurchaseOrderApiController extends Controller
             $product = Product::find((int) $item['product_id']);
         }
 
+        // Même Code + même Réf Equiv = même fiche ; Code identique + Réf Equiv différente = ligne séparée
         if (! $product && $ref !== '') {
             $product = Product::query()
                 ->where(function ($q) use ($ref) {
                     $q->where('article_id', $ref)->orWhere('reference', $ref);
                 })
+                ->when(
+                    $codeBarre !== '',
+                    fn ($q) => $q->where('code_barre', $codeBarre),
+                    fn ($q) => $q->where(function ($inner) {
+                        $inner->whereNull('code_barre')->orWhere('code_barre', '');
+                    }),
+                )
                 ->first();
         }
 
@@ -346,9 +360,14 @@ class PurchaseOrderApiController extends Controller
             if ($unitPrice > 0) {
                 $updates['purchase_price'] = $unitPrice;
             }
-            $codeBarre = trim((string) ($item['code_barre'] ?? ''));
+            if ($name !== '' && $name !== (string) $product->name) {
+                $updates['name'] = $name;
+            }
             if ($codeBarre !== '' && blank($product->code_barre)) {
                 $updates['code_barre'] = $codeBarre;
+            }
+            if ($ref !== '' && blank($product->article_id)) {
+                $updates['article_id'] = $ref;
             }
             $marque = trim((string) ($item['marque'] ?? ''));
             if ($marque !== '' && blank($product->brand)) {
@@ -375,10 +394,16 @@ class PurchaseOrderApiController extends Controller
             $unit = 'U';
         }
 
+        $reference = $ref !== '' ? $ref : 'Réf-PENDING';
+        if ($ref !== '' && Product::where('reference', $ref)->exists()) {
+            // Le Code (article_id) peut se répéter ; la référence interne reste unique
+            $reference = 'Réf-PENDING';
+        }
+
         $product = Product::create([
-            'reference' => $ref !== '' ? $ref : 'Réf-PENDING',
+            'reference' => $reference,
             'article_id' => $ref !== '' ? $ref : null,
-            'code_barre' => trim((string) ($item['code_barre'] ?? '')) ?: null,
+            'code_barre' => $codeBarre !== '' ? $codeBarre : null,
             'name' => $name !== '' ? $name : ($ref !== '' ? $ref : 'Article'),
             'unit' => $unit,
             'famille' => trim((string) ($item['famille'] ?? $item['categorie'] ?? '')) ?: null,
@@ -393,7 +418,7 @@ class PurchaseOrderApiController extends Controller
             'origin' => 'bon_achat',
         ]);
 
-        if ($ref === '') {
+        if ($product->reference === 'Réf-PENDING' || $ref === '') {
             $product->update([
                 'reference' => 'Réf-'.str_pad((string) $product->id, 4, '0', STR_PAD_LEFT),
             ]);
@@ -457,6 +482,7 @@ class PurchaseOrderApiController extends Controller
                 'unit' => $i->unit,
                 'quantity' => (float) $i->quantity,
                 'unit_price' => number_format((float) $i->unit_price, 2, '.', ''),
+                'remise' => number_format((float) ($i->remise ?? 0), 2, '.', ''),
                 'total' => number_format((float) $i->total, 2, '.', ''),
             ])->values()->all(),
         ];

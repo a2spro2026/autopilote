@@ -130,7 +130,7 @@ export const navigation = [
         perm: 'utilisateurs.view',
         children: [
             { to: '/configuration/utilisateurs', label: 'Utilisateur', icon: UserCog },
-            { to: '/configuration/chauffeurs', label: 'Chauffeur', icon: CarFront },
+            { to: '/configuration/chauffeurs', label: 'Transport', icon: CarFront },
         ],
     },
 ];

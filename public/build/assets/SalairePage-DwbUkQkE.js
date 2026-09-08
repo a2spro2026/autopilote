@@ -1,0 +1,44 @@
+import{u as y,r as o,a as N,j as t,E as k,X as v}from"./main-Dpt1Mvl1.js";import{P as p}from"./printer-WZiUx9MQ.js";import{C as b}from"./circle-x-B5_qNdsv.js";import{D as w}from"./download-B6RMlTea.js";/* empty css            */function x(e){return(Number(e)||0).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})}function m({title:e,onClick:a,icon:r,color:l="slate"}){const d={blue:"hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400",orange:"hover:bg-orange-50 hover:text-orange-600 dark:hover:bg-orange-900/30 dark:hover:text-orange-400",slate:"hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"};return t.jsx("button",{type:"button",title:e,onClick:a,className:`p-1.5 rounded-lg text-slate-400 transition-colors ${d[l]}`,children:t.jsx(r,{className:"w-3.5 h-3.5",strokeWidth:2})})}function f(e){return`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Salaire ${e.matricule||""}</title>
+<style>
+body{font-family:Arial,sans-serif;padding:32px;color:#1e293b}
+h1{color:#1e3a5f;font-size:22px;margin:0 0 8px}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{border:1px solid #e2e8f0;padding:10px;font-size:13px;text-align:left}
+th{background:#f8fafc;width:180px;font-weight:700}
+.badge{background:#fff7ed;color:#ea580c;padding:4px 10px;border-radius:999px;font-weight:700}
+</style></head><body>
+<h1>Autopilote — Salaire <span class="badge">${e.matricule||"—"}</span></h1>
+<table>
+<tr><th>ID</th><td>${e.matricule||"—"}</td></tr>
+<tr><th>Nom Complet</th><td>${e.full_name||"—"}</td></tr>
+<tr><th>Statut</th><td>${e.status_label||"—"}</td></tr>
+<tr><th>Date Début</th><td>${e.hire_date||"—"}</td></tr>
+<tr><th>Type Contrat</th><td>${e.contract_type||"—"}</td></tr>
+<tr><th>Salaire</th><td><strong>${x(e.remuneration)}</strong></td></tr>
+</table>
+</body></html>`}function C(e){const a=e.map(r=>`<tr>
+<td>${r.matricule||"—"}</td>
+<td>${r.full_name||"—"}</td>
+<td>${r.status_label||"—"}</td>
+<td>${r.hire_date||"—"}</td>
+<td>${r.contract_type||"—"}</td>
+<td>${x(r.remuneration)}</td>
+</tr>`).join("");return`<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Salaires</title>
+<style>
+body{font-family:Arial,sans-serif;padding:28px;color:#1e293b}
+h1{color:#1e3a5f;font-size:22px;margin:0 0 6px}
+.meta{color:#64748b;font-size:12px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #e2e8f0;padding:8px;font-size:11px;text-align:center}
+th{background:#f8fafc;font-weight:700}
+</style></head><body>
+<h1>Autopilote — Tableau des Salaires</h1>
+<p class="meta">Édité le ${new Date().toLocaleDateString("fr-FR")}</p>
+<table>
+<thead><tr>
+<th>ID</th><th>Nom Complet</th><th>Statut</th><th>Date Début</th><th>Type Contrat</th><th>Salaire</th>
+</tr></thead>
+<tbody>${a||'<tr><td colspan="6">Aucun salaire</td></tr>'}</tbody>
+</table>
+</body></html>`}function u(e){const a=window.open("","_blank","width=1000,height=700");a&&(a.document.write(e),a.document.close(),a.focus(),setTimeout(()=>a.print(),300))}function _(e,a){const l=[["ID","Nom Complet","Statut","Date Début","Type Contrat","Salaire"].join(";")];e.forEach(n=>{l.push([n.matricule||"",n.full_name||"",n.status_label||"",n.hire_date||"",n.contract_type||"",String(Number(n.remuneration)||0).replace(".",",")].join(";"))});const d=new Blob(["\uFEFF"+l.join(`
+`)],{type:"text/csv;charset=utf-8;"}),c=URL.createObjectURL(d),i=document.createElement("a");i.href=c,i.download=a,i.click(),URL.revokeObjectURL(c)}function S({row:e,onClose:a}){if(!e)return null;const r=[["ID",e.matricule],["Nom Complet",e.full_name],["Statut",e.status_label],["Date Début",e.hire_date],["Type Contrat",e.contract_type],["Salaire",x(e.remuneration)]];return t.jsx("div",{className:"fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm",onClick:a,children:t.jsxs("div",{className:"bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md border border-slate-200 dark:border-slate-700 overflow-hidden",onClick:l=>l.stopPropagation(),children:[t.jsxs("div",{className:"flex items-center justify-between px-5 py-4 bg-gradient-to-r from-emerald-600 to-teal-800",children:[t.jsxs("div",{children:[t.jsx("p",{className:"text-[10px] text-emerald-100 uppercase tracking-wider",children:"Salaire"}),t.jsx("h3",{className:"text-white font-bold",children:e.full_name})]}),t.jsx("button",{type:"button",onClick:a,className:"p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10",children:t.jsx(v,{className:"w-4 h-4"})})]}),t.jsx("div",{className:"p-5 space-y-2 text-sm",children:r.map(([l,d])=>t.jsxs("div",{className:"flex justify-between gap-4 py-1.5 border-b border-slate-100 dark:border-slate-800",children:[t.jsx("span",{className:"text-slate-500 shrink-0",children:l}),t.jsx("span",{className:"font-medium text-slate-800 dark:text-white text-right",children:d||"—"})]},l))}),t.jsxs("div",{className:"flex gap-2 px-5 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50",children:[t.jsxs("button",{type:"button",onClick:()=>u(f(e)),className:"btn-secondary text-xs flex-1",children:[t.jsx(p,{className:"w-3.5 h-3.5"})," Imprimer"]}),t.jsxs("button",{type:"button",onClick:a,className:"btn-danger text-xs flex-1",children:[t.jsx(b,{className:"w-3.5 h-3.5"})," Fermer"]})]})]})})}const h=["ID","Nom Complet","Statut","Date Début","Type Contrat","Salaire","Actions"];function F(){const e=y(),[a,r]=o.useState([]),[l,d]=o.useState(!0),[c,i]=o.useState(null),n=o.useCallback(()=>{d(!0),N.get("/employees",{params:{all:1}}).then(s=>r(s.data.data??[])).catch(()=>r([])).finally(()=>d(!1))},[]);return o.useEffect(()=>{n()},[n]),t.jsxs("div",{className:"space-y-4",children:[t.jsx(S,{row:c,onClose:()=>i(null)}),t.jsxs("div",{className:"flex flex-wrap items-center gap-2.5",children:[t.jsxs("button",{type:"button",onClick:()=>u(C(a)),className:"btn-secondary text-xs",children:[t.jsx(p,{className:"w-3.5 h-3.5"})," Imprimer"]}),t.jsxs("button",{type:"button",onClick:()=>e("/"),className:"btn-danger text-xs",children:[t.jsx(b,{className:"w-3.5 h-3.5"})," Fermer"]})]}),t.jsxs("div",{className:"glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60",children:[t.jsx("div",{className:"px-5 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-800 border-b border-white/10",children:t.jsx("h3",{className:"text-sm font-bold text-white uppercase tracking-wide",children:"Salaire"})}),t.jsx("div",{className:"overflow-x-auto",children:t.jsxs("table",{className:"w-full text-sm min-w-[960px]",children:[t.jsx("thead",{children:t.jsx("tr",{className:"bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700",children:h.map(s=>t.jsx("th",{className:"px-3 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-center",children:s},s))})}),t.jsx("tbody",{className:"divide-y divide-slate-100 dark:divide-slate-800",children:l?[...Array(4)].map((s,g)=>t.jsx("tr",{children:h.map((D,j)=>t.jsx("td",{className:"px-3 py-3 text-center",children:t.jsx("div",{className:"h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mx-auto max-w-[80px]"})},j))},g)):a.length?a.map(s=>t.jsxs("tr",{className:"hover:bg-emerald-50/40 dark:hover:bg-slate-800/40 transition-colors",children:[t.jsx("td",{className:"px-3 py-2.5 text-center font-mono text-xs font-semibold text-brand-navy dark:text-orange-400",children:s.matricule||"—"}),t.jsx("td",{className:"px-3 py-2.5 text-center font-medium text-slate-800 dark:text-white",children:s.full_name||"—"}),t.jsx("td",{className:"px-3 py-2.5 text-center",children:t.jsx("span",{className:`inline-flex px-2 py-0.5 rounded-md text-xs font-semibold ${s.status==="actif"?"bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300":"bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300"}`,children:s.status_label||"—"})}),t.jsx("td",{className:"px-3 py-2.5 text-center text-slate-600 dark:text-slate-300",children:s.hire_date||"—"}),t.jsx("td",{className:"px-3 py-2.5 text-center text-slate-600 dark:text-slate-300",children:s.contract_type||"—"}),t.jsx("td",{className:"px-3 py-2.5 text-center tabular-nums font-semibold text-emerald-700 dark:text-emerald-300",children:x(s.remuneration)}),t.jsx("td",{className:"px-3 py-2.5",children:t.jsxs("div",{className:"flex items-center justify-center gap-0.5",children:[t.jsx(m,{title:"Voir",icon:k,color:"blue",onClick:()=>i(s)}),t.jsx(m,{title:"Imprimer",icon:p,color:"slate",onClick:()=>u(f(s))}),t.jsx(m,{title:"Télécharger",icon:w,color:"orange",onClick:()=>_([s],`salaire-${s.matricule||s.id}.csv`)})]})})]},s.id)):t.jsx("tr",{children:t.jsx("td",{colSpan:h.length,className:"px-4 py-12 text-center text-slate-400",children:"Aucun salaire — ajoutez d'abord une fiche personnel"})})})]})})]})]})}export{F as default};

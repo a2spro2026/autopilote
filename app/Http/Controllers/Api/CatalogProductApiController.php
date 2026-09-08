@@ -113,6 +113,8 @@ class CatalogProductApiController extends Controller
             'product_id' => $item->product_id,
             'reference' => $product?->reference,
             'article_id' => $product?->article_id,
+            'code' => $product?->article_id ?: $product?->reference,
+            'code_barre' => $product?->code_barre,
             'name' => $product?->name,
             'category' => $item->category,
             'brand' => $item->brand,

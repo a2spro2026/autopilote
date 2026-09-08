@@ -73,8 +73,9 @@ export default function ConfigCataloguePage() {
             .filter((p) => {
                 if (!q) return true;
                 return (
-                    (p.reference || '').toLowerCase().includes(q)
-                    || (p.article_id || '').toLowerCase().includes(q)
+                    (p.code || p.article_id || '').toLowerCase().includes(q)
+                    || (p.code_barre || '').toLowerCase().includes(q)
+                    || (p.reference || '').toLowerCase().includes(q)
                     || (p.name || '').toLowerCase().includes(q)
                 );
             })

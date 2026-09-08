@@ -125,24 +125,23 @@ class ProductApiController extends Controller
 
     private function validated(Request $request, ?int $ignoreId = null): array
     {
-        $articleUnique = 'unique:products,article_id';
         $refUnique = 'unique:products,reference';
         if ($ignoreId) {
-            $articleUnique .= ','.$ignoreId;
             $refUnique .= ','.$ignoreId;
         }
 
         return $request->validate([
             'reference' => 'required|string|max:100|'.$refUnique,
             'name' => 'required|string|max:500',
-            'article_id' => 'nullable|string|max:50|'.$articleUnique,
-            'code_barre' => 'nullable|string|max:100',
+            'article_id' => 'nullable|string|max:50',
+            'code_barre' => 'nullable|string|max:500',
             'consistance' => 'nullable|string|max:10',
             'unit' => 'required|string|in:Kg,U,Sac,ML,M²,M³,Tn,M',
             'famille' => 'nullable|string|max:255',
             'brand' => 'nullable|string|max:255',
             'categorie' => 'nullable|string|max:255',
             'initial_stock' => 'numeric|min:0',
+            'unit_price' => 'nullable|numeric|min:0',
             'min_stock_alert' => 'nullable|numeric|min:0',
             'status' => 'in:actif,inactif',
             'etat' => 'nullable|in:Dispo,Faible,Rupture',
@@ -191,8 +190,8 @@ class ProductApiController extends Controller
             $rows = DB::table('purchase_order_items as poi')
                 ->join('purchase_orders as po', 'po.id', '=', 'poi.purchase_order_id')
                 ->where('po.status', '!=', 'annule')
-                ->selectRaw('poi.product_id, poi.article_ref, SUM(poi.quantity) as qty')
-                ->groupBy('poi.product_id', 'poi.article_ref')
+                ->selectRaw('poi.product_id, poi.article_ref, poi.code_barre, SUM(poi.quantity) as qty')
+                ->groupBy('poi.product_id', 'poi.article_ref', 'poi.code_barre')
                 ->get();
 
             foreach ($rows as $row) {
@@ -204,9 +203,10 @@ class ProductApiController extends Controller
                     continue;
                 }
 
-                $ref = trim((string) $row->article_ref);
+                $ref = mb_strtolower(trim((string) $row->article_ref));
+                $code = mb_strtolower(trim((string) ($row->code_barre ?? '')));
                 if ($ref !== '') {
-                    $key = mb_strtolower($ref);
+                    $key = $ref.'|'.$code;
                     $map['by_ref'][$key] = ($map['by_ref'][$key] ?? 0) + $qty;
                 }
             }
@@ -220,13 +220,12 @@ class ProductApiController extends Controller
         $map = $this->purchasedQuantities();
         $qty = $map['by_id'][$product->id] ?? 0;
 
-        $refs = array_unique(array_filter([
-            mb_strtolower(trim((string) $product->article_id)),
-            mb_strtolower(trim((string) $product->reference)),
-        ]));
-
-        foreach ($refs as $ref) {
-            $qty += $map['by_ref'][$ref] ?? 0;
+        // Quantités orphelines (sans product_id) : matcher Code + Réf Equiv, pas le Code seul
+        $ref = mb_strtolower(trim((string) ($product->article_id ?: $product->reference)));
+        $code = mb_strtolower(trim((string) ($product->code_barre ?? '')));
+        if ($ref !== '') {
+            $key = $ref.'|'.$code;
+            $qty += $map['by_ref'][$key] ?? 0;
         }
 
         return (float) $qty;
@@ -239,12 +238,17 @@ class ProductApiController extends Controller
         $stock = round((float) $product->initial_stock + $purchased, 3);
         $min = (float) $product->min_stock_alert;
         $etat = $product->etat ?: ($stock <= 0 ? 'Rupture' : ($stock <= $min ? 'Faible' : 'Dispo'));
+        $code = trim((string) ($product->article_id ?: $product->reference));
+        $refEquiv = trim((string) ($product->code_barre ?? ''));
 
         return [
             'id' => $product->id,
             'reference' => $product->reference,
             'article_id' => $product->article_id,
-            'code_barre' => $product->code_barre,
+            'code' => $code !== '' ? $code : $product->reference,
+            'code_barre' => $refEquiv !== '' ? $refEquiv : null,
+            'refs_equiv' => $refEquiv !== '' ? [$refEquiv] : [],
+            'refs_equiv_label' => $refEquiv !== '' ? $refEquiv : null,
             'name' => $product->name,
             'designation' => $product->name,
             'consistance' => $product->consistance,

@@ -411,6 +411,7 @@ class SaleOrderApiController extends Controller
             'items.*.unit' => 'nullable|string|max:20',
             'items.*.quantity' => 'required|numeric|min:0.001',
             'items.*.unit_price' => 'required|numeric|min:0',
+            'items.*.remise' => 'nullable|numeric|min:0|max:100',
             'designation' => 'nullable|string|max:255',
             'article_ref' => 'nullable|string|max:100',
             'unit' => 'nullable|string|max:20',
@@ -428,6 +429,7 @@ class SaleOrderApiController extends Controller
             return collect($validated['items'])->map(function ($item) {
                 $qty = (float) ($item['quantity'] ?? 1);
                 $price = (float) ($item['unit_price'] ?? 0);
+                $remise = min(100, max(0, (float) ($item['remise'] ?? 0)));
 
                 return [
                     'product_id' => $item['product_id'] ?? null,
@@ -440,7 +442,8 @@ class SaleOrderApiController extends Controller
                     'unit' => $item['unit'] ?? null,
                     'quantity' => $qty,
                     'unit_price' => $price,
-                    'total' => round($qty * $price, 2),
+                    'remise' => $remise,
+                    'total' => round($qty * $price * (1 - ($remise / 100)), 2),
                 ];
             })->values()->all();
         }
@@ -459,6 +462,7 @@ class SaleOrderApiController extends Controller
             'unit' => $validated['unit'] ?? null,
             'quantity' => $qty,
             'unit_price' => $price,
+            'remise' => 0,
             'total' => round($qty * $price, 2),
         ]];
     }
@@ -478,6 +482,7 @@ class SaleOrderApiController extends Controller
                 'unit' => $item['unit'],
                 'quantity' => $item['quantity'],
                 'unit_price' => $item['unit_price'],
+                'remise' => $item['remise'] ?? 0,
                 'tva_rate' => 0,
                 'total' => $item['total'],
             ]);
@@ -555,6 +560,7 @@ class SaleOrderApiController extends Controller
                 'unit' => $i->unit,
                 'quantity' => (float) $i->quantity,
                 'unit_price' => number_format((float) $i->unit_price, 2, '.', ''),
+                'remise' => number_format((float) ($i->remise ?? 0), 2, '.', ''),
                 'total' => number_format((float) $i->total, 2, '.', ''),
             ])->values()->all(),
         ];

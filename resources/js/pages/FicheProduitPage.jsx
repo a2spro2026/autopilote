@@ -1,6 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Save, RotateCcw, Eye, Pencil, Trash2, Printer, FileText, X, RefreshCw } from 'lucide-react';
+import {
+    Save, RotateCcw, Eye, Pencil, Trash2, Printer, FileText, X, RefreshCw,
+    Search, Hash, Type, Layers, Award,
+} from 'lucide-react';
 import api from '../lib/api';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -15,8 +18,139 @@ const ETAT_OPTIONS = [
     { value: 'Rupture', label: 'Rupture' },
 ];
 
+const MEMORY_KEY = 'autopilote_fiche_produit_search_memory';
+
+const emptyFilters = {
+    code: '',
+    code_barre: '',
+    famille: '',
+    marque: '',
+};
+
+const FILTER_FIELDS = [
+    { key: 'code', label: 'Code', icon: Hash, hint: 'Code produit' },
+    { key: 'code_barre', label: 'Réf Equiv', icon: Type, hint: 'Réf équivalente' },
+    { key: 'famille', label: 'Famille', icon: Layers, hint: 'Famille' },
+    { key: 'marque', label: 'Marque', icon: Award, hint: 'Marque' },
+];
+
+function readMemory() {
+    try {
+        return JSON.parse(localStorage.getItem(MEMORY_KEY) || '{}') || {};
+    } catch {
+        return {};
+    }
+}
+
+function rememberValue(field, value) {
+    const v = String(value || '').trim();
+    if (!v) return;
+    const data = readMemory();
+    const prev = Array.isArray(data[field]) ? data[field] : [];
+    data[field] = [v, ...prev.filter((x) => String(x).toLowerCase() !== v.toLowerCase())].slice(0, 40);
+    localStorage.setItem(MEMORY_KEY, JSON.stringify(data));
+}
+
+function uniqueSorted(values) {
+    const map = new Map();
+    values.forEach((v) => {
+        const t = String(v || '').trim();
+        if (!t) return;
+        const k = t.toLowerCase();
+        if (!map.has(k)) map.set(k, t);
+    });
+    return [...map.values()].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+}
+
+function matchSuggestions(query, pool) {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    const starts = [];
+    const contains = [];
+    pool.forEach((v) => {
+        const low = v.toLowerCase();
+        if (low.startsWith(q)) starts.push(v);
+        else if (low.includes(q)) contains.push(v);
+    });
+    return [...starts, ...contains].slice(0, 12);
+}
+
+function SearchSuggestInput({
+    fieldKey,
+    value,
+    onChange,
+    onRemember,
+    suggestionsPool,
+    placeholder,
+}) {
+    const [open, setOpen] = useState(false);
+    const blurTimer = useRef(null);
+
+    const suggestions = useMemo(
+        () => matchSuggestions(value, suggestionsPool),
+        [value, suggestionsPool],
+    );
+
+    useEffect(() => () => {
+        if (blurTimer.current) clearTimeout(blurTimer.current);
+    }, []);
+
+    const pick = (val) => {
+        onChange(val);
+        onRemember(fieldKey, val);
+        setOpen(false);
+    };
+
+    return (
+        <div className="relative">
+            <input
+                type="text"
+                value={value}
+                autoComplete="off"
+                onChange={(e) => {
+                    onChange(e.target.value);
+                    setOpen(true);
+                }}
+                onFocus={() => setOpen(true)}
+                onBlur={() => {
+                    blurTimer.current = setTimeout(() => {
+                        setOpen(false);
+                        onRemember(fieldKey, value);
+                    }, 150);
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === 'Escape') setOpen(false);
+                    if (e.key === 'Enter' && suggestions[0]) {
+                        e.preventDefault();
+                        pick(suggestions[0]);
+                    }
+                }}
+                placeholder={placeholder}
+                className="w-full rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-2 py-1.5 text-xs outline-none focus:ring-1 focus:ring-emerald-500/40 focus:border-emerald-500"
+            />
+            {open && value.trim() && suggestions.length > 0 && (
+                <ul className="absolute left-0 right-0 top-full z-50 mt-0.5 max-h-40 overflow-y-auto rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 shadow-xl">
+                    {suggestions.map((opt) => (
+                        <li key={opt}>
+                            <button
+                                type="button"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => pick(opt)}
+                                className="w-full px-2 py-1.5 text-left text-xs font-medium text-slate-800 dark:text-slate-100 hover:bg-emerald-50 dark:hover:bg-emerald-900/40 truncate"
+                            >
+                                {opt}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}
+
 const emptyForm = {
     reference: '',
+    article_id: '',
     code_barre: '',
     name: '',
     categorie: '',
@@ -24,6 +158,7 @@ const emptyForm = {
     marque: '',
     unit: '',
     initial_stock: '',
+    unit_price: '',
     status: 'actif',
     etat: 'Rupture',
 };
@@ -78,8 +213,35 @@ function StatutBadge({ value }) {
     );
 }
 
+function productCode(row) {
+    return row?.code || row?.article_id || row?.reference || '';
+}
+
+function refsEquivList(row) {
+    if (Array.isArray(row?.refs_equiv) && row.refs_equiv.length) {
+        return row.refs_equiv.map((r) => String(r).trim()).filter(Boolean);
+    }
+    const label = row?.refs_equiv_label || row?.code_barre || '';
+    if (!label) return [];
+    return [String(label).trim()].filter(Boolean);
+}
+
+function RefsEquivText({ refs, className = '' }) {
+    if (!refs?.length) {
+        return <span className={`text-slate-400 ${className}`}>—</span>;
+    }
+    return (
+        <span className={`font-mono text-xs text-slate-700 dark:text-slate-200 ${className}`} title={refs.join(' · ')}>
+            {refs.join(' · ')}
+        </span>
+    );
+}
+
 function buildFicheHtml(row) {
-    return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Produit ${row.reference}</title>
+    const refs = refsEquivList(row);
+    const refsHtml = refs.length ? refs.join(' · ') : '—';
+    const code = productCode(row);
+    return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Produit ${code}</title>
 <style>
 body{font-family:Arial,sans-serif;padding:32px;color:#1e293b}
 h1{color:#1e3a5f;font-size:22px}
@@ -90,16 +252,16 @@ th{background:#f8fafc;font-weight:700;width:160px}
 </style></head><body>
 <h1>Autopilote — Fiche Produit</h1>
 <table>
-<tr><th>Réf</th><td><span class="badge">${row.reference}</span></td></tr>
-<tr><th>Cd Barre</th><td>${row.code_barre || '—'}</td></tr>
+<tr><th>Code</th><td><span class="badge">${code || '—'}</span></td></tr>
+<tr><th>Réf Equiv</th><td>${refsHtml}</td></tr>
 <tr><th>Désignation</th><td>${row.name || '—'}</td></tr>
-<tr><th>Catégorie</th><td>${row.categorie || '—'}</td></tr>
 <tr><th>Famille</th><td>${row.famille || '—'}</td></tr>
 <tr><th>Marque</th><td>${row.marque || row.brand || '—'}</td></tr>
-<tr><th>Unité</th><td>${row.unit || '—'}</td></tr>
+<tr><th>Quantité</th><td>${row.quantity_in_stock ?? row.initial_stock ?? 0}</td></tr>
+<tr><th>U</th><td>${row.unit || '—'}</td></tr>
+<tr><th>Prix/U</th><td>${row.unit_price ?? 0}</td></tr>
 <tr><th>Qté saisie</th><td>${row.initial_stock ?? 0}</td></tr>
 <tr><th>Qté bons d'achat</th><td>${row.purchased_qty ?? 0}</td></tr>
-<tr><th>Qté totale</th><td>${row.quantity_in_stock ?? row.initial_stock ?? 0}</td></tr>
 <tr><th>Statut</th><td>${row.statut || '—'}</td></tr>
 <tr><th>État</th><td>${row.etat || '—'}</td></tr>
 </table></body></html>`;
@@ -132,6 +294,7 @@ function ActionBtn({ title, onClick, icon: Icon, color = 'slate' }) {
 
 function ViewModal({ row, onClose }) {
     if (!row) return null;
+    const refs = refsEquivList(row);
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
@@ -139,23 +302,30 @@ function ViewModal({ row, onClose }) {
                 <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-emerald-600 to-teal-700">
                     <div>
                         <p className="text-[10px] text-emerald-100 uppercase tracking-wider">Fiche Produit</p>
-                        <p className="text-white font-bold font-mono">{row.reference}</p>
+                        <p className="text-white font-bold font-mono">{productCode(row)}</p>
                     </div>
                     <button type="button" onClick={onClose} className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10">
                         <X className="w-5 h-5" />
                     </button>
                 </div>
                 <div className="p-5 space-y-3 text-sm">
+                    <div className="flex justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-2">
+                        <span className="text-slate-500 text-xs uppercase shrink-0">Code</span>
+                        <span className="font-medium text-slate-800 dark:text-white text-right font-mono">{productCode(row) || '—'}</span>
+                    </div>
+                    <div className="flex justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-2">
+                        <span className="text-slate-500 text-xs uppercase shrink-0">Réf Equiv</span>
+                        <RefsEquivText refs={refs} className="text-right" />
+                    </div>
                     {[
-                        ['Cd Barre', row.code_barre],
                         ['Désignation', row.name],
-                        ['Catégorie', row.categorie],
                         ['Famille', row.famille],
                         ['Marque', row.marque || row.brand],
-                        ['Unité', row.unit],
+                        ['Quantité', row.quantity_in_stock ?? row.initial_stock],
+                        ['U', row.unit],
+                        ['Prix/U', row.unit_price],
                         ['Qté saisie', row.initial_stock ?? 0],
                         ["Qté bons d'achat", row.purchased_qty ?? 0],
-                        ['Qté totale', row.quantity_in_stock ?? row.initial_stock],
                         ['Statut', row.statut],
                         ['État', row.etat],
                     ].map(([label, val]) => (
@@ -179,8 +349,9 @@ export default function FicheProduitPage() {
     const [form, setForm] = useState(emptyForm);
     const [rows, setRows] = useState([]);
     const [familles, setFamilles] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [marques, setMarques] = useState([]);
+    const [filters, setFilters] = useState(emptyFilters);
+    const [memory, setMemory] = useState(() => readMemory());
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
@@ -193,7 +364,6 @@ export default function FicheProduitPage() {
             .then((res) => {
                 setRows(res.data.data ?? []);
                 setFamilles(res.data.meta?.familles ?? []);
-                setCategories(res.data.meta?.categories ?? []);
                 setMarques(res.data.meta?.marques ?? []);
             })
             .catch(() => setRows([]))
@@ -201,6 +371,52 @@ export default function FicheProduitPage() {
     }, []);
 
     useEffect(() => { load(); }, [load]);
+
+    const handleRemember = useCallback((field, value) => {
+        rememberValue(field, value);
+        setMemory(readMemory());
+    }, []);
+
+    const suggestionPools = useMemo(() => ({
+        code: uniqueSorted([
+            ...(memory.code || []),
+            ...rows.map((r) => r.code || r.article_id || r.reference),
+        ]),
+        code_barre: uniqueSorted([
+            ...(memory.code_barre || []),
+            ...rows.flatMap((r) => refsEquivList(r)),
+        ]),
+        famille: uniqueSorted([...(memory.famille || []), ...familles, ...rows.map((r) => r.famille)]),
+        marque: uniqueSorted([
+            ...(memory.marque || []),
+            ...marques,
+            ...rows.map((r) => r.marque || r.brand),
+        ]),
+    }), [rows, familles, marques, memory]);
+
+    const filteredRows = useMemo(() => {
+        const codeQ = filters.code.trim().toLowerCase();
+        const refQ = filters.code_barre.trim().toLowerCase();
+        const famQ = filters.famille.trim().toLowerCase();
+        const brandQ = filters.marque.trim().toLowerCase();
+
+        return rows.filter((row) => {
+            if (codeQ) {
+                const code = productCode(row).toLowerCase();
+                if (!code.includes(codeQ)) return false;
+            }
+            if (refQ) {
+                const refs = refsEquivList(row).join(' ').toLowerCase();
+                const single = String(row.code_barre || '').toLowerCase();
+                if (!refs.includes(refQ) && !single.includes(refQ)) return false;
+            }
+            if (famQ && !(row.famille || '').toLowerCase().includes(famQ)) return false;
+            if (brandQ && !(`${row.marque || ''} ${row.brand || ''}`).toLowerCase().includes(brandQ)) return false;
+            return true;
+        });
+    }, [rows, filters]);
+
+    const hasActiveFilters = Object.values(filters).some((v) => String(v).trim() !== '');
 
     const set = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
@@ -220,6 +436,7 @@ export default function FicheProduitPage() {
     const fillForm = (row) => {
         setForm({
             reference: row.reference || '',
+            article_id: row.article_id || row.code || row.reference || '',
             code_barre: row.code_barre || '',
             name: row.name || '',
             categorie: row.categorie || '',
@@ -227,6 +444,7 @@ export default function FicheProduitPage() {
             marque: row.marque || row.brand || '',
             unit: row.unit || '',
             initial_stock: row.initial_stock ?? row.quantity_in_stock ?? '',
+            unit_price: row.unit_price != null ? String(row.unit_price) : '',
             status: row.status || 'actif',
             etat: row.etat || 'Rupture',
         });
@@ -252,6 +470,7 @@ export default function FicheProduitPage() {
         setSaving(true);
         const payload = {
             reference: form.reference.trim(),
+            article_id: form.article_id.trim() || form.reference.trim(),
             code_barre: form.code_barre || null,
             name: form.name,
             categorie: form.categorie || null,
@@ -259,6 +478,7 @@ export default function FicheProduitPage() {
             brand: form.marque || null,
             unit: form.unit,
             initial_stock: parseFloat(form.initial_stock) || 0,
+            unit_price: parseFloat(String(form.unit_price).replace(',', '.')) || 0,
             status: form.status,
             etat: form.etat,
         };
@@ -275,10 +495,10 @@ export default function FicheProduitPage() {
     };
 
     return (
-        <div className="flex flex-col flex-1 min-h-0 gap-4">
+        <div className="flex flex-col gap-4">
             <ViewModal row={viewRow} onClose={() => setViewRow(null)} />
 
-            <div className="shrink-0 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <h1 className="text-lg font-bold text-slate-800 dark:text-white">Fiche Produit</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -297,8 +517,47 @@ export default function FicheProduitPage() {
                 </div>
             </div>
 
+            <div className="relative z-20 glass-card overflow-visible shadow-card border border-slate-200/60 dark:border-slate-700/60">
+                <div className="flex items-center justify-between gap-2 px-3 py-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/50">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                        <Search className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                        <span className="text-[11px] font-bold uppercase tracking-wide text-slate-600 dark:text-slate-300 truncate">
+                            Recherche
+                        </span>
+                    </div>
+                    {hasActiveFilters && (
+                        <button
+                            type="button"
+                            onClick={() => setFilters(emptyFilters)}
+                            className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400"
+                        >
+                            <RotateCcw className="w-3 h-3" />
+                            Reset
+                        </button>
+                    )}
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 overflow-visible">
+                    {FILTER_FIELDS.map(({ key, label, icon: Icon, hint }) => (
+                        <div key={key} className="min-w-0">
+                            <label className="flex items-center gap-1 mb-1 text-[10px] font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                                <Icon className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                                {label}
+                            </label>
+                            <SearchSuggestInput
+                                fieldKey={key}
+                                value={filters[key]}
+                                onChange={(val) => setFilters((f) => ({ ...f, [key]: val }))}
+                                onRemember={handleRemember}
+                                suggestionsPool={suggestionPools[key] || []}
+                                placeholder={hint}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
             {!readOnly && editingId && (
-            <form onSubmit={handleSubmit} className="shrink-0 glass-card p-4 lg:p-5 shadow-card border border-slate-200/60 dark:border-slate-700/60 overflow-x-auto">
+            <form onSubmit={handleSubmit} className="glass-card p-4 lg:p-5 shadow-card border border-slate-200/60 dark:border-slate-700/60 overflow-x-auto">
                 {error && (
                     <div className="mb-4 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-100 dark:border-red-800">{error}</div>
                 )}
@@ -306,28 +565,29 @@ export default function FicheProduitPage() {
                     Mode modification — ID {editingId}
                 </div>
 
-                <div className="grid grid-cols-[0.65fr_1.15fr_1.2fr_1fr_1fr_1fr_0.55fr_0.55fr_0.55fr_0.55fr] gap-1.5 items-end w-full min-w-[1140px]">
-                    <Field label="Réf" compact>
+                <div className="grid grid-cols-[0.7fr_1.4fr_1.3fr_1fr_1fr_0.7fr_0.55fr_0.75fr_0.55fr_0.55fr] gap-1.5 items-end w-full min-w-[1280px]">
+                    <Field label="Code" compact>
                         <input
                             type="text"
                             required
-                            value={form.reference}
-                            onChange={(e) => set('reference', e.target.value)}
-                            placeholder="Réf"
+                            value={form.article_id}
+                            onChange={(e) => set('article_id', e.target.value)}
+                            placeholder="Code"
                             className={inputClass}
                         />
                     </Field>
-                    <Field label="Cd Barre" compact>
-                        <input type="text" maxLength={32} value={form.code_barre} onChange={(e) => set('code_barre', e.target.value)} placeholder="Cd Barre" className={inputClass} />
+                    <Field label="Réf Equiv" compact>
+                        <input
+                            type="text"
+                            maxLength={100}
+                            value={form.code_barre}
+                            onChange={(e) => set('code_barre', e.target.value)}
+                            placeholder="Réf Equiv"
+                            className={inputClass}
+                        />
                     </Field>
                     <Field label="Désignation">
                         <input type="text" required value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="Désignation" className={inputClass} />
-                    </Field>
-                    <Field label="Catégorie" compact>
-                        <input type="text" list="categories-list" value={form.categorie} onChange={(e) => set('categorie', e.target.value)} placeholder="Catégorie" className={inputClass} />
-                        <datalist id="categories-list">
-                            {categories.map((c) => <option key={c} value={c} />)}
-                        </datalist>
                     </Field>
                     <Field label="Famille" compact>
                         <input type="text" list="familles-list" value={form.famille} onChange={(e) => set('famille', e.target.value)} placeholder="Famille" className={inputClass} />
@@ -341,12 +601,7 @@ export default function FicheProduitPage() {
                             {marques.map((m) => <option key={m} value={m} />)}
                         </datalist>
                     </Field>
-                    <Field label="Unité" compact>
-                        <select required value={form.unit} onChange={(e) => set('unit', e.target.value)} className={inputClass}>
-                            {UNIT_OPTIONS.map((v) => <option key={v || 'e'} value={v}>{v || '—'}</option>)}
-                        </select>
-                    </Field>
-                    <Field label="Qté" compact>
+                    <Field label="Quantité" compact>
                         <input
                             type="number"
                             step="0.001"
@@ -354,6 +609,22 @@ export default function FicheProduitPage() {
                             value={form.initial_stock}
                             onChange={(e) => set('initial_stock', e.target.value)}
                             placeholder="0"
+                            className={inputClass}
+                        />
+                    </Field>
+                    <Field label="U" compact>
+                        <select required value={form.unit} onChange={(e) => set('unit', e.target.value)} className={inputClass}>
+                            {UNIT_OPTIONS.map((v) => <option key={v || 'e'} value={v}>{v || '—'}</option>)}
+                        </select>
+                    </Field>
+                    <Field label="Prix/U" compact>
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            value={form.unit_price}
+                            onChange={(e) => set('unit_price', e.target.value)}
+                            placeholder="0.00"
                             className={inputClass}
                         />
                     </Field>
@@ -390,18 +661,18 @@ export default function FicheProduitPage() {
             </form>
             )}
 
-            <div className="flex-1 min-h-0 flex flex-col glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
-                <div className="shrink-0 px-5 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-teal-700 border-b border-white/10">
+            <div className="glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
+                <div className="px-5 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-teal-700 border-b border-white/10">
                     <h3 className="text-sm font-bold text-white uppercase tracking-wide">Liste des produits (bons d&apos;achat)</h3>
                 </div>
-                <div className="flex-1 min-h-0 overflow-auto">
+                <div className="overflow-x-auto">
                     <table className="w-full text-sm min-w-[1280px] border-collapse">
-                        <thead className="sticky top-0 z-10">
+                        <thead>
                             <tr className="border-b border-slate-200 dark:border-slate-700">
-                                {['Réf', 'Cd Barre', 'Désignation', 'Catégorie', 'Famille', 'Marque', 'Unité', 'Qté', 'Statut', 'État', 'Actions'].map((h) => (
+                                {['Code', 'Réf Equiv', 'Désignation', 'Famille', 'Marque', 'Quantité', 'U', 'Prix/U', 'Statut', 'État', 'Actions'].map((h) => (
                                     <th
                                         key={h}
-                                        className="px-3 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-center bg-slate-50 dark:bg-slate-800 shadow-[0_1px_0_0_rgba(226,232,240,1)] dark:shadow-[0_1px_0_0_rgba(51,65,85,1)]"
+                                        className="px-3 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-center bg-slate-50 dark:bg-slate-800"
                                     >
                                         {h}
                                     </th>
@@ -415,23 +686,27 @@ export default function FicheProduitPage() {
                                         <td key={j} className="px-3 py-3 text-center"><div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mx-auto max-w-[80px]" /></td>
                                     ))}</tr>
                                 ))
-                            ) : rows.length ? (
-                                rows.map((row) => (
+                            ) : filteredRows.length ? (
+                                filteredRows.map((row) => (
                                     <tr key={row.id} className={`hover:bg-emerald-50/40 dark:hover:bg-slate-800/40 transition-colors ${editingId === row.id ? 'bg-amber-50/60 dark:bg-amber-900/10' : ''}`}>
-                                        <td className="px-3 py-2.5 text-center font-mono text-xs font-semibold text-brand-navy dark:text-emerald-400">{row.reference}</td>
-                                        <td className="px-3 py-2.5 text-center font-mono text-xs text-slate-600 dark:text-slate-300 min-w-[170px]">{row.code_barre || '—'}</td>
-                                        <td className="px-3 py-2.5 text-center font-medium text-slate-800 dark:text-white max-w-[160px] truncate" title={row.name}>{row.name || '—'}</td>
-                                        <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300 min-w-[130px] max-w-[160px] truncate" title={row.categorie}>{row.categorie || '—'}</td>
-                                        <td className="px-3 py-2.5 text-center min-w-[130px]">
+                                        <td className="px-3 py-2.5 text-center font-mono text-xs font-semibold text-brand-navy dark:text-emerald-400">{productCode(row)}</td>
+                                        <td className="px-3 py-2.5 text-center min-w-[140px]">
+                                            <RefsEquivText refs={refsEquivList(row)} />
+                                        </td>
+                                        <td className="px-3 py-2.5 text-center font-medium text-slate-800 dark:text-white max-w-[180px] truncate" title={row.name}>{row.name || '—'}</td>
+                                        <td className="px-3 py-2.5 text-center min-w-[120px]">
                                             <span className="inline-flex px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 max-w-[150px] truncate" title={row.famille}>{row.famille || '—'}</span>
                                         </td>
-                                        <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300 min-w-[130px] max-w-[160px] truncate" title={row.marque || row.brand}>{row.marque || row.brand || '—'}</td>
-                                        <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.unit || '—'}</td>
+                                        <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300 min-w-[120px] max-w-[160px] truncate" title={row.marque || row.brand}>{row.marque || row.brand || '—'}</td>
                                         <td
                                             className="px-3 py-2.5 text-center tabular-nums font-semibold text-brand-navy dark:text-emerald-400"
                                             title={`Saisie : ${Number(row.initial_stock ?? 0).toLocaleString('fr-FR')} + Bons d'achat : ${Number(row.purchased_qty ?? 0).toLocaleString('fr-FR')}`}
                                         >
                                             {Number(row.quantity_in_stock ?? row.initial_stock ?? 0).toLocaleString('fr-FR', { maximumFractionDigits: 3 })}
+                                        </td>
+                                        <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.unit || '—'}</td>
+                                        <td className="px-3 py-2.5 text-center tabular-nums text-slate-700 dark:text-slate-200">
+                                            {Number(row.unit_price ?? 0).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                         <td className="px-3 py-2.5 text-center"><StatutBadge value={row.statut} /></td>
                                         <td className="px-3 py-2.5 text-center"><EtatBadge value={row.etat} /></td>
@@ -451,7 +726,11 @@ export default function FicheProduitPage() {
                                     </tr>
                                 ))
                             ) : (
-                                <tr><td colSpan={11} className="px-4 py-12 text-center text-slate-400">Aucun produit issu des bons d&apos;achat</td></tr>
+                                <tr>
+                                    <td colSpan={11} className="px-4 py-12 text-center text-slate-400">
+                                        {rows.length ? 'Aucun résultat pour ces filtres' : 'Aucun produit issu des bons d\'achat'}
+                                    </td>
+                                </tr>
                             )}
                         </tbody>
                     </table>

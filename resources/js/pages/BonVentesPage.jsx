@@ -32,7 +32,19 @@ const emptyLine = () => ({
     unit: '',
     quantity: '1',
     unit_price: '',
+    remise: '0',
 });
+
+function findProductByRef(ref, products) {
+    const q = String(ref || '').trim().toLowerCase();
+    if (!q) return null;
+    return products.find((p) =>
+        (p.article_id || '').toLowerCase() === q
+        || (p.code || '').toLowerCase() === q
+        || (p.reference || '').toLowerCase() === q
+        || (p.code_barre || '').toLowerCase() === q,
+    ) || null;
+}
 
 function Field({ label, children, className = '' }) {
     return (
@@ -61,7 +73,8 @@ function formatMontantDisplay(value) {
 function lineSubtotal(line) {
     const qty = parseFloat(String(line.quantity).replace(',', '.')) || 0;
     const price = parseFloat(String(line.unit_price).replace(',', '.')) || 0;
-    return (qty * price).toFixed(2);
+    const remise = Math.min(100, Math.max(0, parseFloat(String(line.remise ?? 0).replace(',', '.')) || 0));
+    return (qty * price * (1 - remise / 100)).toFixed(2);
 }
 
 function orderTotalQuantity(order) {
@@ -84,12 +97,12 @@ function buildBonHtml(row) {
 <td>${i.article_ref || '—'}</td>
 <td>${i.code_barre || '—'}</td>
 <td>${i.description || '—'}</td>
-<td>${i.categorie || '—'}</td>
 <td>${i.famille || '—'}</td>
 <td>${i.marque || '—'}</td>
-<td>${i.unit || '—'}</td>
 <td>${i.quantity ?? '—'}</td>
+<td>${i.unit || '—'}</td>
 <td>${formatMontant(i.unit_price)}</td>
+<td>${formatMontant(i.remise ?? 0)}%</td>
 <td><strong>${formatMontant(i.total)}</strong></td>
 </tr>`).join('');
 
@@ -102,11 +115,11 @@ th{background:#f8fafc;font-weight:700}.badge{background:#fff7ed;color:#ea580c;pa
 <table>
 <tr><th>Date</th><td>${row.order_date || '—'}</td><th>Client</th><td>${row.client || '—'}</td></tr>
 <tr><th>Ville</th><td>${row.city || '—'}</td><th>Adresse Livraison</th><td>${row.address || '—'}</td></tr>
-<tr><th>Type Régl / Échéance</th><td>${row.reglement || '—'} / ${row.echeance || '—'}</td><th>Livreur</th><td>${row.chauffeur || '—'}</td></tr>
+<tr><th>Type Régl / Échéance</th><td>${row.reglement || '—'} / ${row.echeance || '—'}</td><th>Transport</th><td>${row.chauffeur || '—'}</td></tr>
 <tr><th>Matricule</th><td colspan="3">${row.matricule || '—'}</td></tr>
 </table>
 <table>
-<thead><tr><th>Réf</th><th>Cd Barre</th><th>Désignation</th><th>Catégorie</th><th>Famille</th><th>Marque</th><th>U</th><th>Qté</th><th>P/U</th><th>S/Total</th></tr></thead>
+<thead><tr><th>Code</th><th>Réf Equiv</th><th>Désignation</th><th>Famille</th><th>Marque</th><th>Quantité</th><th>U</th><th>Prix/U</th><th>Remise</th><th>Sous-total</th></tr></thead>
 <tbody>${itemsRows}</tbody>
 </table>
 <p style="text-align:right;font-weight:700;margin-top:12px">Total : ${formatMontant(row.subtotal ?? row.montant)}</p>
@@ -143,7 +156,7 @@ function ViewModal({ row, onClose, docTitle = 'Bon Commercial' }) {
     const header = [
         ['Date', row.order_date], ['N° B-V', row.reference], ['Client', row.client],
         ['Ville', row.city], ['Adresse Livraison', row.address],
-        ['Type Régl', row.reglement], ['Échéance', row.echeance], ['Livreur', row.chauffeur], ['Matricule', row.matricule],
+        ['Type Régl', row.reglement], ['Échéance', row.echeance], ['Transport', row.chauffeur], ['Matricule', row.matricule],
     ];
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
@@ -167,9 +180,13 @@ function ViewModal({ row, onClose, docTitle = 'Bon Commercial' }) {
                         <div key={i.id || idx} className="rounded-lg border border-slate-100 dark:border-slate-800 px-3 py-2 text-xs">
                             <div className="font-semibold">{i.article_ref || '—'} — {i.description}</div>
                             <div className="text-slate-500 mt-0.5">
-                                {[i.code_barre && `Cd: ${i.code_barre}`, i.categorie, i.famille, i.marque].filter(Boolean).join(' · ') || '—'}
+                                {[i.code_barre && `Réf Equiv: ${i.code_barre}`, i.famille, i.marque].filter(Boolean).join(' · ') || '—'}
                             </div>
-                            <div className="text-slate-500 mt-0.5">{i.quantity} {i.unit || ''} × {formatMontant(i.unit_price)} = <strong>{formatMontant(i.total)}</strong></div>
+                            <div className="text-slate-500 mt-0.5">
+                                {i.quantity} {i.unit || ''} × {formatMontant(i.unit_price)}
+                                {Number(i.remise) > 0 ? ` (−${formatMontant(i.remise)}%)` : ''}
+                                {' = '}<strong>{formatMontant(i.total)}</strong>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -263,8 +280,24 @@ export default function BonVentesPage({ mode = 'commercial' }) {
         }
         updateLine(lineKey, {
             product_id: product.id,
-            article_ref: product.article_id || product.reference || '',
-            code_barre: product.code_barre || product.article_id || product.reference || '',
+            article_ref: product.code || product.article_id || product.reference || '',
+            code_barre: product.code_barre || '',
+            description: product.name || '',
+            categorie: product.categorie || '',
+            famille: product.famille || '',
+            marque: product.marque || product.brand || '',
+            unit: product.unit || '',
+            unit_price: product.unit_price != null ? String(product.unit_price) : '',
+        });
+    };
+
+    const handleRefBlur = (lineKey, ref) => {
+        const product = findProductByRef(ref, products);
+        if (!product) return;
+        updateLine(lineKey, {
+            product_id: product.id,
+            article_ref: product.code || product.article_id || product.reference || ref,
+            code_barre: product.code_barre || '',
             description: product.name || '',
             categorie: product.categorie || '',
             famille: product.famille || '',
@@ -335,6 +368,7 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                 unit: i.unit || '',
                 quantity: i.quantity != null ? String(i.quantity) : '1',
                 unit_price: i.unit_price != null ? String(i.unit_price) : '',
+                remise: i.remise != null ? String(i.remise) : '0',
             })));
         } else {
             setLines([{
@@ -395,6 +429,7 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                 unit: l.unit || null,
                 quantity: parseFloat(String(l.quantity).replace(',', '.')) || 1,
                 unit_price: parseFloat(String(l.unit_price).replace(',', '.')) || 0,
+                remise: parseFloat(String(l.remise ?? 0).replace(',', '.')) || 0,
             })),
         };
 
@@ -528,8 +563,8 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                                 {ECHEANCE_OPTIONS.map((v) => <option key={v || 'e'} value={v}>{v || '—'}</option>)}
                             </select>
                         </Field>
-                        <Field label="Livreur">
-                            <input type="text" value={form.chauffeur} onChange={(e) => set('chauffeur', e.target.value)} placeholder="Livreur" className={inputClass} />
+                        <Field label="Transport">
+                            <input type="text" value={form.chauffeur} onChange={(e) => set('chauffeur', e.target.value)} placeholder="Transport" className={inputClass} />
                         </Field>
                         <Field label="Matricule">
                             <input type="text" value={form.matricule} onChange={(e) => set('matricule', e.target.value)} placeholder="Matricule" className={inputClass} />
@@ -546,7 +581,7 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                         <table className="w-full text-sm min-w-[1280px]">
                             <thead>
                                 <tr className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
-                                    {['Réf', 'Cd Barre', 'Désignation', 'Catégorie', 'Famille', 'Marque', 'U', 'Qté', 'P/U', 'S/Total', ''].map((h) => (
+                                    {['Code', 'Réf Equiv', 'Désignation', 'Famille', 'Marque', 'Quantité', 'U', 'Prix/U', 'Remise', 'Sous-total', ''].map((h) => (
                                         <th key={h || 'act'} className="px-2 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-center whitespace-nowrap">{h}</th>
                                     ))}
                                 </tr>
@@ -555,31 +590,31 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                                 {lines.map((line) => (
                                     <tr key={line.key} className="hover:bg-orange-50/30 dark:hover:bg-slate-800/30">
                                         <td className="px-2 py-1.5 w-[110px]">
-                                            <select
-                                                value={line.product_id}
-                                                onChange={(e) => handleSelectProduct(line.key, e.target.value)}
+                                            <input
+                                                type="text"
+                                                list="bon-vente-refs"
+                                                value={line.article_ref}
+                                                onChange={(e) => updateLine(line.key, {
+                                                    article_ref: e.target.value,
+                                                    product_id: '',
+                                                })}
+                                                onBlur={(e) => handleRefBlur(line.key, e.target.value)}
+                                                placeholder="Code"
                                                 className={tableInput}
-                                                title="Liste des références"
-                                            >
-                                                <option value="">— Réf —</option>
-                                                {products.map((p) => (
-                                                    <option key={p.id} value={p.id}>
-                                                        {p.article_id || p.reference || p.name}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                                title="Saisie manuelle ou choix dans la liste"
+                                            />
                                         </td>
-                                        <td className="px-2 py-1.5 w-[210px]">
+                                        <td className="px-2 py-1.5 w-[140px]">
                                             <input
                                                 type="text"
                                                 maxLength={32}
                                                 value={line.code_barre}
                                                 onChange={(e) => updateLine(line.key, { code_barre: e.target.value })}
-                                                placeholder="Cd Barre"
+                                                placeholder="Réf Equiv"
                                                 className={tableInput}
                                             />
                                         </td>
-                                        <td className="px-2 py-1.5 min-w-[110px] max-w-[140px]">
+                                        <td className="px-2 py-1.5 min-w-[140px]">
                                             <input
                                                 type="text"
                                                 value={line.description}
@@ -588,16 +623,7 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                                                 className={`${tableInput} text-left`}
                                             />
                                         </td>
-                                        <td className="px-2 py-1.5 w-[135px]">
-                                            <input
-                                                type="text"
-                                                value={line.categorie}
-                                                onChange={(e) => updateLine(line.key, { categorie: e.target.value })}
-                                                placeholder="Catégorie"
-                                                className={tableInput}
-                                            />
-                                        </td>
-                                        <td className="px-2 py-1.5 w-[135px]">
+                                        <td className="px-2 py-1.5 w-[120px]">
                                             <input
                                                 type="text"
                                                 value={line.famille}
@@ -606,7 +632,7 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                                                 className={tableInput}
                                             />
                                         </td>
-                                        <td className="px-2 py-1.5 w-[135px]">
+                                        <td className="px-2 py-1.5 w-[120px]">
                                             <input
                                                 type="text"
                                                 value={line.marque}
@@ -615,16 +641,29 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                                                 className={tableInput}
                                             />
                                         </td>
+                                        <td className="px-2 py-1.5 w-[90px]">
+                                            <input type="number" step="0.001" min="0" value={line.quantity} onChange={(e) => updateLine(line.key, { quantity: e.target.value })} className={tableInput} />
+                                        </td>
                                         <td className="px-2 py-1.5 w-[72px]">
                                             <select value={line.unit} onChange={(e) => updateLine(line.key, { unit: e.target.value })} className={tableInput}>
                                                 {UNIT_OPTIONS.map((v) => <option key={v || 'u'} value={v}>{v || '—'}</option>)}
                                             </select>
                                         </td>
-                                        <td className="px-2 py-1.5 w-[80px]">
-                                            <input type="number" step="0.001" min="0" value={line.quantity} onChange={(e) => updateLine(line.key, { quantity: e.target.value })} className={tableInput} />
-                                        </td>
                                         <td className="px-2 py-1.5 w-[95px]">
                                             <input type="number" step="0.01" min="0" value={line.unit_price} onChange={(e) => updateLine(line.key, { unit_price: e.target.value })} placeholder="0.00" className={tableInput} />
+                                        </td>
+                                        <td className="px-2 py-1.5 w-[80px]">
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                min="0"
+                                                max="100"
+                                                value={line.remise}
+                                                onChange={(e) => updateLine(line.key, { remise: e.target.value })}
+                                                placeholder="%"
+                                                className={tableInput}
+                                                title="Remise en %"
+                                            />
                                         </td>
                                         <td className="px-2 py-1.5 w-[95px]">
                                             <input type="text" readOnly value={lineSubtotal(line)} className={readOnlyClass} />
@@ -644,6 +683,11 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                             </tbody>
                         </table>
                     </div>
+                    <datalist id="bon-vente-refs">
+                        {products.map((p) => (
+                            <option key={p.id} value={p.code || p.article_id || p.reference || ''} label={p.name || ''} />
+                        ))}
+                    </datalist>
                     <div className="px-3 py-2 border-t border-slate-100 dark:border-slate-800 flex justify-end">
                         <button
                             type="button"
