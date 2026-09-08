@@ -23,6 +23,7 @@ const FicheFournisseurPage = lazy(() => import('./pages/FicheFournisseurPage'));
 const FicheClientPage = lazy(() => import('./pages/FicheClientPage'));
 const FichePersonnelPage = lazy(() => import('./pages/FichePersonnelPage'));
 const SalairePage = lazy(() => import('./pages/SalairePage'));
+const EtatPaiementPage = lazy(() => import('./pages/EtatPaiementPage'));
 const ClientBalancePage = lazy(() => import('./pages/clients/ClientBalancePage'));
 const DevisListPage = lazy(() => import('./pages/devis/DevisListPage'));
 const DevisFormPage = lazy(() => import('./pages/devis/DevisFormPage'));
@@ -109,7 +110,7 @@ function AppRoutes() {
                 {/* Personnel */}
                 <Route path="personnel/fiches" element={<FichePersonnelPage />} />
                 <Route path="personnel/salaires" element={<SalairePage />} />
-                <Route path="personnel/etat-paiement" element={<ModulePage />} />
+                <Route path="personnel/etat-paiement" element={<EtatPaiementPage />} />
 
                 {/* Suivi Monétaire */}
                 <Route path="monetaire/transactions" element={<TransactionsPage />} />

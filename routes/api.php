@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\ClientApiController;
 use App\Http\Controllers\Api\DashboardApiController;
 use App\Http\Controllers\Api\DocumentApiController;
 use App\Http\Controllers\Api\EmployeeApiController;
+use App\Http\Controllers\Api\EtatPaiementApiController;
 use App\Http\Controllers\Api\ExpenseApiController;
 use App\Http\Controllers\Api\InvoicePaymentApiController;
 use App\Http\Controllers\Api\ProductApiController;
@@ -93,6 +94,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('employees', EmployeeApiController::class);
     Route::patch('employees/{employee}/suspend', [EmployeeApiController::class, 'suspend']);
+    Route::get('etat-paiement', [EtatPaiementApiController::class, 'index']);
+    Route::patch('etat-paiement/{employee}', [EtatPaiementApiController::class, 'toggle']);
     Route::apiResource('expenses', ExpenseApiController::class);
     Route::get('charges/meta', [ChargeApiController::class, 'meta']);
     Route::apiResource('charges', ChargeApiController::class);
