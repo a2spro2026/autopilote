@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClientPayment;
-use App\Models\MonetaryTransaction;
 use App\Models\SupplierPayment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,9 +17,8 @@ class TresorerieRapportApiController extends Controller
         $operation = $request->filled('operation') ? (string) $request->operation : null;
         $type = $request->filled('type') ? (string) $request->type : null;
 
-        $rows = $this->collectRows($mois)
+        $rows = $this->collectRows($mois, $type)
             ->when($operation, fn (Collection $c) => $c->where('operation', $operation)->values())
-            ->when($type, fn (Collection $c) => $this->filterByType($c, $type)->values())
             ->sortByDesc(fn ($r) => $r['date_raw'].'-'.$r['id'])
             ->values();
 
@@ -38,67 +36,95 @@ class TresorerieRapportApiController extends Controller
         ]);
     }
 
-    private function collectRows(?string $mois): Collection
+    /**
+     * Débit  = règlements fournisseur statut Payé
+     * Crédit = règlements client statut Payé (encaissés / payés)
+     * Caisse = règlements client en Espèces (Esp)
+     */
+    private function collectRows(?string $mois, ?string $type): Collection
     {
         $rows = collect();
+        $includeDebit = $type === null || $type === '' || $type === 'Débit';
+        $includeCredit = $type === null || $type === '' || $type === 'Crédit';
+        $includeCaisseOnly = $type === 'Caisse';
 
-        $supplierQuery = SupplierPayment::query()->latest('payment_date')->latest('id');
-        $this->applyMonth($supplierQuery, 'payment_date', $mois);
-        foreach ($supplierQuery->get() as $payment) {
-            $amount = round((float) $payment->montant, 2);
-            $rows->push([
-                'id' => 'achat-'.$payment->id,
-                'date' => $payment->payment_date?->format('d/m/Y'),
-                'date_raw' => $payment->payment_date?->format('Y-m-d') ?? '',
-                'operation' => 'Achat',
-                'debit' => $amount,
-                'credit' => 0,
-                'caisse' => null,
-                'date_decaiss' => $payment->date_decaissement?->format('d/m/Y'),
-                'date_encaiss' => null,
-            ]);
+        if ($includeDebit) {
+            $supplierQuery = SupplierPayment::query()
+                ->where('statut', 'Payé')
+                ->latest('payment_date')
+                ->latest('id');
+            $this->applyMonth($supplierQuery, 'payment_date', $mois);
+
+            foreach ($supplierQuery->get() as $payment) {
+                $amount = round((float) $payment->montant, 2);
+                $rows->push([
+                    'id' => 'achat-'.$payment->id,
+                    'date' => $payment->payment_date?->format('d/m/Y'),
+                    'date_raw' => $payment->payment_date?->format('Y-m-d') ?? '',
+                    'operation' => 'Achat',
+                    'debit' => $amount,
+                    'credit' => 0,
+                    'caisse' => null,
+                    'date_decaiss' => $payment->date_decaissement?->format('d/m/Y'),
+                    'date_encaiss' => null,
+                ]);
+            }
         }
 
-        $clientQuery = ClientPayment::query()->latest('payment_date')->latest('id');
-        $this->applyMonth($clientQuery, 'payment_date', $mois);
-        foreach ($clientQuery->get() as $payment) {
-            $amount = round((float) $payment->montant, 2);
-            $caisse = $payment->tresorerie;
-            $rows->push([
-                'id' => 'vente-'.$payment->id,
-                'date' => $payment->payment_date?->format('d/m/Y'),
-                'date_raw' => $payment->payment_date?->format('Y-m-d') ?? '',
-                'operation' => 'Vente',
-                'debit' => 0,
-                'credit' => $amount,
-                'caisse' => $caisse !== null && $caisse !== '' ? (string) $caisse : null,
-                'date_decaiss' => null,
-                'date_encaiss' => $payment->date_decaissement?->format('d/m/Y'),
-            ]);
+        if ($includeCredit) {
+            $clientQuery = ClientPayment::query()
+                ->where('statut', 'Payé')
+                ->latest('payment_date')
+                ->latest('id');
+            $this->applyMonth($clientQuery, 'payment_date', $mois);
+
+            foreach ($clientQuery->get() as $payment) {
+                $amount = round((float) $payment->montant, 2);
+                $isEsp = $this->isEsp($payment->reglement);
+                $rows->push([
+                    'id' => 'vente-'.$payment->id,
+                    'date' => $payment->payment_date?->format('d/m/Y'),
+                    'date_raw' => $payment->payment_date?->format('Y-m-d') ?? '',
+                    'operation' => 'Vente',
+                    'debit' => 0,
+                    'credit' => $amount,
+                    'caisse' => $isEsp ? $amount : null,
+                    'date_decaiss' => null,
+                    'date_encaiss' => $payment->date_decaissement?->format('d/m/Y'),
+                ]);
+            }
         }
 
-        $txQuery = MonetaryTransaction::query()
-            ->where('coffre', 'Caisse')
-            ->latest('transaction_date')
-            ->latest('id');
-        $this->applyMonth($txQuery, 'transaction_date', $mois);
-        foreach ($txQuery->get() as $tx) {
-            $amount = round((float) $tx->amount, 2);
-            $isDebit = in_array($tx->statut, ['Débit', 'Sortie'], true);
-            $rows->push([
-                'id' => 'caisse-'.$tx->id,
-                'date' => $tx->transaction_date?->format('d/m/Y'),
-                'date_raw' => $tx->transaction_date?->format('Y-m-d') ?? '',
-                'operation' => $isDebit ? 'Achat' : 'Vente',
-                'debit' => $isDebit ? $amount : 0,
-                'credit' => $isDebit ? 0 : $amount,
-                'caisse' => 'Caisse',
-                'date_decaiss' => $isDebit ? $tx->transaction_date?->format('d/m/Y') : null,
-                'date_encaiss' => $isDebit ? null : $tx->transaction_date?->format('d/m/Y'),
-            ]);
+        if ($includeCaisseOnly) {
+            $espQuery = ClientPayment::query()
+                ->where('reglement', 'Esp')
+                ->latest('payment_date')
+                ->latest('id');
+            $this->applyMonth($espQuery, 'payment_date', $mois);
+
+            foreach ($espQuery->get() as $payment) {
+                $amount = round((float) $payment->montant, 2);
+                $isPaye = ($payment->statut ?: 'Inst') === 'Payé';
+                $rows->push([
+                    'id' => 'esp-'.$payment->id,
+                    'date' => $payment->payment_date?->format('d/m/Y'),
+                    'date_raw' => $payment->payment_date?->format('Y-m-d') ?? '',
+                    'operation' => 'Vente',
+                    'debit' => 0,
+                    'credit' => $isPaye ? $amount : 0,
+                    'caisse' => $amount,
+                    'date_decaiss' => null,
+                    'date_encaiss' => $payment->date_decaissement?->format('d/m/Y'),
+                ]);
+            }
         }
 
         return $rows;
+    }
+
+    private function isEsp(?string $reglement): bool
+    {
+        return strcasecmp((string) $reglement, 'Esp') === 0;
     }
 
     private function applyMonth($query, string $column, ?string $mois): void
@@ -115,15 +141,5 @@ class TresorerieRapportApiController extends Controller
 
         $query->whereDate($column, '>=', $start->toDateString())
             ->whereDate($column, '<=', $start->copy()->endOfMonth()->toDateString());
-    }
-
-    private function filterByType(Collection $rows, string $type): Collection
-    {
-        return match ($type) {
-            'Débit' => $rows->filter(fn ($r) => (float) $r['debit'] > 0),
-            'Crédit' => $rows->filter(fn ($r) => (float) $r['credit'] > 0),
-            'Caisse' => $rows->filter(fn ($r) => ! empty($r['caisse'])),
-            default => $rows,
-        };
     }
 }

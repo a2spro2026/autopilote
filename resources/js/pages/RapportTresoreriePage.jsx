@@ -86,7 +86,7 @@ function buildPrintHtml(rows, summary, filters) {
 <td>${r.operation || '—'}</td>
 <td>${formatMontant(r.debit)}</td>
 <td>${formatMontant(r.credit)}</td>
-<td>${r.caisse || '—'}</td>
+<td>${r.caisse != null && r.caisse !== '' ? formatMontant(r.caisse) : '—'}</td>
 <td>${r.date_decaiss || '—'}</td>
 <td>${r.date_encaiss || '—'}</td>
 </tr>`).join('');
@@ -128,7 +128,7 @@ function downloadCsv(rows) {
             r.operation || '',
             String(Number(r.debit) || 0).replace('.', ','),
             String(Number(r.credit) || 0).replace('.', ','),
-            r.caisse || '',
+            r.caisse != null && r.caisse !== '' ? String(Number(r.caisse) || 0).replace('.', ',') : '',
             r.date_decaiss || '',
             r.date_encaiss || '',
         ].join(';'));
@@ -294,7 +294,9 @@ export default function RapportTresoreriePage() {
                                         <td className="px-3 py-2.5 text-center tabular-nums font-semibold text-emerald-700 dark:text-emerald-300">
                                             {(Number(row.credit) || 0) > 0 ? formatMontant(row.credit) : '—'}
                                         </td>
-                                        <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.caisse || '—'}</td>
+                                        <td className="px-3 py-2.5 text-center tabular-nums font-semibold text-sky-700 dark:text-sky-300">
+                                            {row.caisse != null && row.caisse !== '' ? formatMontant(row.caisse) : '—'}
+                                        </td>
                                         <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.date_decaiss || '—'}</td>
                                         <td className="px-3 py-2.5 text-center text-slate-600 dark:text-slate-300">{row.date_encaiss || '—'}</td>
                                     </tr>
