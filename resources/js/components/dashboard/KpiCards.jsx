@@ -182,7 +182,7 @@ export default function KpiCards({ kpis, loading }) {
         return (
             <div>
                 <SectionTitle />
-                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1.5 sm:gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2">
                     {cards.map((card) => (
                         <div key={card.key} className={`kpi-card-skeleton rounded-lg ${card.supplierFilter ? 'h-[92px]' : 'h-[82px]'}`} />
                     ))}
@@ -194,7 +194,7 @@ export default function KpiCards({ kpis, loading }) {
     return (
         <div>
             <SectionTitle />
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-1.5 sm:gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2">
                 {cards.map((card, i) => (
                     <KpiCard
                         key={card.key}

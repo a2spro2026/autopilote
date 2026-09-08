@@ -21,8 +21,8 @@
         min-height: 100vh;
     }
 
-    /* Empêche le zoom iOS sur focus des champs */
-    @media (max-width: 1023px) {
+    /* Empêche le zoom iOS sur focus — téléphone uniquement */
+    @media (max-width: 639px) {
         input,
         select,
         textarea {
