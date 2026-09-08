@@ -34,7 +34,7 @@ class UserApiController extends Controller
             ? $query->get()->map(fn ($u) => $this->formatUser($u))
             : $query->paginate(50)->through(fn ($u) => $this->formatUser($u));
 
-        return response()->json([
+        $payload = [
             'data' => $request->boolean('all') ? $users : $users->items(),
             'meta' => [
                 'next_id' => (int) (User::max('id') ?? 0) + 1,
@@ -42,12 +42,15 @@ class UserApiController extends Controller
                     ->map(fn ($label, $value) => ['value' => $value, 'label' => $label])
                     ->values(),
             ],
-            ...($request->boolean('all') ? [] : [
-                'current_page' => $users->currentPage(),
-                'last_page' => $users->lastPage(),
-                'total' => $users->total(),
-            ]),
-        ]);
+        ];
+
+        if (! $request->boolean('all')) {
+            $payload['current_page'] = $users->currentPage();
+            $payload['last_page'] = $users->lastPage();
+            $payload['total'] = $users->total();
+        }
+
+        return response()->json($payload);
     }
 
     public function store(Request $request)
@@ -103,7 +106,7 @@ class UserApiController extends Controller
 
         $user->update($data);
 
-        // Nouveau mot de passe ou suspension → coupe l’accès immédiat (sessions API)
+        // Password change or deactivation: revoke API sessions immediately
         if ($passwordChanged || $deactivated) {
             $user->tokens()->delete();
         }
@@ -120,7 +123,7 @@ class UserApiController extends Controller
         $user->tokens()->delete();
         $user->delete();
 
-        return response()->json(['message' => 'Utilisateur supprimé']);
+        return response()->json(['message' => 'Utilisateur supprime']);
     }
 
     public function suspend(Request $request, User $user)
@@ -129,9 +132,10 @@ class UserApiController extends Controller
             return response()->json(['message' => 'Vous ne pouvez pas suspendre votre propre compte.'], 422);
         }
 
-        $user->update(['is_active' => ! $user->is_active']);
+        $willBeActive = ! $user->is_active;
+        $user->update(['is_active' => $willBeActive]);
 
-        if (! $user->is_active) {
+        if (! $willBeActive) {
             $user->tokens()->delete();
         }
 
@@ -141,6 +145,8 @@ class UserApiController extends Controller
     private function validated(Request $request, ?int $userId = null): array
     {
         $creating = $userId === null;
+        $passwordRule = $creating ? 'required|string|min:6|max:255' : 'nullable|string|min:6|max:255';
+        $statutRule = ($creating ? 'required' : 'nullable').'|in:'.implode(',', array_keys(self::LOGIN_STATUTS));
 
         return $request->validate([
             'name' => 'required|string|max:255',
@@ -151,9 +157,9 @@ class UserApiController extends Controller
                 Rule::unique('users', 'email')->ignore($userId),
             ],
             'phone' => 'nullable|string|max:40',
-            'password' => ($creating ? 'required' : 'nullable').'|string|min:6|max:255',
+            'password' => $passwordRule,
             'is_active' => 'nullable|boolean',
-            'statut' => ($creating ? 'required' : 'nullable').'|in:'.implode(',', array_keys(self::LOGIN_STATUTS)),
+            'statut' => $statutRule,
         ]);
     }
 
@@ -170,7 +176,7 @@ class UserApiController extends Controller
     private function formatUser(User $user): array
     {
         $slug = $user->role?->slug;
-        $statutLabel = self::LOGIN_STATUTS[$slug] ?? ($user->role?->name ?: '—');
+        $statutLabel = self::LOGIN_STATUTS[$slug] ?? ($user->role?->name ?: '-');
 
         return [
             'id' => $user->id,
@@ -179,7 +185,7 @@ class UserApiController extends Controller
             'phone' => $user->phone,
             'email' => $user->email,
             'login' => $user->email,
-            'password_mask' => '••••••••',
+            'password_mask' => '********',
             'statut' => $statutLabel,
             'statut_slug' => $slug && isset(self::LOGIN_STATUTS[$slug]) ? $slug : '',
             'etat' => $user->is_active ? 'Actif' : 'Suspendue',
