@@ -92,6 +92,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('supplier-payments/{supplier_payment}', [SupplierPaymentApiController::class, 'destroy']);
 
     Route::apiResource('employees', EmployeeApiController::class);
+    Route::patch('employees/{employee}/suspend', [EmployeeApiController::class, 'suspend']);
     Route::apiResource('expenses', ExpenseApiController::class);
     Route::get('charges/meta', [ChargeApiController::class, 'meta']);
     Route::apiResource('charges', ChargeApiController::class);

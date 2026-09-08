@@ -21,6 +21,7 @@ const MouvementFiscalPage = lazy(() => import('./pages/MouvementFiscalPage'));
 const ModulePage = lazy(() => import('./pages/ModulePage'));
 const FicheFournisseurPage = lazy(() => import('./pages/FicheFournisseurPage'));
 const FicheClientPage = lazy(() => import('./pages/FicheClientPage'));
+const FichePersonnelPage = lazy(() => import('./pages/FichePersonnelPage'));
 const ClientBalancePage = lazy(() => import('./pages/clients/ClientBalancePage'));
 const DevisListPage = lazy(() => import('./pages/devis/DevisListPage'));
 const DevisFormPage = lazy(() => import('./pages/devis/DevisFormPage'));
@@ -53,14 +54,6 @@ function ProtectedRoute({ children }) {
     if (!user) return <Navigate to="/login" replace />;
     return children;
 }
-
-const employeeCols = [
-    { key: 'matricule', label: 'Matricule' },
-    { key: 'name', label: 'Nom', render: (r) => `${r.first_name} ${r.last_name}` },
-    { key: 'position', label: 'Poste' },
-    { key: 'monthly_salary', label: 'Salaire', render: (r) => `${r.monthly_salary}` },
-    { key: 'status', label: 'Statut' },
-];
 
 function AppRoutes() {
     return (
@@ -113,7 +106,7 @@ function AppRoutes() {
                 <Route path="stock/fiscal" element={<Navigate to="/facturation/mouvement-fiscal" replace />} />
 
                 {/* Personnel */}
-                <Route path="personnel/fiches" element={<GenericListPage title="Fiche Personnel" subtitle="Gestion des employés" endpoint="/employees" columns={employeeCols} />} />
+                <Route path="personnel/fiches" element={<FichePersonnelPage />} />
                 <Route path="personnel/salaires" element={<ModulePage />} />
                 <Route path="personnel/etat-paiement" element={<ModulePage />} />
 
