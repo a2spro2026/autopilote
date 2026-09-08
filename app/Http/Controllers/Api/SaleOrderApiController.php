@@ -18,6 +18,16 @@ class SaleOrderApiController extends Controller
                 ->orWhere('designation', 'like', "%{$s}%"))
             ->when($request->filled('client_id'), fn ($q) => $q->where('client_id', $request->client_id))
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->when($request->filled('statuses'), function ($q) use ($request) {
+                $statuses = collect(explode(',', (string) $request->statuses))
+                    ->map(fn ($s) => trim($s))
+                    ->filter()
+                    ->values()
+                    ->all();
+                if ($statuses !== []) {
+                    $q->whereIn('status', $statuses);
+                }
+            })
             ->where('status', '!=', 'annule')
             ->latest('order_date');
 
@@ -121,7 +131,26 @@ class SaleOrderApiController extends Controller
 
     public function validateOrder(SaleOrder $sales_order)
     {
+        if ($sales_order->status !== 'envoye') {
+            return response()->json([
+                'message' => 'Seuls les bons envoyés peuvent être validés en livraison.',
+            ], 422);
+        }
+
         $sales_order->update(['status' => 'valide']);
+
+        return response()->json($this->formatOrder($sales_order->fresh(['client', 'items', 'user.role'])));
+    }
+
+    public function send(SaleOrder $sales_order)
+    {
+        if (! in_array($sales_order->status, ['en_attente'], true)) {
+            return response()->json([
+                'message' => 'Ce bon ne peut plus être envoyé.',
+            ], 422);
+        }
+
+        $sales_order->update(['status' => 'envoye']);
 
         return response()->json($this->formatOrder($sales_order->fresh(['client', 'items', 'user.role'])));
     }
@@ -370,7 +399,7 @@ class SaleOrderApiController extends Controller
             'address' => 'nullable|string|max:255',
             'chauffeur' => 'nullable|string|max:255',
             'matricule' => 'nullable|string|max:50',
-            'status' => 'nullable|in:en_attente,valide,annule,livre,encaisse',
+            'status' => 'nullable|in:en_attente,envoye,valide,annule,livre,encaisse',
             'items' => ($partial ? 'sometimes' : 'required').'|array|min:1',
             'items.*.product_id' => 'nullable|exists:products,id',
             'items.*.article_ref' => 'nullable|string|max:100',
@@ -505,6 +534,7 @@ class SaleOrderApiController extends Controller
             'status' => $order->status,
             'status_label' => match ($order->status) {
                 'en_attente' => 'En attente',
+                'envoye' => 'Envoyé',
                 'valide' => 'Attente caisse',
                 'encaisse' => ((float) ($order->montant_paye ?? 0) + 0.009 >= (float) $order->total_ttc && (float) $order->total_ttc > 0)
                     ? 'Encaissé — payé'

@@ -81,11 +81,11 @@ export const navigation = [
         perm: 'clients.view',
         children: [
             { to: '/clients/fiches', label: 'Fiche Client', icon: ContactRound },
-            { to: '/clients/bons-de-vente', label: 'Bon de Vente', icon: ClipboardList },
-            { to: '/clients/devis', label: 'Devis', icon: FileSignature },
+            { to: '/clients/bons-de-vente', label: 'Bon Commercial', icon: ClipboardList },
+            { to: '/clients/bons-vente', label: 'Bon Livraison', icon: FileSignature },
             { to: '/clients/reglements-vente', label: 'Règlement Client', icon: CircleDollarSign },
-            { to: '/clients/balance', label: 'Balance', icon: Scale },
-            { to: '/clients/releve-compte', label: 'Relevé Compte', icon: ScrollText },
+            { to: '/clients/balance', label: 'Balance Clients', icon: Scale },
+            { to: '/clients/releve-compte', label: 'Relevé Compte Client', icon: ScrollText },
         ],
     },
     {

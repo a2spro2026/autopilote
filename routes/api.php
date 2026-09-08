@@ -70,6 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('sales-orders/encaisser', [SaleOrderApiController::class, 'encaisser']);
     Route::post('sales-orders/payer', [SaleOrderApiController::class, 'payer']);
     Route::post('sales-orders/{sales_order}/validate', [SaleOrderApiController::class, 'validateOrder']);
+    Route::post('sales-orders/{sales_order}/send', [SaleOrderApiController::class, 'send']);
 
     Route::get('invoice-payments/invoices', [InvoicePaymentApiController::class, 'invoices']);
     Route::apiResource('invoice-payments', InvoicePaymentApiController::class)

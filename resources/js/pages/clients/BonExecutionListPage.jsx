@@ -103,7 +103,7 @@ export default function BonExecutionListPage() {
 
             <div className="glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
                 <div className="px-5 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 border-b border-white/10 flex items-center justify-between">
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wide">État d'Exécution</h3>
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wide">Bon Livraison</h3>
                     <button type="button" onClick={load} disabled={loading} className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors" title="Actualiser">
                         <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                     </button>

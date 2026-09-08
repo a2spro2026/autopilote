@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, Plus, PlusCircle, XCircle, Eye, Pencil, Trash2, Printer, FileText, X, Package, Wallet } from 'lucide-react';
+import { CheckCircle2, Plus, PlusCircle, XCircle, Eye, Pencil, Trash2, Printer, FileText, X, Package, Wallet, Send } from 'lucide-react';
 import api from '../lib/api';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -97,11 +97,11 @@ function buildBonHtml(row) {
 table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border:1px solid #e2e8f0;padding:8px;font-size:11px;text-align:center}
 th{background:#f8fafc;font-weight:700}.badge{background:#fff7ed;color:#ea580c;padding:4px 10px;border-radius:999px;font-weight:700}
 </style></head><body>
-<h1>Autopilote — Bon de Vente <span class="badge">${row.reference}</span></h1>
+<h1>Autopilote — Bon Commercial <span class="badge">${row.reference}</span></h1>
 <table>
 <tr><th>Date</th><td>${row.order_date || '—'}</td><th>Client</th><td>${row.client || '—'}</td></tr>
 <tr><th>Ville</th><td>${row.city || '—'}</td><th>Adresse Livraison</th><td>${row.address || '—'}</td></tr>
-<tr><th>Type Régl / Échéance</th><td>${row.reglement || '—'} / ${row.echeance || '—'}</td><th>Chauffeur</th><td>${row.chauffeur || '—'}</td></tr>
+<tr><th>Type Régl / Échéance</th><td>${row.reglement || '—'} / ${row.echeance || '—'}</td><th>Livreur</th><td>${row.chauffeur || '—'}</td></tr>
 <tr><th>Matricule</th><td colspan="3">${row.matricule || '—'}</td></tr>
 </table>
 <table>
@@ -112,10 +112,10 @@ th{background:#f8fafc;font-weight:700}.badge{background:#fff7ed;color:#ea580c;pa
 </body></html>`;
 }
 
-function openPrintable(row) {
+function openPrintable(row, title = 'Bon Commercial') {
     const win = window.open('', '_blank', 'width=900,height=700');
     if (!win) return;
-    win.document.write(buildBonHtml(row));
+    win.document.write(buildBonHtml(row).replace('Bon Commercial', title));
     win.document.close();
     win.focus();
     setTimeout(() => win.print(), 300);
@@ -128,6 +128,7 @@ function ActionBtn({ title, onClick, icon: Icon, color = 'slate' }) {
         red: 'hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400',
         slate: 'hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200',
         orange: 'hover:bg-orange-50 hover:text-orange-600 dark:hover:bg-orange-900/30 dark:hover:text-orange-400',
+        green: 'hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400',
     };
     return (
         <button type="button" title={title} onClick={onClick} className={`p-1.5 rounded-lg text-slate-400 transition-colors ${colors[color]}`}>
@@ -136,19 +137,19 @@ function ActionBtn({ title, onClick, icon: Icon, color = 'slate' }) {
     );
 }
 
-function ViewModal({ row, onClose }) {
+function ViewModal({ row, onClose, docTitle = 'Bon Commercial' }) {
     if (!row) return null;
     const header = [
         ['Date', row.order_date], ['N° B-V', row.reference], ['Client', row.client],
         ['Ville', row.city], ['Adresse Livraison', row.address],
-        ['Type Régl', row.reglement], ['Échéance', row.echeance], ['Chauffeur', row.chauffeur], ['Matricule', row.matricule],
+        ['Type Régl', row.reglement], ['Échéance', row.echeance], ['Livreur', row.chauffeur], ['Matricule', row.matricule],
     ];
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
             <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-lg border border-slate-200 dark:border-slate-700 overflow-hidden" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-brand-navy to-blue-800">
                     <div>
-                        <p className="text-[10px] text-blue-200 uppercase tracking-wider">Bon de Vente</p>
+                        <p className="text-[10px] text-blue-200 uppercase tracking-wider">{docTitle}</p>
                         <h3 className="text-white font-bold">{row.reference}</h3>
                     </div>
                     <button type="button" onClick={onClose} className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10"><X className="w-4 h-4" /></button>
@@ -172,18 +173,20 @@ function ViewModal({ row, onClose }) {
                     ))}
                 </div>
                 <div className="flex gap-2 px-5 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
-                    <button type="button" onClick={() => openPrintable(row)} className="btn-secondary text-xs flex-1"><Printer className="w-3.5 h-3.5" /> Imprimer</button>
-                    <button type="button" onClick={() => openPrintable(row)} className="btn-primary text-xs flex-1"><FileText className="w-3.5 h-3.5" /> PDF</button>
+                    <button type="button" onClick={() => openPrintable(row, docTitle)} className="btn-secondary text-xs flex-1"><Printer className="w-3.5 h-3.5" /> Imprimer</button>
+                    <button type="button" onClick={() => openPrintable(row, docTitle)} className="btn-primary text-xs flex-1"><FileText className="w-3.5 h-3.5" /> PDF</button>
                 </div>
             </div>
         </div>
     );
 }
 
-export default function BonVentesPage() {
+export default function BonVentesPage({ mode = 'commercial' }) {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const isCommercial = user?.role?.slug === 'commercial';
+    const isLivraison = mode === 'livraison';
+    const isCommercialUser = user?.role?.slug === 'commercial';
+    const docTitle = isLivraison ? 'Bon Livraison' : 'Bon Commercial';
     const [form, setForm] = useState(emptyHeader);
     const [lines, setLines] = useState([emptyLine()]);
     const [rows, setRows] = useState([]);
@@ -214,36 +217,33 @@ export default function BonVentesPage() {
 
     const load = useCallback(() => {
         setLoading(true);
+        const orderParams = { all: 1 };
+        if (isLivraison) {
+            orderParams.status = 'envoye';
+        }
         Promise.all([
-            api.get('/sales-orders', { params: { all: 1 } }),
+            api.get('/sales-orders', { params: orderParams }),
             api.get('/clients', { params: { all: 1 } }),
             api.get('/products', { params: { all: 1 } }),
         ])
             .then(([ordersRes, clientsRes, productsRes]) => {
-                setRows(ordersRes.data.data ?? []);
+                let list = ordersRes.data.data ?? [];
+                if (!isLivraison && isCommercialUser) {
+                    list = list.filter((row) => String(row.commercial_id) === String(user?.id));
+                }
+                setRows(list);
                 setMeta(ordersRes.data.meta ?? { next_ref: '—', date: '—' });
                 setClients(clientsRes.data.data ?? []);
                 setProducts(productsRes.data.data ?? []);
             })
             .catch(() => setRows([]))
             .finally(() => setLoading(false));
-    }, []);
+    }, [isLivraison, isCommercialUser, user?.id]);
 
     useEffect(() => {
-        if (isCommercial) {
-            navigate('/', { replace: true });
-        }
-    }, [isCommercial, navigate]);
-
-    useEffect(() => {
-        if (isCommercial) return;
         setForm((f) => ({ ...f, order_date: new Date().toISOString().slice(0, 10) }));
         load();
-    }, [load, isCommercial]);
-
-    if (isCommercial) {
-        return null;
-    }
+    }, [load]);
 
     const set = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
@@ -382,7 +382,7 @@ export default function BonVentesPage() {
             echeance: form.echeance || null,
             chauffeur: form.chauffeur || null,
             matricule: form.matricule || null,
-            status: 'valide',
+            status: 'envoye',
             items: validLines.map((l) => ({
                 product_id: l.product_id || null,
                 article_ref: l.article_ref || null,
@@ -405,9 +405,19 @@ export default function BonVentesPage() {
             }
             resetForm();
         } catch (err) {
-            setError(err.response?.data?.message || 'Erreur lors de la validation');
+            setError(err.response?.data?.message || (isLivraison ? 'Erreur lors de l\'enregistrement' : 'Erreur lors de l\'envoi'));
         } finally {
             setSaving(false);
+        }
+    };
+
+    const handleValidateLivraison = async (row) => {
+        setError('');
+        try {
+            await api.post(`/sales-orders/${row.id}/validate`);
+            load();
+        } catch (err) {
+            setError(err.response?.data?.message || 'Impossible de valider ce bon de livraison');
         }
     };
 
@@ -417,7 +427,7 @@ export default function BonVentesPage() {
 
     return (
         <div className="space-y-5">
-            <ViewModal row={viewRow} onClose={() => setViewRow(null)} />
+            <ViewModal row={viewRow} onClose={() => setViewRow(null)} docTitle={docTitle} />
 
             <div className="flex flex-wrap items-center gap-2.5">
                 {!showForm && (
@@ -470,7 +480,7 @@ export default function BonVentesPage() {
                 )}
                 {editingId && (
                     <div className="px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs font-medium border border-amber-200 dark:border-amber-800">
-                        Mode modification — Mettez à jour puis validez
+                        Mode modification — Mettez à jour puis {isLivraison ? 'enregistrez' : 'envoyez'}
                     </div>
                 )}
 
@@ -504,8 +514,8 @@ export default function BonVentesPage() {
                                 {ECHEANCE_OPTIONS.map((v) => <option key={v || 'e'} value={v}>{v || '—'}</option>)}
                             </select>
                         </Field>
-                        <Field label="Chauffeur">
-                            <input type="text" value={form.chauffeur} onChange={(e) => set('chauffeur', e.target.value)} placeholder="Chauffeur" className={inputClass} />
+                        <Field label="Livreur">
+                            <input type="text" value={form.chauffeur} onChange={(e) => set('chauffeur', e.target.value)} placeholder="Livreur" className={inputClass} />
                         </Field>
                         <Field label="Matricule">
                             <input type="text" value={form.matricule} onChange={(e) => set('matricule', e.target.value)} placeholder="Matricule" className={inputClass} />
@@ -635,8 +645,10 @@ export default function BonVentesPage() {
 
                 <div className="flex flex-wrap items-center gap-2.5">
                     <button type="submit" disabled={saving} className="btn-primary">
-                        <CheckCircle2 className="w-4 h-4" />
-                        {saving ? 'Validation...' : 'Valider'}
+                        {isLivraison ? <CheckCircle2 className="w-4 h-4" /> : <Send className="w-4 h-4" />}
+                        {saving
+                            ? (isLivraison ? 'Enregistrement...' : 'Envoi...')
+                            : (isLivraison ? 'Enregistrer' : 'Envoyé')}
                     </button>
                     <button type="button" onClick={handleClosePanel} className="btn-danger">
                         <XCircle className="w-4 h-4" />
@@ -648,14 +660,16 @@ export default function BonVentesPage() {
 
             {!showForm && (
             <div className="glass-card overflow-hidden shadow-card border border-slate-200/60 dark:border-slate-700/60">
-                <div className="px-5 py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-orange-700 border-b border-white/10">
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wide">Tableau des Bons de Vente</h3>
+                <div className={`px-5 py-3.5 border-b border-white/10 ${isLivraison ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700' : 'bg-gradient-to-r from-amber-500 via-orange-500 to-orange-700'}`}>
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wide">
+                        {isLivraison ? 'Tableau des Bons de Livraisons' : 'Tableau des Bons Commerciaux'}
+                    </h3>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm min-w-[1100px]">
                         <thead>
                             <tr className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
-                                {['Date', 'N° B-V', 'Client', 'Ville', 'Adresse Livraison', 'Qté totale', 'Total', 'Échéance', 'Actions'].map((h) => (
+                                {['Date', 'N° B-V', 'Client', 'Ville', 'Adresse Livraison', 'Qté totale', 'Total', 'Échéance', 'Statut', 'Actions'].map((h) => (
                                     <th key={h} className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-center">{h}</th>
                                 ))}
                             </tr>
@@ -663,7 +677,7 @@ export default function BonVentesPage() {
                         <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {loading ? (
                                 [...Array(3)].map((_, i) => (
-                                    <tr key={i}>{[...Array(9)].map((__, j) => (
+                                    <tr key={i}>{[...Array(10)].map((__, j) => (
                                         <td key={j} className="px-4 py-3 text-center"><div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mx-auto max-w-[80px]" /></td>
                                     ))}</tr>
                                 ))
@@ -684,19 +698,29 @@ export default function BonVentesPage() {
                                                 {row.echeance || '—'}
                                             </span>
                                         </td>
+                                        <td className="px-4 py-2.5 text-center">
+                                            <span className="inline-flex px-2 py-0.5 rounded-md text-xs font-semibold bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300">
+                                                {row.status_label || row.status || '—'}
+                                            </span>
+                                        </td>
                                         <td className="px-4 py-2.5">
                                             <div className="flex items-center justify-center gap-0.5">
+                                                {isLivraison && row.status === 'envoye' && (
+                                                    <ActionBtn title="Valider" icon={CheckCircle2} color="green" onClick={() => handleValidateLivraison(row)} />
+                                                )}
                                                 <ActionBtn title="Voir" icon={Eye} color="blue" onClick={() => setViewRow(row)} />
                                                 <ActionBtn title="Modifier" icon={Pencil} color="amber" onClick={() => fillForm(row)} />
                                                 <ActionBtn title="Supprimer" icon={Trash2} color="red" onClick={() => handleDelete(row)} />
-                                                <ActionBtn title="Imprimer" icon={Printer} color="slate" onClick={() => openPrintable(row)} />
-                                                <ActionBtn title="PDF" icon={FileText} color="orange" onClick={() => openPrintable(row)} />
+                                                <ActionBtn title="Imprimer" icon={Printer} color="slate" onClick={() => openPrintable(row, docTitle)} />
+                                                <ActionBtn title="PDF" icon={FileText} color="orange" onClick={() => openPrintable(row, docTitle)} />
                                             </div>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
-                                <tr><td colSpan={9} className="px-4 py-12 text-center text-slate-400">Aucun bon de vente enregistré</td></tr>
+                                <tr><td colSpan={10} className="px-4 py-12 text-center text-slate-400">
+                                    {isLivraison ? 'Aucun bon de livraison à valider' : 'Aucun bon commercial enregistré'}
+                                </td></tr>
                             )}
                         </tbody>
                     </table>

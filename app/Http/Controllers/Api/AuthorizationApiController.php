@@ -53,10 +53,11 @@ class AuthorizationApiController extends Controller
             'label' => 'Client',
             'children' => [
                 ['key' => '/clients/fiches', 'label' => 'Fiche Client'],
-                ['key' => '/clients/bons-de-vente', 'label' => 'Bon de Vente'],
+                ['key' => '/clients/bons-de-vente', 'label' => 'Bon Commercial'],
+                ['key' => '/clients/bons-vente', 'label' => 'Bon Livraison'],
                 ['key' => '/clients/reglements-vente', 'label' => 'Règlement Client'],
-                ['key' => '/clients/balance', 'label' => 'Balance'],
-                ['key' => '/clients/releve-compte', 'label' => 'Relevé Compte'],
+                ['key' => '/clients/balance', 'label' => 'Balance Clients'],
+                ['key' => '/clients/releve-compte', 'label' => 'Relevé Compte Client'],
             ],
         ],
         [

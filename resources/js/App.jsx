@@ -21,7 +21,6 @@ const MouvementFiscalPage = lazy(() => import('./pages/MouvementFiscalPage'));
 const ModulePage = lazy(() => import('./pages/ModulePage'));
 const FicheFournisseurPage = lazy(() => import('./pages/FicheFournisseurPage'));
 const FicheClientPage = lazy(() => import('./pages/FicheClientPage'));
-const BonExecutionListPage = lazy(() => import('./pages/clients/BonExecutionListPage'));
 const ClientBalancePage = lazy(() => import('./pages/clients/ClientBalancePage'));
 const DevisListPage = lazy(() => import('./pages/devis/DevisListPage'));
 const DevisFormPage = lazy(() => import('./pages/devis/DevisFormPage'));
@@ -79,11 +78,11 @@ function AppRoutes() {
 
                 {/* Client */}
                 <Route path="clients/fiches" element={<FicheClientPage />} />
-                <Route path="clients/bons-de-vente" element={<BonVentesPage />} />
+                <Route path="clients/bons-de-vente" element={<BonVentesPage mode="commercial" />} />
                 <Route path="clients/devis/nouveau" element={<DevisFormPage />} />
                 <Route path="clients/devis/:id" element={<DevisFormPage />} />
                 <Route path="clients/devis" element={<DevisListPage />} />
-                <Route path="clients/bons-vente" element={<BonExecutionListPage />} />
+                <Route path="clients/bons-vente" element={<BonVentesPage mode="livraison" />} />
                 <Route path="clients/reglements-vente" element={<ReglementClientPage />} />
                 <Route path="clients/reglements" element={<ReglementClientPage />} />
                 <Route path="clients/factures-ventes" element={<ModulePage />} />
