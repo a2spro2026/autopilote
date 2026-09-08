@@ -109,7 +109,7 @@ export const navigation = [
         children: [
             { to: '/monetaire/transactions', label: 'Transaction et Charges', icon: ArrowLeftRight },
             { to: '/monetaire/charges', label: 'Charge', icon: Wallet },
-            { to: '/monetaire/tresorerie', label: 'Trésorerie', icon: Vault },
+            { to: '/monetaire/tresorerie', label: 'Rapport Trésorerie', icon: Vault },
         ],
     },
     {

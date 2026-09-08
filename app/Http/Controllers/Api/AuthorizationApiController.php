@@ -105,7 +105,7 @@ class AuthorizationApiController extends Controller
             'children' => [
                 ['key' => '/monetaire/transactions', 'label' => 'Transaction et Charges'],
                 ['key' => '/monetaire/charges', 'label' => 'Charge'],
-                ['key' => '/monetaire/tresorerie', 'label' => 'Trésorerie'],
+                ['key' => '/monetaire/tresorerie', 'label' => 'Rapport Trésorerie'],
             ],
         ],
         [

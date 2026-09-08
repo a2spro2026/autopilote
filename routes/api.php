@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\StockMouvementApiController;
 use App\Http\Controllers\Api\SupplierApiController;
 use App\Http\Controllers\Api\TaskApiController;
 use App\Http\Controllers\Api\TransactionApiController;
+use App\Http\Controllers\Api\TresorerieRapportApiController;
 use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +97,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('charges', ChargeApiController::class);
     Route::apiResource('transactions', TransactionApiController::class)
         ->parameters(['transactions' => 'monetary_transaction']);
+    Route::get('tresorerie-rapport', [TresorerieRapportApiController::class, 'index']);
     Route::apiResource('documents', DocumentApiController::class)->except(['update']);
     Route::get('documents/{document}/download', [DocumentApiController::class, 'download']);
 

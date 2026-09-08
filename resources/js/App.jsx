@@ -25,6 +25,7 @@ const ClientBalancePage = lazy(() => import('./pages/clients/ClientBalancePage')
 const DevisListPage = lazy(() => import('./pages/devis/DevisListPage'));
 const DevisFormPage = lazy(() => import('./pages/devis/DevisFormPage'));
 const TransactionsPage = lazy(() => import('./pages/TransactionsPage'));
+const RapportTresoreriePage = lazy(() => import('./pages/RapportTresoreriePage'));
 const ChargesPage = lazy(() => import('./pages/ChargesPage'));
 const FactureAchatsPage = lazy(() => import('./pages/FactureAchatsPage'));
 const UtilisateursPage = lazy(() => import('./pages/UtilisateursPage'));
@@ -120,7 +121,7 @@ function AppRoutes() {
                 <Route path="monetaire/transactions" element={<TransactionsPage />} />
                 <Route path="monetaire/charges" element={<ChargesPage />} />
                 <Route path="monetaire/salaires" element={<Navigate to="/personnel/salaires" replace />} />
-                <Route path="monetaire/tresorerie" element={<ModulePage />} />
+                <Route path="monetaire/tresorerie" element={<RapportTresoreriePage />} />
 
                 {/* Configuration */}
                 <Route path="configuration/utilisateurs" element={<UtilisateursPage />} />
