@@ -95,6 +95,7 @@ class AuthorizationApiController extends Controller
             'label' => 'Personnel',
             'children' => [
                 ['key' => '/personnel/fiches', 'label' => 'Fiche Personnel'],
+                ['key' => '/personnel/salaires', 'label' => 'Salaire'],
                 ['key' => '/personnel/etat-paiement', 'label' => 'État Paiement'],
             ],
         ],
@@ -104,7 +105,6 @@ class AuthorizationApiController extends Controller
             'children' => [
                 ['key' => '/monetaire/transactions', 'label' => 'Transaction et Charges'],
                 ['key' => '/monetaire/charges', 'label' => 'Charge'],
-                ['key' => '/monetaire/salaires', 'label' => 'Salaire'],
                 ['key' => '/monetaire/tresorerie', 'label' => 'Trésorerie'],
             ],
         ],

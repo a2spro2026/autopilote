@@ -1,0 +1,1 @@
+import{j as t}from"./main-BlV-ZH9d.js";import e from"./StockMouvementsPage-Lmq5ZAen.js";/* empty css            */import"./refresh-cw-CPeytxjT.js";import"./printer-DhYKKieN.js";function u(){return t.jsx(e,{title:"Mouvement Fiscal",subtitle:"Achats et ventes mensuels par produit (vue fiscale)",printTitle:"Mouvement Fiscal"})}export{u as default};

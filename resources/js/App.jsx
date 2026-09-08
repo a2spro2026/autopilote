@@ -113,12 +113,13 @@ function AppRoutes() {
 
                 {/* Personnel */}
                 <Route path="personnel/fiches" element={<GenericListPage title="Fiche Personnel" subtitle="Gestion des employés" endpoint="/employees" columns={employeeCols} />} />
+                <Route path="personnel/salaires" element={<ModulePage />} />
                 <Route path="personnel/etat-paiement" element={<ModulePage />} />
 
                 {/* Suivi Monétaire */}
                 <Route path="monetaire/transactions" element={<TransactionsPage />} />
                 <Route path="monetaire/charges" element={<ChargesPage />} />
-                <Route path="monetaire/salaires" element={<ModulePage />} />
+                <Route path="monetaire/salaires" element={<Navigate to="/personnel/salaires" replace />} />
                 <Route path="monetaire/tresorerie" element={<ModulePage />} />
 
                 {/* Configuration */}

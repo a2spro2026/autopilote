@@ -109,7 +109,6 @@ export const navigation = [
         children: [
             { to: '/monetaire/transactions', label: 'Transaction et Charges', icon: ArrowLeftRight },
             { to: '/monetaire/charges', label: 'Charge', icon: Wallet },
-            { to: '/monetaire/salaires', label: 'Salaire', icon: Coins },
             { to: '/monetaire/tresorerie', label: 'Trésorerie', icon: Vault },
         ],
     },
@@ -118,9 +117,9 @@ export const navigation = [
         label: 'Personnels',
         icon: BadgeCheck,
         perm: 'personnel.view',
-        locked: true,
         children: [
             { to: '/personnel/fiches', label: 'Fiche Personnel', icon: Contact },
+            { to: '/personnel/salaires', label: 'Salaire', icon: Coins },
             { to: '/personnel/etat-paiement', label: 'État Paiement', icon: CalendarCheck },
         ],
     },
