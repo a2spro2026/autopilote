@@ -16,10 +16,10 @@ export default function ReportTable({
 }) {
     return (
         <div className="report-table rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
-            <div className={`flex items-center justify-between gap-3 px-5 py-3.5 bg-gradient-to-r ${accent}`}>
+            <div className={`flex items-center justify-between gap-3 px-3 sm:px-5 py-3 sm:py-3.5 bg-gradient-to-r ${accent}`}>
                 <div className="flex items-center gap-2.5 min-w-0">
                     {Icon && <Icon className="w-5 h-5 text-white shrink-0" strokeWidth={2} />}
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wide truncate">{title}</h3>
+                    <h3 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wide truncate">{title}</h3>
                 </div>
                 {showCount && (
                     <span className="text-[10px] font-semibold text-white/80 bg-white/15 px-2 py-1 rounded-full shrink-0">
@@ -28,8 +28,8 @@ export default function ReportTable({
                 )}
             </div>
 
-            <div className="overflow-x-auto">
-                <table className="w-full text-sm min-w-[640px]">
+            <div className="overflow-x-auto overscroll-x-contain table-scroll-x">
+                <table className="w-full text-sm min-w-[520px] sm:min-w-[640px]">
                     <thead>
                         <tr className="table-head-row border-b-2 border-slate-300/80 dark:border-slate-600">
                             {columns.map((col) => (

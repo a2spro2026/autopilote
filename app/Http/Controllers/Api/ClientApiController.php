@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientApiController extends Controller
 {
@@ -80,9 +81,48 @@ class ClientApiController extends Controller
 
     public function destroy(Client $client)
     {
+        if ($client->photo_path) {
+            Storage::disk('public')->delete($client->photo_path);
+        }
+
         $client->delete();
 
         return response()->json(['message' => 'Client supprimé']);
+    }
+
+    public function locate(Request $request, Client $client)
+    {
+        $validated = $request->validate([
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
+        ]);
+
+        $client->update([
+            'latitude' => $validated['latitude'],
+            'longitude' => $validated['longitude'],
+            'located_at' => now(),
+        ]);
+
+        return response()->json($this->formatClient($client->fresh()));
+    }
+
+    public function photo(Request $request, Client $client)
+    {
+        $request->validate([
+            'photo' => 'required|image|max:8192',
+        ]);
+
+        if ($client->photo_path) {
+            Storage::disk('public')->delete($client->photo_path);
+        }
+
+        $path = $request->file('photo')->store('clients', 'public');
+
+        $client->update([
+            'photo_path' => $path,
+        ]);
+
+        return response()->json($this->formatClient($client->fresh()));
     }
 
     private function validated(Request $request, bool $partial = false): array
@@ -128,6 +168,8 @@ class ClientApiController extends Controller
             'latitude' => $client->latitude !== null ? (float) $client->latitude : null,
             'longitude' => $client->longitude !== null ? (float) $client->longitude : null,
             'located_at' => $client->located_at?->format('d/m/Y H:i'),
+            'photo_url' => $client->photo_path ? '/storage/'.$client->photo_path : null,
+            'is_located' => $client->latitude !== null && $client->longitude !== null,
             'chantier_type' => $client->chantier_type,
             'reglement' => $client->reglement,
             'chantier_address' => $client->chantier_address,

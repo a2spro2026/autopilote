@@ -44,6 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('chantiers/{chantier}/archive', [ChantierApiController::class, 'archive']);
 
     Route::apiResource('clients', ClientApiController::class);
+    Route::post('clients/{client}/locate', [ClientApiController::class, 'locate']);
+    Route::post('clients/{client}/photo', [ClientApiController::class, 'photo']);
     Route::get('client-payments/meta', [ClientPaymentApiController::class, 'meta']);
     Route::get('client-payments/orders', [ClientPaymentApiController::class, 'orders']);
     Route::patch('client-payments/orders/{sales_order}/action', [ClientPaymentApiController::class, 'updateAction']);

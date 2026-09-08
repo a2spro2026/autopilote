@@ -5,10 +5,76 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
     body {
         @apply font-sans antialiased;
+        overflow-x: hidden;
+        overscroll-behavior-y: none;
+    }
+
+    #root {
+        min-height: 100dvh;
+        min-height: 100vh;
+    }
+
+    /* Empêche le zoom iOS sur focus des champs */
+    @media (max-width: 1023px) {
+        input,
+        select,
+        textarea {
+            font-size: 16px !important;
+        }
     }
 }
+
+/* Mobile / tablette — zones sûres & tactile */
+.app-shell {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+}
+
+.safe-top {
+    padding-top: max(0px, env(safe-area-inset-top, 0px));
+}
+
+.safe-bottom {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+}
+
+.safe-left {
+    padding-left: env(safe-area-inset-left, 0px);
+}
+
+.touch-target {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.page-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+.table-scroll-x {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+@media (max-width: 639px) {
+    .kpi-card-compact p.text-base {
+        font-size: 0.95rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        min-height: 44px;
+    }
+}
+
 
 @layer components {
     .glass {

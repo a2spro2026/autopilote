@@ -68,9 +68,13 @@ export function NavbarBrand({ pageTitle }) {
                 )}
             </div>
 
-            <div className="sm:hidden text-sm font-semibold truncate max-w-[160px]">
-                <span className="text-slate-700 dark:text-slate-200">Bienvenue </span>
+            <div className="sm:hidden text-sm font-semibold truncate max-w-[42vw] xs:max-w-[180px]">
                 <span className="text-brand-orange">AutoPILOTE</span>
+                {pageTitle && pageTitle !== 'Tableau de bord' && (
+                    <div className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate">
+                        {pageTitle}
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CheckCircle2, Plus, PlusCircle, XCircle, Eye, Pencil, Trash2, Printer, FileText, X, Package, Wallet, Send } from 'lucide-react';
 import api from '../lib/api';
 import { useAuth } from '../contexts/AuthContext';
+import ClientLocateActions from '../components/ClientLocateActions';
 
 const UNIT_OPTIONS = ['', 'Kg', 'U', 'Sac', 'ML', 'M²', 'M³', 'Tn', 'M'];
 const REGLEMENT_OPTIONS = ['', 'Esp', 'Chq', 'Eff', 'Vir', 'Vers'];
@@ -493,10 +494,23 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                             <input type="text" readOnly value={currentRef} className={readOnlyClass} />
                         </Field>
                         <Field label="Nom Client">
-                            <select required value={form.client_id} onChange={(e) => set('client_id', e.target.value)} className={inputClass}>
-                                <option value="">—</option>
-                                {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-                            </select>
+                            <div className="flex items-center gap-1">
+                                <select required value={form.client_id} onChange={(e) => set('client_id', e.target.value)} className={inputClass}>
+                                    <option value="">—</option>
+                                    {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                                </select>
+                                {!isLivraison && form.client_id && (
+                                    <ClientLocateActions
+                                        clientId={form.client_id}
+                                        size="md"
+                                        located={!!clients.find((c) => String(c.id) === String(form.client_id))?.is_located}
+                                        hasPhoto={!!clients.find((c) => String(c.id) === String(form.client_id))?.photo_url}
+                                        onUpdated={(data) => {
+                                            setClients((prev) => prev.map((c) => (c.id === data.id ? { ...c, ...data } : c)));
+                                        }}
+                                    />
+                                )}
+                            </div>
                         </Field>
                         <Field label="Ville">
                             <input type="text" value={form.city} onChange={(e) => set('city', e.target.value)} placeholder="Ville" className={inputClass} />
@@ -707,6 +721,16 @@ export default function BonVentesPage({ mode = 'commercial' }) {
                                             <div className="flex items-center justify-center gap-0.5">
                                                 {isLivraison && row.status === 'envoye' && (
                                                     <ActionBtn title="Valider" icon={CheckCircle2} color="green" onClick={() => handleValidateLivraison(row)} />
+                                                )}
+                                                {!isLivraison && row.client_id && (
+                                                    <ClientLocateActions
+                                                        clientId={row.client_id}
+                                                        located={!!clients.find((c) => c.id === row.client_id)?.is_located}
+                                                        hasPhoto={!!clients.find((c) => c.id === row.client_id)?.photo_url}
+                                                        onUpdated={(data) => {
+                                                            setClients((prev) => prev.map((c) => (c.id === data.id ? { ...c, ...data } : c)));
+                                                        }}
+                                                    />
                                                 )}
                                                 <ActionBtn title="Voir" icon={Eye} color="blue" onClick={() => setViewRow(row)} />
                                                 <ActionBtn title="Modifier" icon={Pencil} color="amber" onClick={() => fillForm(row)} />

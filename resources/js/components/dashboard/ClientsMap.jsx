@@ -137,28 +137,28 @@ export default function ClientsMap() {
 
     return (
         <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
-            <div className="px-5 py-3.5 bg-gradient-to-r from-emerald-700 via-teal-700 to-slate-800 border-b border-white/10 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5 text-white">
-                    <div className="p-2 rounded-xl bg-white/15 ring-1 ring-white/20">
+            <div className="px-3 sm:px-5 py-3 sm:py-3.5 bg-gradient-to-r from-emerald-700 via-teal-700 to-slate-800 border-b border-white/10 flex items-center justify-between gap-2 sm:gap-3">
+                <div className="flex items-center gap-2 sm:gap-2.5 text-white min-w-0">
+                    <div className="p-2 rounded-xl bg-white/15 ring-1 ring-white/20 shrink-0">
                         <MapPin className="w-4 h-4" />
                     </div>
-                    <div>
-                        <h3 className="text-sm font-bold tracking-wide">Carte clients — Maroc</h3>
-                        <p className="text-[11px] text-white/70">Clients localisés par les commerciaux</p>
+                    <div className="min-w-0">
+                        <h3 className="text-sm font-bold tracking-wide truncate">Carte clients — Maroc</h3>
+                        <p className="text-[11px] text-white/70 truncate hidden sm:block">Clients localisés par les commerciaux</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-1.5 text-white/90 text-xs font-semibold bg-white/10 px-2.5 py-1.5 rounded-lg">
+                <div className="flex items-center gap-1.5 text-white/90 text-xs font-semibold bg-white/10 px-2.5 py-1.5 rounded-lg shrink-0">
                     <Users className="w-3.5 h-3.5" />
                     {loading ? '…' : clients.length}
                 </div>
             </div>
 
             <div className="relative">
-                <div ref={containerRef} className="h-[min(62vh,640px)] w-full bg-slate-100 dark:bg-slate-800" />
+                <div ref={containerRef} className="h-[min(55dvh,520px)] sm:h-[min(62vh,640px)] w-full bg-slate-100 dark:bg-slate-800 touch-pan-y" />
 
                 {(loading || error || clients.length === 0) && (
-                    <div className="absolute inset-x-0 bottom-3 flex justify-center pointer-events-none px-4">
-                        <div className="rounded-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 shadow-lg px-4 py-2 text-xs text-slate-600 dark:text-slate-300">
+                    <div className="absolute inset-x-0 bottom-3 flex justify-center pointer-events-none px-3 sm:px-4">
+                        <div className="rounded-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 shadow-lg px-3 sm:px-4 py-2 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 text-center max-w-md">
                             {loading && 'Chargement de la carte…'}
                             {!loading && error}
                             {!loading && !error && clients.length === 0 &&

@@ -297,8 +297,10 @@ export default function Sidebar({ mobile, onClose }) {
     return (
         <aside
             className={`sidebar-panel ${
-                mobile ? 'fixed inset-y-0 left-0 z-50 w-72' : 'hidden lg:flex lg:w-72 lg:sticky lg:top-0'
-            } flex-col h-screen text-white shrink-0`}
+                mobile
+                    ? 'fixed inset-y-0 left-0 z-50 w-[min(18rem,88vw)] max-w-sm safe-left'
+                    : 'hidden lg:flex lg:w-72 xl:w-80 lg:sticky lg:top-0'
+            } flex-col h-[100dvh] text-white shrink-0`}
         >
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-brand-orange/10" />

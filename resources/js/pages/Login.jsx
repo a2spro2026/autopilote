@@ -122,24 +122,24 @@ export default function Login() {
     };
 
     return (
-        <div className="relative min-h-screen overflow-hidden bg-[#0a1628] text-white">
+        <div className="relative min-h-[100dvh] overflow-x-hidden overflow-y-auto bg-[#0a1628] text-white">
             <img
                 src="/images/login-bg.png?v=41"
                 alt="Autopilote — Vente de pièces auto"
-                className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none"
+                className="absolute inset-0 w-full h-full object-cover object-[center_top] sm:object-center select-none pointer-events-none"
                 draggable={false}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628]/35 via-transparent to-[#0a1628]/85" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628]/40 via-transparent to-[#0a1628]/55" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628]/70 via-[#0a1628]/45 to-[#0a1628]/85 sm:bg-gradient-to-r sm:from-[#0a1628]/35 sm:via-transparent sm:to-[#0a1628]/85" />
+            <div className="absolute inset-0 hidden sm:block bg-gradient-to-b from-[#0a1628]/40 via-transparent to-[#0a1628]/55" />
 
-            <div className="relative z-10 min-h-screen flex items-center justify-end px-4 sm:px-8 lg:px-12 xl:px-16 py-8">
+            <div className="relative z-10 min-h-[100dvh] flex items-center justify-center lg:justify-end px-4 sm:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 safe-top safe-bottom">
                 <motion.aside
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35 }}
                     className="w-full max-w-[400px]"
                 >
-                    <div className="w-full rounded-2xl border border-white/15 bg-[#0b1220]/88 backdrop-blur-xl shadow-2xl shadow-black/50 px-6 sm:px-8 py-8 sm:py-10 min-h-[560px] flex flex-col justify-center">
+                    <div className="w-full rounded-2xl border border-white/15 bg-[#0b1220]/90 backdrop-blur-xl shadow-2xl shadow-black/50 px-5 sm:px-8 py-7 sm:py-10 min-h-0 sm:min-h-[560px] flex flex-col justify-center">
                         <div className="mb-6 text-center">
                             <p className="text-[10px] uppercase tracking-[0.28em] text-sky-300/90 font-semibold mb-2">
                                 Vente de pièces auto

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Save, RotateCcw, Eye, Pencil, Trash2, Printer, FileText, X, RefreshCw } from 'lucide-react';
 import api from '../lib/api';
+import ClientLocateActions from '../components/ClientLocateActions';
 
 const REGLEMENT_OPTIONS = [
     { value: '', label: '—' },
@@ -158,6 +159,8 @@ function ViewModal({ row, onClose }) {
                         ['Adresse', row.chantier_address],
                         ['Échéance', row.work_delay || row.echeance],
                         ['Solde Initial', formatSolde(row.budget ?? row.initial_balance), hasSoldeInitial(row.budget ?? row.initial_balance)],
+                        ['GPS', row.is_located ? `${row.latitude?.toFixed?.(5) ?? row.latitude}, ${row.longitude?.toFixed?.(5) ?? row.longitude}` : 'Non localisé'],
+                        ['Localisé le', row.located_at],
                         ['Date', row.created_at],
                     ].map(([label, value, isRed]) => (
                         <div key={label} className="flex justify-between gap-4 py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
@@ -165,6 +168,12 @@ function ViewModal({ row, onClose }) {
                             <span className={`font-medium text-right ${isRed ? 'text-red-600 dark:text-red-400 font-bold' : 'text-slate-800 dark:text-white'}`}>{value || '—'}</span>
                         </div>
                     ))}
+                    {row.photo_url && (
+                        <div className="pt-2">
+                            <p className="text-slate-500 dark:text-slate-400 text-xs mb-2">Photo visite</p>
+                            <img src={row.photo_url} alt="Client" className="w-full max-h-48 object-cover rounded-xl border border-slate-200 dark:border-slate-700" />
+                        </div>
+                    )}
                 </div>
                 <div className="flex gap-2 px-5 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
                     <button type="button" onClick={() => openPrintable(row)} className="btn-secondary text-xs flex-1">
@@ -340,7 +349,7 @@ export default function FicheClientPage() {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 items-center">
                     <button type="submit" disabled={saving} className="btn-primary text-sm">
                         <Save className="w-4 h-4" />
                         {saving ? 'Enregistrement...' : editingId ? 'Mettre à jour' : 'Enregistrer'}
@@ -353,6 +362,22 @@ export default function FicheClientPage() {
                         <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                         Actualiser
                     </button>
+                    {editingId && (
+                        <div className="ml-auto flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-3 py-1.5">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500 hidden sm:inline">
+                                Visite
+                            </span>
+                            <ClientLocateActions
+                                clientId={editingId}
+                                size="md"
+                                located={!!rows.find((r) => r.id === editingId)?.is_located}
+                                hasPhoto={!!rows.find((r) => r.id === editingId)?.photo_url}
+                                onUpdated={(data) => {
+                                    setRows((prev) => prev.map((r) => (r.id === data.id ? { ...r, ...data } : r)));
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
             </form>
 
@@ -422,6 +447,14 @@ export default function FicheClientPage() {
                                         </td>
                                         <td className="px-4 py-2.5">
                                             <div className="flex items-center justify-center gap-0.5">
+                                                <ClientLocateActions
+                                                    clientId={row.id}
+                                                    located={!!row.is_located}
+                                                    hasPhoto={!!row.photo_url}
+                                                    onUpdated={(data) => {
+                                                        setRows((prev) => prev.map((r) => (r.id === data.id ? { ...r, ...data } : r)));
+                                                    }}
+                                                />
                                                 <ActionBtn title="Voir" icon={Eye} color="blue" onClick={() => setViewRow(row)} />
                                                 <ActionBtn title="Modifier" icon={Pencil} color="amber" onClick={() => fillForm(row)} />
                                                 <ActionBtn title="Supprimer" icon={Trash2} color="red" onClick={() => handleDelete(row)} />
