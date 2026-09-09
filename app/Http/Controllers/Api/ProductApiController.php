@@ -22,11 +22,13 @@ class ProductApiController extends Controller
                     ->orWhere('reference', 'like', "%{$s}%")
                     ->orWhere('article_id', 'like', "%{$s}%")
                     ->orWhere('code_barre', 'like', "%{$s}%")
+                    ->orWhere('barcode', 'like', "%{$s}%")
                     ->orWhere('famille', 'like', "%{$s}%")
                     ->orWhere('brand', 'like', "%{$s}%");
             }))
             ->when($request->filled('reference'), fn ($q) => $q->where('reference', 'like', '%'.$request->reference.'%'))
             ->when($request->filled('code_barre'), fn ($q) => $q->where('code_barre', 'like', '%'.$request->code_barre.'%'))
+            ->when($request->filled('barcode'), fn ($q) => $q->where('barcode', 'like', '%'.$request->barcode.'%'))
             ->when($request->filled('designation'), fn ($q) => $q->where('name', 'like', '%'.$request->designation.'%'))
             ->when($request->boolean('from_purchase') || $request->get('origin') === 'bon_achat', function ($q) {
                 $q->where(function ($inner) {
@@ -135,6 +137,7 @@ class ProductApiController extends Controller
             'name' => 'required|string|max:500',
             'article_id' => 'nullable|string|max:50',
             'code_barre' => 'nullable|string|max:500',
+            'barcode' => 'nullable|string|max:100',
             'consistance' => 'nullable|string|max:10',
             'unit' => 'required|string|in:Kg,U,Sac,ML,M²,M³,Tn,M',
             'famille' => 'nullable|string|max:255',
@@ -240,6 +243,7 @@ class ProductApiController extends Controller
         $etat = $product->etat ?: ($stock <= 0 ? 'Rupture' : ($stock <= $min ? 'Faible' : 'Dispo'));
         $code = trim((string) ($product->article_id ?: $product->reference));
         $refEquiv = trim((string) ($product->code_barre ?? ''));
+        $barcode = trim((string) ($product->barcode ?? ''));
 
         return [
             'id' => $product->id,
@@ -247,6 +251,7 @@ class ProductApiController extends Controller
             'article_id' => $product->article_id,
             'code' => $code !== '' ? $code : $product->reference,
             'code_barre' => $refEquiv !== '' ? $refEquiv : null,
+            'barcode' => $barcode !== '' ? $barcode : null,
             'refs_equiv' => $refEquiv !== '' ? [$refEquiv] : [],
             'refs_equiv_label' => $refEquiv !== '' ? $refEquiv : null,
             'name' => $product->name,

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Search, Trash2, ImagePlus, Hash, Type, Award, Layers, RotateCcw,
-    ShoppingCart, FileSpreadsheet,
+    ShoppingCart, FileSpreadsheet, Barcode,
 } from 'lucide-react';
 import api from '../lib/api';
 import { useCatalogueCart } from '../contexts/CatalogueCartContext';
@@ -12,6 +12,7 @@ const MEMORY_KEY = 'autopilote_catalogue_search_memory';
 const emptyFilters = {
     code: '',
     code_barre: '',
+    barcode: '',
     category: '',
     brand: '',
 };
@@ -19,6 +20,7 @@ const emptyFilters = {
 const FILTER_FIELDS = [
     { key: 'code', label: 'Code', icon: Hash, hint: 'Code produit' },
     { key: 'code_barre', label: 'Réf Equiv', icon: Type, hint: 'Réf équivalente' },
+    { key: 'barcode', label: 'Code Barre', icon: Barcode, hint: 'Code-barres' },
     { key: 'category', label: 'Catégorie', icon: Layers, hint: 'Famille' },
     { key: 'brand', label: 'Marque', icon: Award, hint: 'OEM / Aftermarket' },
 ];
@@ -189,18 +191,21 @@ export default function CataloguePage() {
         const fromCatalog = {
             code: items.map((i) => i.code || i.article_id),
             code_barre: items.map((i) => i.code_barre),
+            barcode: items.map((i) => i.barcode),
             category: items.map((i) => i.category),
             brand: items.map((i) => i.brand),
         };
         const fromProducts = {
             code: products.map((p) => p.code || p.article_id || p.reference),
             code_barre: products.map((p) => p.code_barre),
+            barcode: products.map((p) => p.barcode),
             category: products.map((p) => p.categorie || p.famille),
             brand: products.map((p) => p.marque || p.brand),
         };
         return {
             code: uniqueSorted([...(memory.code || []), ...fromCatalog.code, ...fromProducts.code]),
             code_barre: uniqueSorted([...(memory.code_barre || []), ...fromCatalog.code_barre, ...fromProducts.code_barre]),
+            barcode: uniqueSorted([...(memory.barcode || []), ...fromCatalog.barcode, ...fromProducts.barcode]),
             category: uniqueSorted([...(memory.category || []), ...fromCatalog.category, ...fromProducts.category]),
             brand: uniqueSorted([...(memory.brand || []), ...fromCatalog.brand, ...fromProducts.brand]),
         };
@@ -225,6 +230,7 @@ export default function CataloguePage() {
     const filteredItems = useMemo(() => {
         const codeQ = filters.code.trim().toLowerCase();
         const refEquivQ = filters.code_barre.trim().toLowerCase();
+        const barcodeQ = filters.barcode.trim().toLowerCase();
         const brandQ = filters.brand.trim().toLowerCase();
         const catQ = filters.category.trim().toLowerCase();
 
@@ -237,6 +243,7 @@ export default function CataloguePage() {
                 const refEquiv = String(item.code_barre || '').toLowerCase();
                 if (!refEquiv.includes(refEquivQ)) return false;
             }
+            if (barcodeQ && !String(item.barcode || '').toLowerCase().includes(barcodeQ)) return false;
             if (brandQ && !(item.brand || '').toLowerCase().includes(brandQ)) return false;
             if (catQ && !(item.category || '').toLowerCase().includes(catQ)) return false;
             return true;
@@ -307,7 +314,7 @@ export default function CataloguePage() {
                     )}
                 </div>
 
-                <div className="relative z-20 grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-2 overflow-visible">
+                <div className="relative z-20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1.5 p-2 overflow-visible">
                     {FILTER_FIELDS.map(({ key, label, icon: Icon, hint }) => {
                         const active = String(filters[key] || '').trim() !== '';
                         return (
@@ -429,6 +436,11 @@ export default function CataloguePage() {
                                     <p className="text-[9px] font-mono text-slate-500 dark:text-slate-400 truncate" title={item.code_barre || ''}>
                                         {item.code_barre || '—'}
                                     </p>
+                                    {item.barcode ? (
+                                        <p className="text-[9px] font-mono text-slate-400 dark:text-slate-500 truncate" title={item.barcode}>
+                                            {item.barcode}
+                                        </p>
+                                    ) : null}
                                     <p className="text-[11px] font-bold text-slate-800 dark:text-white line-clamp-1 leading-tight">{item.name}</p>
                                     <div className="flex items-center justify-between gap-1 text-[9px] text-slate-500 dark:text-slate-400">
                                         <span className="truncate">{item.category || '—'}</span>

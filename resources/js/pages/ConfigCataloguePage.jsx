@@ -75,6 +75,7 @@ export default function ConfigCataloguePage() {
                 return (
                     (p.code || p.article_id || '').toLowerCase().includes(q)
                     || (p.code_barre || '').toLowerCase().includes(q)
+                    || (p.barcode || '').toLowerCase().includes(q)
                     || (p.reference || '').toLowerCase().includes(q)
                     || (p.name || '').toLowerCase().includes(q)
                 );
@@ -330,7 +331,10 @@ export default function ConfigCataloguePage() {
                                             onClick={() => setAddForm((f) => ({
                                                 ...f,
                                                 product_id: String(p.id),
-                                                search: `${p.reference} — ${p.name}`,
+                                                search: `${p.code || p.article_id || p.reference} — ${p.name}`,
+                                                category: p.categorie || p.famille || '',
+                                                brand: p.marque || p.brand || '',
+                                                description: p.name || '',
                                             }))}
                                             className={`w-full text-left px-3 py-2 text-xs hover:bg-orange-50 dark:hover:bg-slate-800 ${
                                                 String(addForm.product_id) === String(p.id) ? 'bg-orange-50 dark:bg-orange-950/30' : ''

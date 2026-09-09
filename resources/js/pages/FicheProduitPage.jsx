@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Save, RotateCcw, Eye, Pencil, Trash2, Printer, FileText, X, RefreshCw,
-    Search, Hash, Type, Layers, Award,
+    Search, Hash, Type, Layers, Award, Barcode,
 } from 'lucide-react';
 import api from '../lib/api';
 import { useAuth } from '../contexts/AuthContext';
@@ -23,6 +23,7 @@ const MEMORY_KEY = 'autopilote_fiche_produit_search_memory';
 const emptyFilters = {
     code: '',
     code_barre: '',
+    barcode: '',
     famille: '',
     marque: '',
 };
@@ -30,6 +31,7 @@ const emptyFilters = {
 const FILTER_FIELDS = [
     { key: 'code', label: 'Code', icon: Hash, hint: 'Code produit' },
     { key: 'code_barre', label: 'Réf Equiv', icon: Type, hint: 'Réf équivalente' },
+    { key: 'barcode', label: 'Code Barre', icon: Barcode, hint: 'Code-barres' },
     { key: 'famille', label: 'Famille', icon: Layers, hint: 'Famille' },
     { key: 'marque', label: 'Marque', icon: Award, hint: 'Marque' },
 ];
@@ -152,6 +154,7 @@ const emptyForm = {
     reference: '',
     article_id: '',
     code_barre: '',
+    barcode: '',
     name: '',
     categorie: '',
     famille: '',
@@ -254,6 +257,7 @@ th{background:#f8fafc;font-weight:700;width:160px}
 <table>
 <tr><th>Code</th><td><span class="badge">${code || '—'}</span></td></tr>
 <tr><th>Réf Equiv</th><td>${refsHtml}</td></tr>
+<tr><th>Code Barre</th><td>${row.barcode || '—'}</td></tr>
 <tr><th>Désignation</th><td>${row.name || '—'}</td></tr>
 <tr><th>Famille</th><td>${row.famille || '—'}</td></tr>
 <tr><th>Marque</th><td>${row.marque || row.brand || '—'}</td></tr>
@@ -316,6 +320,10 @@ function ViewModal({ row, onClose }) {
                     <div className="flex justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-2">
                         <span className="text-slate-500 text-xs uppercase shrink-0">Réf Equiv</span>
                         <RefsEquivText refs={refs} className="text-right" />
+                    </div>
+                    <div className="flex justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-2">
+                        <span className="text-slate-500 text-xs uppercase shrink-0">Code Barre</span>
+                        <span className="font-medium text-slate-800 dark:text-white text-right font-mono">{row.barcode || '—'}</span>
                     </div>
                     {[
                         ['Désignation', row.name],
@@ -386,6 +394,10 @@ export default function FicheProduitPage() {
             ...(memory.code_barre || []),
             ...rows.flatMap((r) => refsEquivList(r)),
         ]),
+        barcode: uniqueSorted([
+            ...(memory.barcode || []),
+            ...rows.map((r) => r.barcode),
+        ]),
         famille: uniqueSorted([...(memory.famille || []), ...familles, ...rows.map((r) => r.famille)]),
         marque: uniqueSorted([
             ...(memory.marque || []),
@@ -397,6 +409,7 @@ export default function FicheProduitPage() {
     const filteredRows = useMemo(() => {
         const codeQ = filters.code.trim().toLowerCase();
         const refQ = filters.code_barre.trim().toLowerCase();
+        const barcodeQ = filters.barcode.trim().toLowerCase();
         const famQ = filters.famille.trim().toLowerCase();
         const brandQ = filters.marque.trim().toLowerCase();
 
@@ -410,6 +423,7 @@ export default function FicheProduitPage() {
                 const single = String(row.code_barre || '').toLowerCase();
                 if (!refs.includes(refQ) && !single.includes(refQ)) return false;
             }
+            if (barcodeQ && !String(row.barcode || '').toLowerCase().includes(barcodeQ)) return false;
             if (famQ && !(row.famille || '').toLowerCase().includes(famQ)) return false;
             if (brandQ && !(`${row.marque || ''} ${row.brand || ''}`).toLowerCase().includes(brandQ)) return false;
             return true;
@@ -438,6 +452,7 @@ export default function FicheProduitPage() {
             reference: row.reference || '',
             article_id: row.article_id || row.code || row.reference || '',
             code_barre: row.code_barre || '',
+            barcode: row.barcode || '',
             name: row.name || '',
             categorie: row.categorie || '',
             famille: row.famille || '',
@@ -472,6 +487,7 @@ export default function FicheProduitPage() {
             reference: form.reference.trim(),
             article_id: form.article_id.trim() || form.reference.trim(),
             code_barre: form.code_barre || null,
+            barcode: form.barcode || null,
             name: form.name,
             categorie: form.categorie || null,
             famille: form.famille || null,
@@ -536,7 +552,7 @@ export default function FicheProduitPage() {
                         </button>
                     )}
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 overflow-visible">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 p-3 overflow-visible">
                     {FILTER_FIELDS.map(({ key, label, icon: Icon, hint }) => (
                         <div key={key} className="min-w-0">
                             <label className="flex items-center gap-1 mb-1 text-[10px] font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
@@ -565,7 +581,7 @@ export default function FicheProduitPage() {
                     Mode modification — ID {editingId}
                 </div>
 
-                <div className="grid grid-cols-[0.7fr_1.4fr_1.3fr_1fr_1fr_0.7fr_0.55fr_0.75fr_0.55fr_0.55fr] gap-1.5 items-end w-full min-w-[1280px]">
+                <div className="grid grid-cols-[0.55fr_0.85fr_1.3fr_1.25fr_0.9fr_0.9fr_0.65fr_0.4fr_0.7fr_0.5fr_0.5fr] gap-1.5 items-end w-full min-w-[1320px]">
                     <Field label="Code" compact>
                         <input
                             type="text"
@@ -586,7 +602,17 @@ export default function FicheProduitPage() {
                             className={inputClass}
                         />
                     </Field>
-                    <Field label="Désignation">
+                    <Field label="Code Barre" compact>
+                        <input
+                            type="text"
+                            maxLength={100}
+                            value={form.barcode}
+                            onChange={(e) => set('barcode', e.target.value)}
+                            placeholder="Code Barre"
+                            className={inputClass}
+                        />
+                    </Field>
+                    <Field label="Désignation" compact>
                         <input type="text" required value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="Désignation" className={inputClass} />
                     </Field>
                     <Field label="Famille" compact>
@@ -666,10 +692,10 @@ export default function FicheProduitPage() {
                     <h3 className="text-sm font-bold text-white uppercase tracking-wide">Liste des produits (bons d&apos;achat)</h3>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm min-w-[1280px] border-collapse">
+                    <table className="w-full text-sm min-w-[1360px] border-collapse">
                         <thead>
                             <tr className="border-b border-slate-200 dark:border-slate-700">
-                                {['Code', 'Réf Equiv', 'Désignation', 'Famille', 'Marque', 'Quantité', 'U', 'Prix/U', 'Statut', 'État', 'Actions'].map((h) => (
+                                {['Code', 'Réf Equiv', 'Code Barre', 'Désignation', 'Famille', 'Marque', 'Quantité', 'U', 'Prix/U', 'Statut', 'État', 'Actions'].map((h) => (
                                     <th
                                         key={h}
                                         className="px-3 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-center bg-slate-50 dark:bg-slate-800"
@@ -682,18 +708,21 @@ export default function FicheProduitPage() {
                         <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {loading ? (
                                 [...Array(5)].map((_, i) => (
-                                    <tr key={i}>{[...Array(11)].map((__, j) => (
+                                    <tr key={i}>{[...Array(12)].map((__, j) => (
                                         <td key={j} className="px-3 py-3 text-center"><div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mx-auto max-w-[80px]" /></td>
                                     ))}</tr>
                                 ))
                             ) : filteredRows.length ? (
                                 filteredRows.map((row) => (
                                     <tr key={row.id} className={`hover:bg-emerald-50/40 dark:hover:bg-slate-800/40 transition-colors ${editingId === row.id ? 'bg-amber-50/60 dark:bg-amber-900/10' : ''}`}>
-                                        <td className="px-3 py-2.5 text-center font-mono text-xs font-semibold text-brand-navy dark:text-emerald-400">{productCode(row)}</td>
-                                        <td className="px-3 py-2.5 text-center min-w-[140px]">
+                                        <td className="px-3 py-2.5 text-center font-mono text-xs font-semibold text-brand-navy dark:text-emerald-400 w-[78px]">{productCode(row)}</td>
+                                        <td className="px-3 py-2.5 text-center min-w-[90px] max-w-[110px]">
                                             <RefsEquivText refs={refsEquivList(row)} />
                                         </td>
-                                        <td className="px-3 py-2.5 text-center font-medium text-slate-800 dark:text-white max-w-[180px] truncate" title={row.name}>{row.name || '—'}</td>
+                                        <td className="px-3 py-2.5 text-center font-mono text-xs text-slate-600 dark:text-slate-300 min-w-[145px]" title={row.barcode || ''}>
+                                            {row.barcode || '—'}
+                                        </td>
+                                        <td className="px-3 py-2.5 text-center font-medium text-slate-800 dark:text-white min-w-[150px] max-w-[220px]" title={row.name}>{row.name || '—'}</td>
                                         <td className="px-3 py-2.5 text-center min-w-[120px]">
                                             <span className="inline-flex px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 max-w-[150px] truncate" title={row.famille}>{row.famille || '—'}</span>
                                         </td>
@@ -727,7 +756,7 @@ export default function FicheProduitPage() {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={11} className="px-4 py-12 text-center text-slate-400">
+                                    <td colSpan={12} className="px-4 py-12 text-center text-slate-400">
                                         {rows.length ? 'Aucun résultat pour ces filtres' : 'Aucun produit issu des bons d\'achat'}
                                     </td>
                                 </tr>

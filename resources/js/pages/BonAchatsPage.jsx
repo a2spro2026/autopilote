@@ -24,6 +24,7 @@ const emptyLine = () => ({
     product_id: '',
     article_ref: '',
     code_barre: '',
+    barcode: '',
     description: '',
     categorie: '',
     famille: '',
@@ -94,6 +95,7 @@ function buildBonHtml(row) {
     }]).map((i) => `<tr>
 <td>${i.article_ref || '—'}</td>
 <td>${i.code_barre || '—'}</td>
+<td>${i.barcode || '—'}</td>
 <td>${i.description || '—'}</td>
 <td>${i.famille || '—'}</td>
 <td>${i.marque || '—'}</td>
@@ -117,7 +119,7 @@ th{background:#f8fafc;font-weight:700}.badge{background:#fff7ed;color:#ea580c;pa
 <tr><th>Transport</th><td>${row.chauffeur || '—'}</td><th>Matricule</th><td>${row.matricule || '—'}</td></tr>
 </table>
 <table>
-<thead><tr><th>Code</th><th>Réf Equiv</th><th>Désignation</th><th>Famille</th><th>Marque</th><th>Quantité</th><th>U</th><th>Prix/U</th><th>Remise</th><th>Sous-total</th></tr></thead>
+<thead><tr><th>Code</th><th>Réf Equiv</th><th>Code Barre</th><th>Désignation</th><th>Famille</th><th>Marque</th><th>Quantité</th><th>U</th><th>Prix/U</th><th>Remise</th><th>Sous-total</th></tr></thead>
 <tbody>${itemsRows}</tbody>
 </table>
 <p style="text-align:right;font-weight:700;margin-top:12px">Total : ${formatMontant(row.subtotal ?? row.montant)}</p>
@@ -177,7 +179,7 @@ function ViewModal({ row, onClose }) {
                         <div key={i.id || idx} className="rounded-lg border border-slate-100 dark:border-slate-800 px-3 py-2 text-xs">
                             <div className="font-semibold">{i.article_ref || '—'} — {i.description}</div>
                             <div className="text-slate-500 mt-0.5">
-                                {[i.code_barre && `Réf Equiv: ${i.code_barre}`, i.famille, i.marque].filter(Boolean).join(' · ') || '—'}
+                                {[i.code_barre && `Réf Equiv: ${i.code_barre}`, i.barcode && `Code Barre: ${i.barcode}`, i.famille, i.marque].filter(Boolean).join(' · ') || '—'}
                             </div>
                             <div className="text-slate-500 mt-0.5">
                                 {i.quantity} {i.unit || ''} × {formatMontant(i.unit_price)}
@@ -263,7 +265,8 @@ export default function BonAchatsPage() {
         updateLine(lineKey, {
             product_id: product.id,
             article_ref: product.article_id || product.reference || ref,
-            code_barre: product.code_barre || product.article_id || product.reference || '',
+            code_barre: product.code_barre || '',
+            barcode: product.barcode || '',
             description: product.name || '',
             categorie: product.categorie || '',
             famille: product.famille || '',
@@ -327,6 +330,7 @@ export default function BonAchatsPage() {
                 product_id: i.product_id || '',
                 article_ref: i.article_ref || '',
                 code_barre: i.code_barre || '',
+                barcode: i.barcode || '',
                 description: i.description || '',
                 categorie: i.categorie || '',
                 famille: i.famille || '',
@@ -389,6 +393,7 @@ export default function BonAchatsPage() {
                 product_id: l.product_id || null,
                 article_ref: l.article_ref || null,
                 code_barre: l.code_barre || null,
+                barcode: l.barcode || null,
                 description: l.description,
                 categorie: l.categorie || null,
                 famille: l.famille || null,
@@ -527,10 +532,10 @@ export default function BonAchatsPage() {
                         <span className="text-[10px] text-blue-200 font-semibold tabular-nums">Total : {totalBon}</span>
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="w-full text-sm min-w-[1280px]">
+                        <table className="w-full text-sm min-w-[1380px]">
                             <thead>
                                 <tr className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
-                                    {['Code', 'Réf Equiv', 'Désignation', 'Famille', 'Marque', 'Quantité', 'U', 'Prix/U', 'Remise', 'Sous-total', ''].map((h) => (
+                                    {['Code', 'Réf Equiv', 'Code Barre', 'Désignation', 'Famille', 'Marque', 'Quantité', 'U', 'Prix/U', 'Remise', 'Sous-total', ''].map((h) => (
                                         <th key={h || 'act'} className="px-2 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-center whitespace-nowrap">{h}</th>
                                     ))}
                                 </tr>
@@ -538,7 +543,7 @@ export default function BonAchatsPage() {
                             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                 {lines.map((line) => (
                                     <tr key={line.key} className="hover:bg-orange-50/30 dark:hover:bg-slate-800/30">
-                                        <td className="px-2 py-1.5 w-[110px]">
+                                        <td className="px-1.5 py-1.5 w-[78px]">
                                             <input
                                                 type="text"
                                                 list="bon-achat-refs"
@@ -553,7 +558,7 @@ export default function BonAchatsPage() {
                                                 title="Saisie manuelle ou choix dans la liste"
                                             />
                                         </td>
-                                        <td className="px-2 py-1.5 w-[140px]">
+                                        <td className="px-1.5 py-1.5 w-[88px]">
                                             <input
                                                 type="text"
                                                 maxLength={32}
@@ -563,7 +568,17 @@ export default function BonAchatsPage() {
                                                 className={tableInput}
                                             />
                                         </td>
-                                        <td className="px-2 py-1.5 min-w-[140px]">
+                                        <td className="px-1.5 py-1.5 w-[155px]">
+                                            <input
+                                                type="text"
+                                                maxLength={100}
+                                                value={line.barcode}
+                                                onChange={(e) => updateLine(line.key, { barcode: e.target.value })}
+                                                placeholder="Code Barre"
+                                                className={tableInput}
+                                            />
+                                        </td>
+                                        <td className="px-1.5 py-1.5 min-w-[150px]">
                                             <input
                                                 type="text"
                                                 value={line.description}
@@ -572,7 +587,7 @@ export default function BonAchatsPage() {
                                                 className={`${tableInput} text-left`}
                                             />
                                         </td>
-                                        <td className="px-2 py-1.5 w-[120px]">
+                                        <td className="px-2 py-1.5 w-[110px]">
                                             <input
                                                 type="text"
                                                 value={line.famille}
@@ -581,7 +596,7 @@ export default function BonAchatsPage() {
                                                 className={tableInput}
                                             />
                                         </td>
-                                        <td className="px-2 py-1.5 w-[120px]">
+                                        <td className="px-2 py-1.5 w-[110px]">
                                             <input
                                                 type="text"
                                                 value={line.marque}
@@ -593,7 +608,7 @@ export default function BonAchatsPage() {
                                         <td className="px-2 py-1.5 w-[90px]">
                                             <input type="number" step="0.001" min="0" value={line.quantity} onChange={(e) => updateLine(line.key, { quantity: e.target.value })} className={tableInput} />
                                         </td>
-                                        <td className="px-2 py-1.5 w-[72px]">
+                                        <td className="px-1.5 py-1.5 w-[54px]">
                                             <select value={line.unit} onChange={(e) => updateLine(line.key, { unit: e.target.value })} className={tableInput}>
                                                 {UNIT_OPTIONS.map((v) => <option key={v || 'u'} value={v}>{v || '—'}</option>)}
                                             </select>

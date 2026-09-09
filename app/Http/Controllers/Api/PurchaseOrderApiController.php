@@ -237,6 +237,7 @@ class PurchaseOrderApiController extends Controller
             'items.*.product_id' => 'nullable|exists:products,id',
             'items.*.article_ref' => 'nullable|string|max:100',
             'items.*.code_barre' => 'nullable|string|max:100',
+            'items.*.barcode' => 'nullable|string|max:100',
             'items.*.description' => 'required|string|max:255',
             'items.*.categorie' => 'nullable|string|max:255',
             'items.*.famille' => 'nullable|string|max:255',
@@ -269,6 +270,7 @@ class PurchaseOrderApiController extends Controller
                     'product_id' => $item['product_id'] ?? null,
                     'article_ref' => $item['article_ref'] ?? null,
                     'code_barre' => $item['code_barre'] ?? null,
+                    'barcode' => $item['barcode'] ?? null,
                     'description' => $item['description'] ?? 'Article',
                     'categorie' => $item['categorie'] ?? null,
                     'famille' => $item['famille'] ?? null,
@@ -289,6 +291,7 @@ class PurchaseOrderApiController extends Controller
             'product_id' => null,
             'article_ref' => $validated['article_ref'] ?? null,
             'code_barre' => null,
+            'barcode' => null,
             'description' => $validated['designation'] ?? 'Bon d\'achat',
             'categorie' => null,
             'famille' => null,
@@ -310,6 +313,7 @@ class PurchaseOrderApiController extends Controller
                 'product_id' => $productId,
                 'article_ref' => $item['article_ref'],
                 'code_barre' => $item['code_barre'],
+                'barcode' => $item['barcode'] ?? null,
                 'description' => $item['description'],
                 'categorie' => $item['categorie'],
                 'famille' => $item['famille'],
@@ -329,6 +333,7 @@ class PurchaseOrderApiController extends Controller
         $ref = trim((string) ($item['article_ref'] ?? ''));
         $name = trim((string) ($item['description'] ?? ''));
         $codeBarre = trim((string) ($item['code_barre'] ?? ''));
+        $barcode = trim((string) ($item['barcode'] ?? ''));
         $unitPrice = (float) ($item['unit_price'] ?? 0);
 
         $product = null;
@@ -365,6 +370,9 @@ class PurchaseOrderApiController extends Controller
             }
             if ($codeBarre !== '' && blank($product->code_barre)) {
                 $updates['code_barre'] = $codeBarre;
+            }
+            if ($barcode !== '') {
+                $updates['barcode'] = $barcode;
             }
             if ($ref !== '' && blank($product->article_id)) {
                 $updates['article_id'] = $ref;
@@ -404,6 +412,7 @@ class PurchaseOrderApiController extends Controller
             'reference' => $reference,
             'article_id' => $ref !== '' ? $ref : null,
             'code_barre' => $codeBarre !== '' ? $codeBarre : null,
+            'barcode' => $barcode !== '' ? $barcode : null,
             'name' => $name !== '' ? $name : ($ref !== '' ? $ref : 'Article'),
             'unit' => $unit,
             'famille' => trim((string) ($item['famille'] ?? $item['categorie'] ?? '')) ?: null,
@@ -475,6 +484,7 @@ class PurchaseOrderApiController extends Controller
                 'product_id' => $i->product_id,
                 'article_ref' => $i->article_ref,
                 'code_barre' => $i->code_barre,
+                'barcode' => $i->barcode,
                 'description' => $i->description,
                 'categorie' => $i->categorie,
                 'famille' => $i->famille,
